@@ -1,0 +1,1934 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kora Textile — Натуральний текстиль з України</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5ede4;
+            color: #3d352a;
+            line-height: 1.6;
+            transition: opacity 0.3s ease;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f5ede4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4bca3;
+            border-radius: 10px;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            padding: 20px 0;
+            background: rgba(245, 237, 228, 0.92);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(212, 188, 163, 0.35);
+        }
+
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #c4a07a, #e8d5be);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .logo i {
+            font-size: 30px;
+            background: linear-gradient(135deg, #c4a07a, #e8d5be);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo span {
+            font-weight: 300;
+            background: none;
+            -webkit-text-fill-color: #3d352a;
+            color: #3d352a;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .admin-badge {
+            background: #3d352a;
+            color: #f5ede4;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .admin-badge.show {
+            display: flex;
+        }
+
+        /* ===== КНОПКА ЗМІНИ МОВИ (МІНІ-МЕНЮ) ===== */
+        .lang-wrapper {
+            position: fixed;
+            top: 110px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        .lang-toggle-btn {
+            background: #3d352a;
+            color: #f5ede4;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .lang-toggle-btn:hover {
+            background: #c4a07a;
+            transform: scale(1.05);
+        }
+
+        .lang-dropdown {
+            position: absolute;
+            top: 55px;
+            right: 0;
+            background: #faf3ea;
+            min-width: 160px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            border: 1px solid #ece0d4;
+            padding: 8px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: 0.3s;
+        }
+
+        .lang-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .lang-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            color: #3d352a;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .lang-dropdown a:hover {
+            background: #ece0d4;
+        }
+
+        .lang-dropdown a.active-lang {
+            background: #ece0d4;
+            font-weight: 700;
+            color: #c4a07a;
+        }
+
+        /* Закриваючий фон при відкритому меню */
+        .lang-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 998;
+        }
+        .lang-overlay.show {
+            display: block;
+        }
+
+        /* ===== ЗАГАЛЬНІ МОДАЛЬНІ ВІКНА ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-box {
+            background: #faf3ea;
+            padding: 40px;
+            border-radius: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+            animation: modalIn 0.3s ease;
+            position: relative;
+        }
+
+        @keyframes modalIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-box h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .modal-box p {
+            color: #6a5f52;
+        }
+        .modal-box .modal-desc {
+            margin-top: 15px;
+            color: #3d352a;
+        }
+
+        .modal-box button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Inter', sans-serif;
+            background: #3d352a;
+            color: #fff;
+        }
+        .modal-box button:hover {
+            background: #c4a07a;
+        }
+
+        /* ===== МОДАЛЬНЕ ВІКНО ВХОДУ ===== */
+        .modal-box input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e4d5c4;
+            border-radius: 16px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            transition: 0.3s;
+            font-family: 'Inter', sans-serif;
+            background: #faf3ea;
+        }
+        .modal-box input:focus {
+            outline: none;
+            border-color: #c4a07a;
+        }
+        .modal-box .btn-group {
+            display: flex;
+            gap: 12px;
+        }
+        .btn-login {
+            background: #3d352a;
+            color: #fff;
+        }
+        .btn-login:hover {
+            background: #c4a07a;
+            transform: translateY(-2px);
+        }
+        .btn-cancel {
+            background: #ece0d4;
+            color: #3d352a;
+        }
+        .btn-cancel:hover {
+            background: #dfcfbf;
+        }
+        .error-msg {
+            color: #b75a5a;
+            font-size: 14px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .error-msg.show {
+            display: block;
+        }
+
+        /* ===== ГОЛОВНА СТОРІНКА ===== */
+        #mainPage {
+            display: block;
+        }
+        #aboutPage {
+            display: none;
+        }
+
+        /* ===== ГЕРОЙ ===== */
+        .hero {
+            padding: 60px 0 80px;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .hero-text {
+            flex: 1 1 45%;
+        }
+
+        .hero-text .badge {
+            display: inline-block;
+            background: #ece0d4;
+            color: #7d6348;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h1 {
+            font-size: 58px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h1 i {
+            color: #c4a07a;
+            font-style: normal;
+        }
+
+        .hero-text p {
+            font-size: 20px;
+            color: #6a5f52;
+            max-width: 500px;
+            margin-bottom: 40px;
+        }
+
+        .hero-image {
+            flex: 1 1 45%;
+            background: linear-gradient(145deg, #ece0d4, #dfcfbf);
+            border-radius: 40px;
+            min-height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.04);
+        }
+
+        .hero-image .placeholder-text {
+            font-size: 80px;
+            font-weight: 800;
+            color: rgba(61, 53, 42, 0.06);
+            letter-spacing: 10px;
+            user-select: none;
+        }
+
+        .hero-image .floating-icon {
+            position: absolute;
+            font-size: 50px;
+            color: #7d6348;
+            opacity: 0.10;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        /* ===== СЕКЦІЇ ===== */
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-sub {
+            font-size: 18px;
+            color: #8a7b6a;
+            margin-bottom: 40px;
+            display: block;
+        }
+
+        /* ===== ТОВАРИ ===== */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0 70px;
+        }
+
+        .product-card {
+            background: #faf3ea;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.03);
+            transition: 0.4s;
+            border: 1px solid #ece0d4;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(196, 160, 122, 0.12);
+        }
+
+        .product-img {
+            height: 220px;
+            background: linear-gradient(135deg, #ece0d4, #dfcfbf);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: rgba(61, 53, 42, 0.10);
+            font-weight: 800;
+            overflow: hidden;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-img .no-img {
+            font-size: 40px;
+            color: rgba(61, 53, 42, 0.15);
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-info h4 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .product-info .desc {
+            color: #8a7b6a;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        .product-info .price {
+            font-weight: 700;
+            font-size: 22px;
+            color: #c4a07a;
+        }
+
+        .product-info .old-price {
+            font-size: 16px;
+            color: #c4b6a6;
+            text-decoration: line-through;
+            margin-left: 12px;
+            font-weight: 400;
+        }
+
+        .product-info .category-tag {
+            display: inline-block;
+            background: #ece0d4;
+            color: #7d6348;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== КНОПКА ВИДАЛЕННЯ ===== */
+        .delete-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(183, 90, 90, 0.9);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            z-index: 10;
+        }
+
+        .delete-btn:hover {
+            background: #b75a5a;
+            transform: scale(1.1);
+        }
+
+        .delete-btn.show {
+            display: flex;
+        }
+
+        /* ===== АДМІН-ПАНЕЛЬ ===== */
+        .admin-panel {
+            background: #f5ede4;
+            border-radius: 30px;
+            padding: 40px;
+            margin: 40px 0;
+            display: none;
+            border: 2px dashed #d4bca3;
+        }
+
+        .admin-panel.show {
+            display: block;
+        }
+
+        .admin-panel h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-panel h3 i {
+            color: #c4a07a;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .form-grid input,
+        .form-grid textarea,
+        .form-grid select {
+            padding: 14px 18px;
+            border: 2px solid #e4d5c4;
+            border-radius: 16px;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            background: #faf3ea;
+            transition: 0.3s;
+            width: 100%;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233d352a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 18px center;
+            background-size: 16px;
+            cursor: pointer;
+            color: #3d352a;
+        }
+
+        .form-grid input:focus,
+        .form-grid textarea:focus,
+        .form-grid select:focus {
+            outline: none;
+            border-color: #c4a07a;
+        }
+
+        .form-grid textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .form-grid .full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* ===== ЗОНА ЗАВАНТАЖЕННЯ ===== */
+        .upload-zone {
+            grid-column: 1 / -1;
+            border: 2px dashed #d4bca3;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            background: #faf3ea;
+            position: relative;
+        }
+
+        .upload-zone:hover {
+            border-color: #c4a07a;
+            background: #f5ede4;
+        }
+
+        .upload-zone.dragover {
+            border-color: #c4a07a;
+            background: #ece0d4;
+            transform: scale(1.01);
+        }
+
+        .upload-zone i {
+            font-size: 40px;
+            color: #c4a07a;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .upload-zone .hint {
+            font-size: 14px;
+            color: #8a7b6a;
+        }
+
+        .upload-zone .file-name {
+            font-weight: 600;
+            color: #3d352a;
+            margin-top: 8px;
+            word-break: break-all;
+        }
+
+        .upload-zone input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-preview {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 12px;
+            margin: 10px auto 0;
+            display: none;
+            object-fit: cover;
+            border: 2px solid #e4d5c4;
+        }
+
+        .upload-preview.show {
+            display: block;
+        }
+
+        .btn-add {
+            background: #c4a07a;
+            color: #fff;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-add:hover {
+            background: #ad8a67;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(196, 160, 122, 0.25);
+        }
+
+        .empty-msg {
+            text-align: center;
+            padding: 60px 20px;
+            color: #c4b6a6;
+            font-size: 18px;
+        }
+
+        .empty-msg i {
+            font-size: 50px;
+            display: block;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        /* ===== ФІЛЬТР КАТЕГОРІЙ (ЗВЕРХУ) ===== */
+        .category-filter-wrapper {
+            margin: 20px 0 30px 0;
+        }
+
+        .category-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: #c4a07a #ece0d4;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .category-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+        .category-scroll::-webkit-scrollbar-track {
+            background: #ece0d4;
+            border-radius: 10px;
+        }
+        .category-scroll::-webkit-scrollbar-thumb {
+            background: #c4a07a;
+            border-radius: 10px;
+        }
+
+        .cat-btn {
+            flex: 0 0 auto;
+            background: #faf3ea;
+            border: 1px solid #ece0d4;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: #6a5f52;
+            cursor: pointer;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        .cat-btn:hover {
+            border-color: #c4a07a;
+            background: #f5ede4;
+        }
+
+        .cat-btn.active {
+            background: #c4a07a;
+            color: #fff;
+            border-color: #c4a07a;
+            box-shadow: 0 4px 12px rgba(196, 160, 122, 0.3);
+        }
+
+        /* ===== СТОРІНКА "ПРО НАС" ===== */
+        #aboutPage {
+            min-height: 70vh;
+            padding: 60px 0;
+        }
+
+        .about-wrapper {
+            background: #faf3ea;
+            padding: 60px;
+            border-radius: 30px;
+            border: 1px solid #ece0d4;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.03);
+            position: relative;
+        }
+
+        .about-wrapper h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: #3d352a;
+        }
+
+        .about-wrapper h1 i {
+            color: #c4a07a;
+        }
+
+        .about-wrapper p {
+            font-size: 18px;
+            color: #6a5f52;
+            max-width: 800px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .about-wrapper .highlight {
+            background: #ece0d4;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 25px 0;
+            color: #3d352a;
+            font-weight: 600;
+        }
+
+        .btn-back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #3d352a;
+            color: #fff;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 30px;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 4px 15px rgba(61, 53, 42, 0.2);
+        }
+
+        .btn-back-home:hover {
+            background: #c4a07a;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(196, 160, 122, 0.4);
+        }
+
+        /* ===== ФУТЕР ===== */
+        footer {
+            border-top: 1px solid #e4d5c4;
+            padding: 50px 0 30px;
+            margin-top: 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand p {
+            color: #8a7b6a;
+            max-width: 300px;
+            margin-top: 15px;
+        }
+
+        .footer-col h5 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .footer-col a {
+            display: block;
+            color: #8a7b6a;
+            text-decoration: none;
+            margin-bottom: 12px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .footer-col a:hover {
+            color: #3d352a;
+            padding-left: 5px;
+        }
+
+        /* Стиль для копіювання номера */
+        .copy-phone {
+            cursor: pointer;
+            position: relative;
+            display: inline-block;
+        }
+
+        .copy-phone:hover {
+            color: #3d352a;
+            padding-left: 5px;
+        }
+
+        .copy-phone .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            width: 120px;
+            background: #3d352a;
+            color: #f5ede4;
+            text-align: center;
+            border-radius: 8px;
+            padding: 6px 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 13px;
+            font-weight: 400;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+        }
+
+        .copy-phone .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #3d352a transparent transparent transparent;
+        }
+
+        .copy-phone.show-tooltip .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            background: #ece0d4;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3d352a;
+            font-size: 18px;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: #c4a07a;
+            color: #fff;
+            transform: translateY(-4px);
+        }
+
+        .copy {
+            text-align: center;
+            color: #c4b6a6;
+            font-size: 14px;
+            border-top: 1px solid #ece0d4;
+            padding-top: 30px;
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 900px) {
+            .hero-text h1 {
+                font-size: 40px;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .upload-zone {
+                grid-column: 1;
+            }
+            .about-wrapper {
+                padding: 30px 20px;
+            }
+            .about-wrapper h1 {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-text h1 {
+                font-size: 32px;
+            }
+            .container {
+                padding: 0 20px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            .admin-panel {
+                padding: 25px;
+            }
+            .hero-image {
+                min-height: 200px;
+            }
+            .hero {
+                padding: 30px 0;
+            }
+            .btn-back-home {
+                width: 100%;
+                justify-content: center;
+            }
+            .lang-wrapper {
+                top: 90px;
+                right: 15px;
+            }
+            .lang-toggle-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+            .cat-btn {
+                font-size: 13px;
+                padding: 8px 16px;
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 {
+            transition-delay: 0.1s;
+        }
+        .delay-2 {
+            transition-delay: 0.2s;
+        }
+        .delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        /* Кнопка "Вгору" */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #c4a07a;
+            color: #fff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(196, 160, 122, 0.3);
+            transition: 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scroll-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-top-btn:hover {
+            background: #ad8a67;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(196, 160, 122, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== КНОПКА ЗМІНИ МОВИ (МІНІ-МЕНЮ) ===== -->
+    <div class="lang-overlay" id="langOverlay" onclick="toggleLangMenu()"></div>
+    <div class="lang-wrapper">
+        <button class="lang-toggle-btn" id="langToggleBtn" onclick="toggleLangMenu()">
+            <i class="fas fa-globe"></i>
+        </button>
+        <div class="lang-dropdown" id="langDropdown">
+            <a onclick="setLanguage('ua')" id="langUa">🇺🇦 Українська</a>
+            <a onclick="setLanguage('ru')" id="langRu">🇷🇺 Русский</a>
+        </div>
+    </div>
+
+    <header>
+        <div class="container header-flex">
+            <a href="#" class="logo" id="secretLogo">
+                <i class="fas fa-feather-alt"></i> Kora<span>Textile</span>
+            </a>
+            <div class="header-actions">
+                <span class="admin-badge" id="adminBadge"><i class="fas fa-user-shield"></i> Адмін</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Кнопка прокрутки вгору -->
+    <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Наверх">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- ===== МОДАЛЬНЕ ВІКНО ВХОДУ ===== -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-box">
+            <h3 id="modalLoginTitle"><i class="fas fa-user-shield" style="color: #c4a07a;"></i> Вхід в адмінку</h3>
+            <p id="modalLoginDesc">Введіть пароль для керування товарами</p>
+            <div class="error-msg" id="errorMsg">❌ Невірний пароль! Спробуйте ще раз.</div>
+            <input type="password" id="passwordInput" placeholder="Введіть пароль..." />
+            <div class="btn-group">
+                <button class="btn-login" id="loginBtn"><i class="fas fa-sign-in-alt"></i> <span id="loginBtnText">Увійти</span></button>
+                <button class="btn-cancel" id="cancelBtn"><span id="cancelBtnText">Скасувати</span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== МОДАЛЬНЕ ВІКНО "САМОВИВІЗ" ===== -->
+    <div class="modal-overlay" id="pickupModal">
+        <div class="modal-box">
+            <h3 id="pickupTitle"><i class="fas fa-truck-loading" style="color: #c4a07a;"></i> Самовивіз</h3>
+            <p id="pickupDesc1">Ви можете забрати своє замовлення самостійно за адресою:</p>
+            <div class="modal-desc" style="background: #ece0d4; padding: 15px; border-radius: 12px; margin-top: 15px;">
+                <strong id="pickupAddress">місто Одеса, вулиця Блажка Віталія, 11</strong>
+            </div>
+            <p id="pickupDesc2" style="margin-top: 15px;">Працюємо щодня з 10:00 до 20:00. Замовлення готове протягом 2-х днів після оформлення.</p>
+            <button onclick="closeModal('pickupModal')" id="pickupBtn">Зрозуміло</button>
+        </div>
+    </div>
+
+    <!-- ===== МОДАЛЬНЕ ВІКНО "ОБМІН ТА ПОВЕРНЕННЯ" ===== -->
+    <div class="modal-overlay" id="returnModal">
+        <div class="modal-box">
+            <h3 id="returnTitle"><i class="fas fa-undo-alt" style="color: #c4a07a;"></i> Обмін та повернення</h3>
+            <div class="modal-desc">
+                <p id="returnDesc1"><strong>Ми завжди на вашому боці!</strong></p>
+                <p id="returnDesc2" style="margin-top: 10px;">Якщо ви отримали товар з виробничим браком, дефектом або пошкодженням — ми <strong>гарантовано повертаємо</strong> вам кошти або безкоштовно обмінюємо товар на якісний протягом 14 днів з моменту отримання.</p>
+                <p id="returnDesc3" style="margin-top: 15px;">Для оформлення повернення просто зв'яжіться з нами за номером телефону, вказаним на сайті.</p>
+            </div>
+            <button onclick="closeModal('returnModal')" id="returnBtn">Добре</button>
+        </div>
+    </div>
+
+    <!-- ===== ГОЛОВНА СТОРІНКА ===== -->
+    <main id="mainPage">
+        <div class="container">
+            <section class="hero" id="top">
+                <div class="hero-text reveal">
+                    <span class="badge" id="heroBadge"><i class="fas fa-leaf"></i> Виробництво в Україні</span>
+                    <h1 id="heroTitle">Текстиль, що <i>натхнює</i> <br />на затишок</h1>
+                    <p id="heroDesc">Льон, бавовна та вовна від українських майстрів. Турбота про природу та ваш комфорт у кожному дотику.</p>
+                </div>
+                <div class="hero-image reveal delay-1">
+                    <div class="placeholder-text">KORA</div>
+                    <i class="fas fa-feather-alt floating-icon" style="top: 15%; left: 10%; font-size: 70px;"></i>
+                    <i class="fas fa-seedling floating-icon" style="bottom: 20%; right: 15%; font-size: 50px; animation-delay: 2s;"></i>
+                </div>
+            </section>
+
+            <div class="admin-panel" id="adminPanel">
+                <h3 id="adminTitle"><i class="fas fa-plus-circle"></i> Додати товар</h3>
+                <div class="form-grid">
+                    <input type="text" id="productName" placeholder="Назва товару (наприклад: Плед Карамель)" />
+                    <input type="text" id="productPrice" placeholder="Ціна (наприклад: 3450 ₴)" />
+                    <input type="text" id="productOldPrice" placeholder="Стара ціна (необов'язково)" />
+
+                    <!-- ВИБІР КАТЕГОРІЇ В АДМІНЦІ -->
+                    <select id="productCategory" class="full-width">
+                        <option value="">Оберіть категорію...</option>
+                        <option value="Постільна білизна бязь Голд">Постільна білизна бязь Голд</option>
+                        <option value="Постільна білизна велюр">Постільна білизна велюр</option>
+                        <option value="Ковдри та подушки">Ковдри та подушки</option>
+                        <option value="Покривала та пледи">Покривала та пледи</option>
+                        <option value="Рушники">Рушники</option>
+                        <option value="Іграшки з пледом">Іграшки з пледом</option>
+                        <option value="Літні набори бязь Голд">Літні набори бязь Голд</option>
+                        <option value="Простирадла та наволочки">Простирадла та наволочки</option>
+                        <option value="Піжами">Піжами</option>
+                    </select>
+
+                    <div class="upload-zone" id="uploadZone">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div id="uploadTitle"><strong>Натисніть або перетягніть фото</strong></div>
+                        <div class="hint" id="uploadHint">Підтримуються JPG, PNG, WEBP до 5 МБ</div>
+                        <div class="file-name" id="fileName"></div>
+                        <img class="upload-preview" id="imagePreview" alt="Прев'ю" />
+                        <input type="file" id="fileInput" accept="image/*" />
+                    </div>
+
+                    <textarea id="productDesc" class="full-width" placeholder="Опис товару..."></textarea>
+                </div>
+                <button class="btn-add" id="addProductBtn"><i class="fas fa-plus"></i> <span id="addBtnText">Додати товар</span></button>
+            </div>
+
+            <div class="reveal" id="catalogHeader">
+                <span class="section-sub" id="catalogSub"><i class="fas fa-tag"></i> Наш каталог</span>
+                <h2 class="section-title" id="catalogTitle">Товари Kora Textile</h2>
+            </div>
+
+            <!-- ===== ФІЛЬТР КАТЕГОРІЙ (ЗВЕРХУ) ===== -->
+            <div class="category-filter-wrapper">
+                <div class="category-scroll" id="categoryScroll">
+                    <button class="cat-btn active" onclick="filterCategory('')">Всі</button>
+                    <button class="cat-btn" onclick="filterCategory('Постільна білизна бязь Голд')">Постільна білизна бязь Голд</button>
+                    <button class="cat-btn" onclick="filterCategory('Постільна білизна велюр')">Постільна білизна велюр</button>
+                    <button class="cat-btn" onclick="filterCategory('Ковдри та подушки')">Ковдри та подушки</button>
+                    <button class="cat-btn" onclick="filterCategory('Покривала та пледи')">Покривала та пледи</button>
+                    <button class="cat-btn" onclick="filterCategory('Рушники')">Рушники</button>
+                    <button class="cat-btn" onclick="filterCategory('Іграшки з пледом')">Іграшки з пледом</button>
+                    <button class="cat-btn" onclick="filterCategory('Літні набори бязь Голд')">Літні набори бязь Голд</button>
+                    <button class="cat-btn" onclick="filterCategory('Простирадла та наволочки')">Простирадла та наволочки</button>
+                    <button class="cat-btn" onclick="filterCategory('Піжами')">Піжами</button>
+                </div>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- товари з JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== СТОРІНКА "ПРО НАС" ===== -->
+    <section id="aboutPage">
+        <div class="container">
+            <div class="about-wrapper">
+                <h1 id="aboutTitle"><i class="fas fa-feather-alt"></i> Про Kora Textile</h1>
+                <p id="aboutDesc1"><strong>Ми — український бренд натурального текстилю, який працює для вас уже 9 років.</strong></p>
+                <p id="aboutDesc2">Ми створюємо текстильну історію країни з турботою про кожну родину. Наші вироби виготовляються виключно з натуральних матеріалів: льону, бавовни та вовни. Ми контролюємо кожен етап виробництва, щоб ви отримували найкращу якість.</p>
+                
+                <div class="highlight" id="aboutHighlight">
+                    <i class="fas fa-map-marker-alt" style="color: #c4a07a; margin-right: 10px;"></i>
+                    Працюємо по всій території України! Доставка в будь-яке місто — швидко та надійно.
+                </div>
+                
+                <p id="aboutDesc3">Ми пишаємося тим, що наші товари дарують затишок та комфорт українцям. Долучайтеся до нашої великої родини Kora Textile!</p>
+                
+                <button class="btn-back-home" onclick="goToMainPage()">
+                    <i class="fas fa-arrow-left"></i> <span id="backHomeBtnText">Повернутися на головну</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo" style="font-size: 28px; cursor: pointer; text-decoration: none;" onclick="navigateHome(event)">
+                    <i class="fas fa-feather-alt"></i> Kora<span>Textile</span>
+                </a>
+                <p id="footerDesc">Створюємо текстильну історію України з турботою про кожного.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/kora_textile_odessa?igsh=OGQ5ZDc2ODk2ZA==" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://t.me/TEXTILEODESSAopt" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="https://invite.viber.com/?g2=AQABOmGASvjiKkptB4%2BYa1oJHG6uwARDadYeyWXusuOtvt8JNY8Ju2CX%2FUyBNrHl" target="_blank"><i class="fab fa-viber"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h5 id="footerCatalog">Каталог</h5>
+                <a onclick="goToMainPage(); setTimeout(() => filterCategory('Постільна білизна бязь Голд'), 100)">Постільна білизна бязь Голд</a>
+                <a onclick="goToMainPage(); setTimeout(() => filterCategory('Постільна білизна велюр'), 100)">Постільна білизна велюр</a>
+                <a onclick="goToMainPage(); setTimeout(() => filterCategory('Ковдри та подушки'), 100)">Ковдри та подушки</a>
+                <a onclick="goToMainPage(); setTimeout(() => filterCategory('Покривала та пледи'), 100)">Покривала та пледи</a>
+                <a onclick="goToMainPage(); setTimeout(() => filterCategory('Рушники'), 100)">Рушники</a>
+                <a onclick="goToMainPage(); setTimeout(() => filterCategory('Іграшки з пледом'), 100)">Іграшки з пледом</a>
+                <a onclick="goToMainPage(); setTimeout(() => filterCategory('Літні набори бязь Голд'), 100)">Літні набори бязь Голд</a>
+                <a onclick="goToMainPage(); setTimeout(() => filterCategory('Простирадла та наволочки'), 100)">Простирадла та наволочки</a>
+                <a onclick="goToMainPage(); setTimeout(() => filterCategory('Піжами'), 100)">Піжами</a>
+            </div>
+            <div class="footer-col">
+                <h5 id="footerInfo">Інформація</h5>
+                <a onclick="goToAboutPage()" id="footerAbout">Про нас</a>
+                <a onclick="openModal('pickupModal')" id="footerPickup">Самовивіз</a>
+                <a onclick="openModal('returnModal')" id="footerReturn">Обмін та повернення</a>
+            </div>
+            <div class="footer-col">
+                <h5 id="footerContacts">Контакти</h5>
+                <a class="copy-phone" id="phoneLink" onclick="copyPhone(event)">
+                    <i class="fas fa-phone-alt" style="margin-right: 8px;"></i> +380 63 556 64 61
+                    <span class="tooltip" id="copyTooltip">Скопійовано!</span>
+                </a>
+            </div>
+        </div>
+        <div class="copy" id="footerCopy">
+            &copy; 2026 Kora Textile. Всі права захищено. Зроблено в Україні з ❤️
+        </div>
+    </footer>
+
+    <script>
+        // ============================================================
+        // 1. ЗМІННІ
+        // ============================================================
+        const PASSWORD = 'KoraTextile2026';
+        let isAdmin = false;
+        let uploadedImageData = null;
+        let clickCount = 0;
+        let clickTimer = null;
+        let currentCategoryFilter = ''; // Змінна для зберігання поточної категорії
+
+        // ============================================================
+        // 2. ПЕРЕКЛАДИ (УКРАЇНСЬКА ТА РОСІЙСЬКА)
+        // ============================================================
+        const translations = {
+            'ua': {
+                'modalLoginTitle': 'Вхід в адмінку',
+                'modalLoginDesc': 'Введіть пароль для керування товарами',
+                'errorMsg': '❌ Невірний пароль! Спробуйте ще раз.',
+                'loginBtnText': 'Увійти',
+                'cancelBtnText': 'Скасувати',
+                
+                'pickupTitle': 'Самовивіз',
+                'pickupDesc1': 'Ви можете забрати своє замовлення самостійно за адресою:',
+                'pickupAddress': 'місто Одеса, вулиця Блажка Віталія, 11',
+                'pickupDesc2': 'Працюємо щодня з 10:00 до 20:00. Замовлення готове протягом 2-х днів після оформлення.',
+                'pickupBtn': 'Зрозуміло',
+
+                'returnTitle': 'Обмін та повернення',
+                'returnDesc1': '<strong>Ми завжди на вашому боці!</strong>',
+                'returnDesc2': 'Якщо ви отримали товар з виробничим браком, дефектом або пошкодженням — ми <strong>гарантовано повертаємо</strong> вам кошти або безкоштовно обмінюємо товар на якісний протягом 14 днів з моменту отримання.',
+                'returnDesc3': 'Для оформлення повернення просто зв\'яжіться з нами за номером телефону, вказаним на сайті.',
+                'returnBtn': 'Добре',
+
+                'heroBadge': 'Виробництво в Україні',
+                'heroTitle': 'Текстиль, що <i>натхнює</i> <br />на затишок',
+                'heroDesc': 'Льон, бавовна та вовна від українських майстрів. Турбота про природу та ваш комфорт у кожному дотику.',
+
+                'adminTitle': 'Додати товар',
+                'uploadTitle': 'Натисніть або перетягніть фото',
+                'uploadHint': 'Підтримуються JPG, PNG, WEBP до 5 МБ',
+                'addBtnText': 'Додати товар',
+                
+                'catalogSub': 'Наш каталог',
+                'catalogTitle': 'Товари Kora Textile',
+
+                'aboutTitle': 'Про Kora Textile',
+                'aboutDesc1': '<strong>Ми — український бренд натурального текстилю, який працює для вас уже 9 років.</strong>',
+                'aboutDesc2': 'Ми створюємо текстильну історію країни з турботою про кожну родину. Наші вироби виготовляються виключно з натуральних матеріалів: льону, бавовни та вовни. Ми контролюємо кожен етап виробництва, щоб ви отримували найкращу якість.',
+                'aboutHighlight': 'Працюємо по всій території України! Доставка в будь-яке місто — швидко та надійно.',
+                'aboutDesc3': 'Ми пишаємося тим, що наші товари дарують затишок та комфорт українцям. Долучайтеся до нашої великої родини Kora Textile!',
+                'backHomeBtnText': 'Повернутися на головну',
+
+                'footerDesc': 'Створюємо текстильну історію України з турботою про кожного.',
+                'footerCatalog': 'Каталог',
+                'footerInfo': 'Інформація',
+                'footerAbout': 'Про нас',
+                'footerPickup': 'Самовивіз',
+                'footerReturn': 'Обмін та повернення',
+                'footerContacts': 'Контакти',
+                'copyTooltip': 'Скопійовано!',
+                'footerCopy': '&copy; 2026 Kora Textile. Всі права захищено. Зроблено в Україні з ❤️'
+            },
+            'ru': {
+                'modalLoginTitle': 'Вход в админку',
+                'modalLoginDesc': 'Введите пароль для управления товарами',
+                'errorMsg': '❌ Неверный пароль! Попробуйте еще раз.',
+                'loginBtnText': 'Войти',
+                'cancelBtnText': 'Отмена',
+                
+                'pickupTitle': 'Самовывоз',
+                'pickupDesc1': 'Вы можете забрать свой заказ самостоятельно по адресу:',
+                'pickupAddress': 'город Одесса, улица Блажка Виталия, 11',
+                'pickupDesc2': 'Работаем ежедневно с 10:00 до 20:00. Заказ готов в течение 2-х дней после оформления.',
+                'pickupBtn': 'Понятно',
+
+                'returnTitle': 'Обмен и возврат',
+                'returnDesc1': '<strong>Мы всегда на вашей стороне!</strong>',
+                'returnDesc2': 'Если вы получили товар с производственным браком, дефектом или повреждением — мы <strong>гарантированно возвращаем</strong> вам деньги или бесплатно обмениваем товар на качественный в течение 14 дней с момента получения.',
+                'returnDesc3': 'Для оформления возврата просто свяжитесь с нами по номеру телефона, указанному на сайте.',
+                'returnBtn': 'Хорошо',
+
+                'heroBadge': 'Производство в Украине',
+                'heroTitle': 'Текстиль, который <i>вдохновляет</i> <br />на уют',
+                'heroDesc': 'Лен, хлопок и шерсть от украинских мастеров. Забота о природе и вашем комфорте в каждом прикосновении.',
+
+                'adminTitle': 'Добавить товар',
+                'uploadTitle': 'Нажмите или перетащите фото',
+                'uploadHint': 'Поддерживаются JPG, PNG, WEBP до 5 МБ',
+                'addBtnText': 'Добавить товар',
+                
+                'catalogSub': 'Наш каталог',
+                'catalogTitle': 'Товары Kora Textile',
+
+                'aboutTitle': 'О Kora Textile',
+                'aboutDesc1': '<strong>Мы — украинский бренд натурального текстиля, который работает для вас уже 9 лет.</strong>',
+                'aboutDesc2': 'Мы создаем текстильную историю страны с заботой о каждой семье. Наши изделия производятся исключительно из натуральных материалов: льна, хлопка и шерсти. Мы контролируем каждый этап производства, чтобы вы получали наилучшее качество.',
+                'aboutHighlight': 'Работаем по всей территории Украины! Доставка в любой город — быстро и надежно.',
+                'aboutDesc3': 'Мы гордимся тем, что наши товары дарят уют и комфорт украинцам. Присоединяйтесь к нашей большой семье Kora Textile!',
+                'backHomeBtnText': 'Вернуться на главную',
+
+                'footerDesc': 'Создаем текстильную историю Украины с заботой о каждом.',
+                'footerCatalog': 'Каталог',
+                'footerInfo': 'Информация',
+                'footerAbout': 'О нас',
+                'footerPickup': 'Самовывоз',
+                'footerReturn': 'Обмен и возврат',
+                'footerContacts': 'Контакты',
+                'copyTooltip': 'Скопировано!',
+                'footerCopy': '&copy; 2026 Kora Textile. Все права защищены. Сделано в Украине с ❤️'
+            }
+        };
+
+        let currentLang = 'ua';
+
+        // ============================================================
+        // 3. ФУНКЦІЯ ЗМІНИ МОВИ (МІНІ-МЕНЮ)
+        // ============================================================
+        function toggleLangMenu() {
+            const menu = document.getElementById('langDropdown');
+            const overlay = document.getElementById('langOverlay');
+            menu.classList.toggle('show');
+            overlay.classList.toggle('show');
+        }
+
+        function setLanguage(lang) {
+            if (lang === currentLang) {
+                toggleLangMenu(); // Закрыть меню, если выбран тот же язык
+                return;
+            }
+            currentLang = lang;
+            applyLanguage(currentLang);
+            localStorage.setItem('koraLang', currentLang);
+            
+            // Закрыть меню после выбора
+            document.getElementById('langDropdown').classList.remove('show');
+            document.getElementById('langOverlay').classList.remove('show');
+        }
+
+        function applyLanguage(lang) {
+            const t = translations[lang];
+            
+            // Подсветка активного языка в меню
+            document.getElementById('langUa').classList.toggle('active-lang', lang === 'ua');
+            document.getElementById('langRu').classList.toggle('active-lang', lang === 'ru');
+            
+            // Модальне вікно входу
+            document.getElementById('modalLoginTitle').innerHTML = t.modalLoginTitle;
+            document.getElementById('modalLoginDesc').innerText = t.modalLoginDesc;
+            document.getElementById('errorMsg').innerHTML = t.errorMsg;
+            document.getElementById('loginBtnText').innerText = t.loginBtnText;
+            document.getElementById('cancelBtnText').innerText = t.cancelBtnText;
+            
+            // Модалка Самовивіз
+            document.getElementById('pickupTitle').innerHTML = t.pickupTitle;
+            document.getElementById('pickupDesc1').innerText = t.pickupDesc1;
+            document.getElementById('pickupAddress').innerText = t.pickupAddress;
+            document.getElementById('pickupDesc2').innerText = t.pickupDesc2;
+            document.getElementById('pickupBtn').innerText = t.pickupBtn;
+            
+            // Модалка Повернення
+            document.getElementById('returnTitle').innerHTML = t.returnTitle;
+            document.getElementById('returnDesc1').innerHTML = t.returnDesc1;
+            document.getElementById('returnDesc2').innerHTML = t.returnDesc2;
+            document.getElementById('returnDesc3').innerHTML = t.returnDesc3;
+            document.getElementById('returnBtn').innerText = t.returnBtn;
+
+            // Головна
+            document.getElementById('heroBadge').innerHTML = t.heroBadge;
+            document.getElementById('heroTitle').innerHTML = t.heroTitle;
+            document.getElementById('heroDesc').innerText = t.heroDesc;
+
+            // Адмінка
+            document.getElementById('adminTitle').innerHTML = t.adminTitle;
+            document.getElementById('uploadTitle').innerHTML = t.uploadTitle;
+            document.getElementById('uploadHint').innerText = t.uploadHint;
+            document.getElementById('addBtnText').innerText = t.addBtnText;
+
+            // Каталог
+            document.getElementById('catalogSub').innerHTML = t.catalogSub;
+            document.getElementById('catalogTitle').innerText = t.catalogTitle;
+
+            // Про нас
+            document.getElementById('aboutTitle').innerHTML = t.aboutTitle;
+            document.getElementById('aboutDesc1').innerHTML = t.aboutDesc1;
+            document.getElementById('aboutDesc2').innerText = t.aboutDesc2;
+            document.getElementById('aboutHighlight').innerHTML = t.aboutHighlight;
+            document.getElementById('aboutDesc3').innerText = t.aboutDesc3;
+            document.getElementById('backHomeBtnText').innerText = t.backHomeBtnText;
+
+            // Футер
+            document.getElementById('footerDesc').innerText = t.footerDesc;
+            document.getElementById('footerCatalog').innerText = t.footerCatalog;
+            document.getElementById('footerInfo').innerText = t.footerInfo;
+            document.getElementById('footerAbout').innerText = t.footerAbout;
+            document.getElementById('footerPickup').innerText = t.footerPickup;
+            document.getElementById('footerReturn').innerText = t.footerReturn;
+            document.getElementById('footerContacts').innerText = t.footerContacts;
+            document.getElementById('copyTooltip').innerText = t.copyTooltip;
+            document.getElementById('footerCopy').innerHTML = t.footerCopy;
+
+            // Оновлюємо плейсхолдери в адмінці (вони не мають ID, тому просто змінюємо атрибути)
+            document.getElementById('productName').placeholder = lang === 'ua' ? 'Назва товару (наприклад: Плед Карамель)' : 'Название товара (например: Плед Карамель)';
+            document.getElementById('productPrice').placeholder = lang === 'ua' ? 'Ціна (наприклад: 3450 ₴)' : 'Цена (например: 3450 ₴)';
+            document.getElementById('productOldPrice').placeholder = lang === 'ua' ? 'Стара ціна (необов\'язково)' : 'Старая цена (необязательно)';
+            document.getElementById('productDesc').placeholder = lang === 'ua' ? 'Опис товару...' : 'Описание товара...';
+        }
+
+        // ============================================================
+        // 4. НАВІГАЦІЯ (ГОЛОВНА <-> ПРО НАС)
+        // ============================================================
+        function goToAboutPage() {
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('aboutPage').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ============================================================
+        // 5. ФУНКЦІЯ ПЕРЕХОДУ НА ГОЛОВНУ (Анімація + Скролл)
+        // ============================================================
+        function navigateHome(event) {
+            if (event) event.preventDefault();
+            resetFilter(); // Скидаємо фільтр категорій при переході на головну
+            
+            // Якщо вже на головній, просто скролимо вгору
+            if (document.getElementById('mainPage').style.display !== 'none') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+
+            // Якщо ми на сторінці "Про нас", робимо красивий перехід
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.4s ease';
+
+            setTimeout(() => {
+                document.getElementById('aboutPage').style.display = 'none';
+                document.getElementById('mainPage').style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'auto' }); // Миттєво ставимо на самий верх
+                
+                setTimeout(() => {
+                    document.body.style.opacity = '1';
+                }, 50);
+            }, 400);
+        }
+
+        function goToMainPage() {
+            navigateHome(event);
+        }
+
+        // ============================================================
+        // 6. МОДАЛЬНІ ВІКНА (Самовивіз, Повернення, Вхід)
+        // ============================================================
+        function openModal(id) {
+            document.getElementById(id).classList.add('show');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('show');
+        }
+
+        // Закрытие по клику на фон
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) {
+                    modal.classList.remove('show');
+                }
+            });
+        });
+
+        // ============================================================
+        // 7. СЕКРЕТНИЙ ВХІД ПО 5 КЛІКАХ
+        // ============================================================
+        document.getElementById('secretLogo').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // --- СКРОЛЛ ВГОРУ ПО КЛІКУ НА ЛОГОТИП В ШАПЦІ ---
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            resetFilter(); // Скидаємо фільтр при кліку на логотип
+
+            clickCount++;
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
+
+            if (clickCount >= 5) {
+                clickCount = 0;
+                clearTimeout(clickTimer);
+                if (isAdmin) {
+                    logoutAdmin();
+                    return;
+                }
+                document.getElementById('loginModal').classList.add('show');
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('errorMsg').classList.remove('show');
+                setTimeout(() => document.getElementById('passwordInput').focus(), 200);
+            }
+        });
+
+        // ============================================================
+        // 8. РОБОТА З ТОВАРАМИ ТА КАТЕГОРІЯМИ
+        // ============================================================
+        function getProducts() {
+            const data = localStorage.getItem('koraProducts');
+            if (data) {
+                try { return JSON.parse(data); } catch { return []; }
+            }
+            return [
+                { id: 1, name: 'Скатертина "Білий степ"', price: '1 890 ₴', oldPrice: '2 400 ₴',
+                    desc: '100% льон, вишивка хрестиком, 140x220 см', image: '', category: '' },
+                { id: 2, name: 'Плед "Карамель"', price: '3 450 ₴', oldPrice: '',
+                    desc: 'Мериносова вовна, двосторонній, 150x200 см', image: '', category: 'Покривала та пледи' },
+                { id: 3, name: 'Набір рушників "Ранок"', price: '1 250 ₴', oldPrice: '',
+                    desc: '3 шт. (30x50, 50x90, 70x140), сатин', image: '', category: 'Рушники' }
+            ];
+        }
+
+        function saveProducts(products) {
+            localStorage.setItem('koraProducts', JSON.stringify(products));
+        }
+
+        // Фільтрація товарів
+        function filterCategory(category) {
+            if (document.getElementById('mainPage').style.display === 'none') {
+                goToMainPage(); // Якщо ми на сторінці "Про нас", спочатку повертаємось на головну
+                setTimeout(() => filterCategory(category), 500); // Затримка, щоб встигла відрендеритись головна
+                return;
+            }
+
+            currentCategoryFilter = category;
+            
+            // Оновити активний клас на кнопках
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                // Перевіряємо текст кнопки. Якщо вона збігається з категорією або це кнопка "Всі" і категорія порожня
+                const btnText = btn.innerText.trim();
+                if ((category === '' && btnText === 'Всі') || btnText === category) {
+                    btn.classList.add('active');
+                }
+            });
+
+            renderProducts();
+            window.scrollTo({ top: document.getElementById('catalogHeader').offsetTop - 80, behavior: 'smooth' });
+        }
+
+        function resetFilter() {
+            currentCategoryFilter = '';
+            // Скинути активний клас на кнопку "Всі"
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.innerText.trim() === 'Всі') {
+                    btn.classList.add('active');
+                }
+            });
+            renderProducts();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            let products = getProducts();
+
+            // Фільтруємо, якщо вибрана категорія
+            if (currentCategoryFilter) {
+                products = products.filter(p => p.category === currentCategoryFilter);
+            }
+
+            if (products.length === 0) {
+                grid.innerHTML = `
+                        <div class="empty-msg" style="grid-column: 1 / -1;">
+                            <i class="fas fa-box-open"></i>
+                            ${currentCategoryFilter ? `У категорії "${currentCategoryFilter}" поки немає товарів.` : (currentLang === 'ua' ? 'Товарів поки немає. Додайте перший!' : 'Товаров пока нет. Добавьте первый!')}
+                        </div>
+                    `;
+                return;
+            }
+
+            grid.innerHTML = products.map(p => `
+                    <div class="product-card reveal" data-id="${p.id}">
+                        ${isAdmin ? `<button class="delete-btn show" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>` : ''}
+                        <div class="product-img">
+                            ${p.image ? `<img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='<span class=\\'no-img\\'><i class=\\'fas fa-image\\'></i></span>'">` :
+                                `<span class="no-img"><i class="fas fa-image"></i></span>`}
+                        </div>
+                        <div class="product-info">
+                            ${p.category ? `<span class="category-tag">${p.category}</span>` : ''}
+                            <h4>${p.name}</h4>
+                            <div class="desc">${p.desc || (currentLang === 'ua' ? 'Без опису' : 'Без описания')}</div>
+                            <div class="price">${p.price} ${p.oldPrice ? `<span class="old-price">${p.oldPrice}</span>` : ''}</div>
+                        </div>
+                    </div>
+                `).join('');
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        }
+
+        // ============================================================
+        // 9. ЗАВАНТАЖЕННЯ ФОТО
+        // ============================================================
+        function handleFile(file) {
+            if (!file) return;
+            if (file.size > 5 * 1024 * 1024) {
+                alert(currentLang === 'ua' ? '❌ Файл занадто великий! Максимум 5 МБ.' : '❌ Файл слишком большой! Максимум 5 МБ.');
+                return;
+            }
+            if (!file.type.startsWith('image/')) {
+                alert(currentLang === 'ua' ? '❌ Будь ласка, оберіть зображення (JPG, PNG, WEBP)' : '❌ Пожалуйста, выберите изображение (JPG, PNG, WEBP)');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                uploadedImageData = e.target.result;
+                document.getElementById('imagePreview').src = uploadedImageData;
+                document.getElementById('imagePreview').classList.add('show');
+                document.getElementById('fileName').textContent = '✅ ' + file.name;
+                document.getElementById('uploadZone').style.borderColor = '#c4a07a';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // ============================================================
+        // 10. ДОДАВАННЯ ТОВАРУ (ОНОВЛЕНЕ З КАТЕГОРІЄЮ)
+        // ============================================================
+        function addProduct() {
+            const name = document.getElementById('productName').value.trim();
+            const price = document.getElementById('productPrice').value.trim();
+            const oldPrice = document.getElementById('productOldPrice').value.trim();
+            const desc = document.getElementById('productDesc').value.trim();
+            const category = document.getElementById('productCategory').value; // Отримуємо категорію
+
+            if (!name || !price) {
+                alert(currentLang === 'ua' ? '❌ Заповніть назву та ціну!' : '❌ Заполните название и цену!');
+                return;
+            }
+
+            const products = getProducts();
+            const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+
+            products.push({
+                id: newId,
+                name,
+                price,
+                oldPrice,
+                desc,
+                category: category, // Зберігаємо категорію
+                image: uploadedImageData || ''
+            });
+
+            saveProducts(products);
+            resetFilter(); // Скидаємо фільтр, щоб показати новий товар
+            renderProducts();
+
+            document.getElementById('productName').value = '';
+            document.getElementById('productPrice').value = '';
+            document.getElementById('productOldPrice').value = '';
+            document.getElementById('productDesc').value = '';
+            document.getElementById('productCategory').value = ''; // Скидаємо вибір категорії
+            document.getElementById('imagePreview').classList.remove('show');
+            document.getElementById('imagePreview').src = '';
+            document.getElementById('fileName').textContent = '';
+            document.getElementById('uploadZone').style.borderColor = '#d4bca3';
+            uploadedImageData = null;
+            document.getElementById('fileInput').value = '';
+
+            alert(currentLang === 'ua' ? '✅ Товар додано!' : '✅ Товар добавлен!');
+        }
+
+        // ============================================================
+        // 11. ВИДАЛЕННЯ ТОВАРУ
+        // ============================================================
+        function deleteProduct(id) {
+            if (!isAdmin) return;
+            if (!confirm(currentLang === 'ua' ? '🗑️ Видалити цей товар?' : '🗑️ Удалить этот товар?')) return;
+            let products = getProducts();
+            products = products.filter(p => p.id !== id);
+            saveProducts(products);
+            renderProducts();
+        }
+
+        // ============================================================
+        // 12. АДМІН-ВХІД / ВИХІД
+        // ============================================================
+        function loginAsAdmin() {
+            const input = document.getElementById('passwordInput');
+            const error = document.getElementById('errorMsg');
+            const password = input.value;
+
+            if (password === PASSWORD) {
+                isAdmin = true;
+                document.getElementById('loginModal').classList.remove('show');
+                document.getElementById('adminPanel').classList.add('show');
+                document.getElementById('adminBadge').classList.add('show');
+                error.classList.remove('show');
+                input.value = '';
+                renderProducts();
+            } else {
+                error.classList.add('show');
+                input.value = '';
+                input.focus();
+            }
+        }
+
+        function logoutAdmin() {
+            isAdmin = false;
+            document.getElementById('adminPanel').classList.remove('show');
+            document.getElementById('adminBadge').classList.remove('show');
+            renderProducts();
+        }
+
+        // ============================================================
+        // 13. КОПІЮВАННЯ НОМЕРА ТЕЛЕФОНУ
+        // ============================================================
+        function copyPhone(event) {
+            event.preventDefault();
+            const phone = '+380 63 556 64 61';
+            const el = event.currentTarget;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(phone).then(() => {
+                    showTooltip(el);
+                }).catch(() => {
+                    fallbackCopy(phone, el);
+                });
+            } else {
+                fallbackCopy(phone, el);
+            }
+        }
+
+        function fallbackCopy(text, el) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showTooltip(el);
+            } catch (err) {
+                alert(currentLang === 'ua' ? 'Не вдалося скопіювати номер. Спробуйте вручну: ' + text : 'Не удалось скопировать номер. Попробуйте вручную: ' + text);
+            }
+            document.body.removeChild(textarea);
+        }
+
+        function showTooltip(el) {
+            el.classList.add('show-tooltip');
+            setTimeout(() => {
+                el.classList.remove('show-tooltip');
+            }, 2000);
+        }
+
+        // ============================================================
+        // 14. ПРОКРУТКА ВГОРУ (Звичайна кнопка)
+        // ============================================================
+        function scrollToTop(event) {
+            if (event) event.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Кнопка "Вгору"
+        const scrollBtn = document.getElementById('scrollTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                scrollBtn.classList.add('show');
+            } else {
+                scrollBtn.classList.remove('show');
+            }
+        });
+
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ============================================================
+        // 15. ПОДІЇ
+        // ============================================================
+        document.getElementById('loginBtn').addEventListener('click', loginAsAdmin);
+        document.getElementById('cancelBtn').addEventListener('click', () => {
+            document.getElementById('loginModal').classList.remove('show');
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('errorMsg').classList.remove('show');
+        });
+        document.getElementById('passwordInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') loginAsAdmin();
+            if (e.key === 'Escape') document.getElementById('cancelBtn').click();
+        });
+        document.getElementById('addProductBtn').addEventListener('click', addProduct);
+
+        const fileInput = document.getElementById('fileInput');
+        const uploadZone = document.getElementById('uploadZone');
+
+        uploadZone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('dragover');
+        });
+
+        uploadZone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+        });
+
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        // ============================================================
+        // 16. АНІМАЦІЯ ТА ЗАВАНТАЖЕННЯ
+        // ============================================================
+        function checkReveal() {
+            document.querySelectorAll('.reveal').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkReveal);
+        window.addEventListener('load', () => {
+            // Завантажуємо збережену мову
+            const savedLang = localStorage.getItem('koraLang');
+            if (savedLang && (savedLang === 'ua' || savedLang === 'ru')) {
+                currentLang = savedLang;
+                applyLanguage(currentLang);
+            } else {
+                applyLanguage('ua'); // За замовчуванням українська
+            }
+            renderProducts();
+            checkReveal();
+        });
+    </script>
+</body>
+</html>
+```
