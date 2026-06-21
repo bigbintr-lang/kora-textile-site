@@ -1,4 +1,12 @@
+Да, я вижу! Это проблема растягивания и пропорций. Когда вы загружаете фотографии с телефона (вертикальные) и с фотоаппарата (горизонтальные), браузер пытается их втиснуть в квадратные рамки, и они выглядят сплюснутыми и кривыми.
 
+**Я полностью переписал CSS для галереи:**
+1. Теперь и в превью, и в большом окне используется свойство `object-fit: cover`. Это значит, что фото **аккуратно обрежется по краям**, чтобы идеально вписаться в рамку, **не растягиваясь** (как в Инстаграме). 
+2. Кнопка "Крестик" теперь всегда висит четко в углу и не наезжает на текст.
+
+Вот полностью готовый, исправленный код (замените им файл):
+
+```html
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -286,6 +294,7 @@
             padding: 0;
             overflow: hidden;
             border-radius: 30px;
+            position: relative;
         }
         #productViewModal .modal-content {
             display: flex;
@@ -315,12 +324,13 @@
         #productViewModal .modal-images .main-img-wrapper iframe {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            /* object-fit: contain ЗАМІНЕНО НА cover, щоб фото виглядали красиво і рівно */
+            object-fit: cover; 
         }
         
         #productViewModal .modal-images .thumbnails {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             padding: 15px;
             overflow-x: auto;
             background: #f5ede4;
@@ -346,16 +356,15 @@
         /* Права частина (Текст) */
         #productViewModal .modal-text {
             flex: 1 1 50%;
-            padding: 40px;
+            padding: 40px 40px 40px 30px;
             background: #faf3ea;
-            position: relative;
         }
         
         /* Кнопка закриття (Крестик) */
         #productViewModal .close-view-btn {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            right: 15px;
             background: #3d352a;
             color: #fff;
             border: none;
@@ -373,7 +382,7 @@
         }
         #productViewModal .close-view-btn:hover { background: #c4a07a; transform: scale(1.05); }
 
-        #productViewModal .modal-text h2 { font-size: 28px; margin-bottom: 10px; padding-right: 50px; }
+        #productViewModal .modal-text h2 { font-size: 28px; margin-bottom: 10px; padding-right: 40px; }
         #productViewModal .modal-text .price-block { font-size: 24px; color: #c4a07a; font-weight: 700; margin: 15px 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;}
         #productViewModal .modal-text .price-block .old-price { color: #c4b6a6; font-weight: 400; font-size: 18px; text-decoration: line-through; }
         #productViewModal .modal-text .desc { color: #6a5f52; line-height: 1.6; }
@@ -1680,7 +1689,7 @@
             });
 
             if (media.type === 'image') {
-                mainImgWrapper.innerHTML = `<img src="${media.src || 'https://via.placeholder.com/500x500/f5ede4/8a7b6a?text=No+Photo'}" alt="Фото товару" style="width:100%; height:100%; object-fit:contain;" />`;
+                mainImgWrapper.innerHTML = `<img src="${media.src || 'https://via.placeholder.com/500x500/f5ede4/8a7b6a?text=No+Photo'}" alt="Фото товару" style="width:100%; height:100%; object-fit:cover;" />`;
             } else if (media.type === 'video') {
                 mainImgWrapper.innerHTML = `<iframe src="${media.src}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%; height:100%; border:none;"></iframe>`;
             }
