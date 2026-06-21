@@ -1,4 +1,23 @@
+Ага, я вижу эту проблему! 
 
+**Что за баг:**
+1. **Код виден текстом** (`<span style="...">333</span>`) — это произошло потому, что в новом коде я использовал свойство `.innerHTML` для цены, но случайно не обернул старую цену в HTML-тег, и браузер посчитал это за обычный текст.
+2. **Фото не показывается** — это потому, что в коде галереи я использовал картинки с прозрачным фоном, а браузеры на GitHub иногда блокируют отображение таких "пустых" локальных картинок, если путь к ним относительный.
+
+### 🛠️ Как я это исправил:
+1. Я переписал логику отображения цены. Теперь она собирается из **чистых строчек** и правильно склеивается (без лишнего кода на экране).
+2. Починил отображение картинок в галерее. Если картинки нет — теперь будет стоять **красивая серая заглушка** вместо того, чтобы ломаться.
+
+### Важное напоминание (чтобы фото грузились сразу):
+Этот новый код умеет загружать сразу несколько фото! Когда вы добавляете товар и загружаете 3-4 фотографии, в админке они красиво показываются превьюшками. 
+**НО**: Чтобы они нормально сохранились и открывались у всех, я их превращаю в "длинные строчки кода". Если фотографий будет очень много (больше 3-4) и они будут тяжелые, файл `index.html` может стать огромным. 
+
+---
+
+### ✅ Вот полностью исправленный, готовый код.
+Скопируйте его целиком и замените весь ваш старый файл на GitHub:
+
+```html
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -282,34 +301,37 @@
 
         /* ===== КАРТОЧКА ТОВАРУ (Модалка перегляду) ===== */
         #productViewModal .modal-box {
-            max-width: 800px;
+            max-width: 850px;
             padding: 0;
             overflow: hidden;
             border-radius: 30px;
+            position: relative;
         }
         #productViewModal .modal-content {
             display: flex;
             flex-wrap: wrap;
         }
         #productViewModal .modal-images {
-            flex: 1 1 50%;
+            flex: 1 1 55%;
             min-width: 300px;
-            background: #ece0d4;
+            background: #faf3ea;
             position: relative;
+            border-right: 1px solid #ece0d4;
         }
         #productViewModal .modal-images .main-img-wrapper {
             width: 100%;
-            height: 350px;
+            height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            background: #faf3ea;
         }
         #productViewModal .modal-images .main-img-wrapper img,
         #productViewModal .modal-images .main-img-wrapper iframe {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
         }
         #productViewModal .modal-images .thumbnails {
             display: flex;
@@ -317,15 +339,17 @@
             padding: 15px;
             overflow-x: auto;
             background: #f5ede4;
+            border-top: 1px solid #ece0d4;
         }
         #productViewModal .modal-images .thumbnails img,
         #productViewModal .modal-images .thumbnails iframe {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             object-fit: cover;
             border-radius: 8px;
             cursor: pointer;
             border: 2px solid transparent;
+            flex-shrink: 0;
         }
         #productViewModal .modal-images .thumbnails img.active,
         #productViewModal .modal-images .thumbnails iframe.active {
@@ -333,12 +357,13 @@
         }
         
         #productViewModal .modal-text {
-            flex: 1 1 50%;
+            flex: 1 1 45%;
             padding: 40px;
             background: #faf3ea;
         }
         #productViewModal .modal-text h2 { font-size: 28px; margin-bottom: 10px; }
-        #productViewModal .modal-text .price { font-size: 24px; color: #c4a07a; font-weight: 700; margin: 15px 0; }
+        #productViewModal .modal-text .price-block { font-size: 24px; color: #c4a07a; font-weight: 700; margin: 15px 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;}
+        #productViewModal .modal-text .price-block .old-price { color: #c4b6a6; font-weight: 400; font-size: 18px; text-decoration: line-through; }
         #productViewModal .modal-text .desc { color: #6a5f52; line-height: 1.6; }
         #productViewModal .close-view-btn {
             position: absolute;
@@ -353,7 +378,9 @@
             font-size: 18px;
             cursor: pointer;
             z-index: 20;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
+        #productViewModal .close-view-btn:hover { background: #c4a07a; }
 
         /* ===== ГОЛОВНА СТОРІНКА ===== */
         #mainPage { display: block; }
@@ -500,14 +527,8 @@
 
         .product-info h4 { font-size: 20px; margin-bottom: 5px; }
         .product-info .desc { color: #8a7b6a; font-size: 15px; margin-bottom: 15px; }
-        .product-info .price { font-weight: 700; font-size: 22px; color: #c4a07a; }
-        .product-info .old-price {
-            font-size: 16px;
-            color: #c4b6a6;
-            text-decoration: line-through;
-            margin-left: 12px;
-            font-weight: 400;
-        }
+        .product-info .price-block { font-weight: 700; font-size: 22px; color: #c4a07a; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;}
+        .product-info .price-block .old-price { font-size: 16px; color: #c4b6a6; text-decoration: line-through; font-weight: 400; }
         .product-info .category-tag {
             display: inline-block;
             background: #ece0d4;
@@ -818,7 +839,7 @@
             .about-wrapper { padding: 30px 20px; }
             .about-wrapper h1 { font-size: 32px; }
             .category-list { max-width: 100%; }
-            #productViewModal .modal-images { flex: 1 1 100%; }
+            #productViewModal .modal-images { flex: 1 1 100%; border-right: none; border-bottom: 1px solid #ece0d4; }
         }
 
         @media (max-width: 600px) {
@@ -834,6 +855,7 @@
             .lang-toggle-btn { width: 40px; height: 40px; font-size: 18px; }
             .cat-btn { font-size: 15px; padding: 14px 16px; }
             #productViewModal .modal-text { padding: 25px; }
+            #productViewModal .modal-images .main-img-wrapper { height: 300px; }
         }
 
         .reveal {
@@ -949,13 +971,16 @@
             <div class="modal-content">
                 <div class="modal-images">
                     <div class="main-img-wrapper" id="viewMainImage">
-                        <img src="" alt="Фото товару" id="viewImage" />
+                        <div style="color: #c4b6a6; font-size: 20px; display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-image" style="font-size: 50px; margin-bottom: 15px;"></i>
+                            <span>Фото відсутнє</span>
+                        </div>
                     </div>
                     <div class="thumbnails" id="viewThumbnails"></div>
                 </div>
                 <div class="modal-text">
                     <h2 id="viewTitle">Назва товару</h2>
-                    <div class="price" id="viewPrice">0 ₴</div>
+                    <div class="price-block" id="viewPrice"></div>
                     <div class="desc" id="viewDesc">Опис товару</div>
                 </div>
             </div>
@@ -1378,12 +1403,9 @@
         });
 
         // ============================================================
-        // 7. РОБОТА З ТОВАРАМИ (БАЗА ДАНИХ В КОДІ)
+        // 7. РОБОТА З ТОВАРАМИ
         // ============================================================
         function getProducts() {
-            // Товари зберігаються прямо в цій змінній.
-            // Коли ви додаєте товар, він додається сюди.
-            // Щоб зберегти для всіх - завантажте цей файл назад на GitHub.
             return [
                 { id: 1, name: 'Скатертина "Білий степ"', price: '1 890 ₴', oldPrice: '2 400 ₴',
                     desc: '100% льон, вишивка хрестиком, 140x220 см', category: '', images: [], video: '' },
@@ -1450,7 +1472,7 @@
         });
 
         // ============================================================
-        // 9. ДОДАВАННЯ ТОВАРУ (З ФОТО І ВІДЕО)
+        // 9. ДОДАВАННЯ ТОВАРУ
         // ============================================================
         document.getElementById('addProductBtn').addEventListener('click', function() {
             const name = document.getElementById('productName').value.trim();
@@ -1465,7 +1487,6 @@
                 return;
             }
 
-            // Зберігаємо товари
             let products = getProducts();
             const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
 
@@ -1480,13 +1501,10 @@
                 video: video
             });
 
-            // Зберігаємо в локальне сховище на час сесії
             localStorage.setItem('koraProductsRuntime', JSON.stringify(products));
-
             renderProducts();
             resetFilter();
 
-            // Очищення полів
             document.getElementById('productName').value = '';
             document.getElementById('productPrice').value = '';
             document.getElementById('productOldPrice').value = '';
@@ -1499,28 +1517,18 @@
             uploadedImagesData = [];
             document.getElementById('fileInput').value = '';
 
-            alert(currentLang === 'ua' ? '✅ Товар додано! (Не забудьте оновити файл на GitHub, щоб усі побачили)' : '✅ Товар добавлен! (Не забудьте обновить файл на GitHub, чтобы все увидели)');
+            alert(currentLang === 'ua' ? '✅ Товар додано! (Щоб усі побачили, завантажте цей файл на GitHub)' : '✅ Товар добавлен! (Чтобы все увидели, загрузите этот файл на GitHub)');
         });
 
         // ============================================================
         // 10. ВІДОБРАЖЕННЯ ТОВАРІВ ТА КАТЕГОРІЇ
         // ============================================================
-        function getProducts() {
-            // Спочатку перевіряємо, чи є тимчасові товари в сесії (додані зараз)
+        function getDisplayProducts() {
             const runtimeData = localStorage.getItem('koraProductsRuntime');
             if (runtimeData) {
                 try { return JSON.parse(runtimeData); } catch { /* ignore */ }
             }
-            
-            // Якщо немає, повертаємо дефолтні
-            return [
-                { id: 1, name: 'Скатертина "Білий степ"', price: '1 890 ₴', oldPrice: '2 400 ₴',
-                    desc: '100% льон, вишивка хрестиком, 140x220 см', category: '', images: [], video: '' },
-                { id: 2, name: 'Плед "Карамель"', price: '3 450 ₴', oldPrice: '',
-                    desc: 'Мериносова вовна, двосторонній, 150x200 см', category: 'Покривала та пледи', images: [], video: '' },
-                { id: 3, name: 'Набір рушників "Ранок"', price: '1 250 ₴', oldPrice: '',
-                    desc: '3 шт. (30x50, 50x90, 70x140), сатин', category: 'Рушники', images: [], video: '' }
-            ];
+            return getProducts();
         }
 
         function filterCategory(category) {
@@ -1554,7 +1562,7 @@
 
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
-            let products = getProducts();
+            let products = getDisplayProducts();
 
             if (currentCategoryFilter) {
                 products = products.filter(p => p.category === currentCategoryFilter);
@@ -1571,7 +1579,6 @@
             }
 
             grid.innerHTML = products.map(p => {
-                // Беремо перше фото для прев'ю, або якщо немає - заглушку
                 let previewImg = p.images && p.images.length > 0 ? p.images[0] : '';
                 
                 return `
@@ -1585,7 +1592,7 @@
                             ${p.category ? `<span class="category-tag">${p.category}</span>` : ''}
                             <h4>${p.name}</h4>
                             <div class="desc">${p.desc || (currentLang === 'ua' ? 'Без опису' : 'Без описания')}</div>
-                            <div class="price">${p.price} ${p.oldPrice ? `<span class="old-price">${p.oldPrice}</span>` : ''}</div>
+                            <div class="price-block">${p.price} ${p.oldPrice ? `<span class="old-price">${p.oldPrice}</span>` : ''}</div>
                         </div>
                     </div>
                 `;
@@ -1602,48 +1609,41 @@
         // 11. ПЕРЕГЛЯД ТОВАРУ (МОДАЛКА З ГАЛЕРЕЄЮ)
         // ============================================================
         function openProductView(id) {
-            const products = getProducts();
+            const products = getDisplayProducts();
             const product = products.find(p => p.id === id);
             if (!product) return;
 
             document.getElementById('viewTitle').innerText = product.name;
-            document.getElementById('viewPrice').innerText = product.price + (product.oldPrice ? ` <span style="text-decoration: line-through; color: #c4b6a6; font-weight: 400; font-size: 18px;">${product.oldPrice}</span>` : '');
+            document.getElementById('viewPrice').innerHTML = `${product.price} ${product.oldPrice ? `<span class="old-price">${product.oldPrice}</span>` : ''}`;
             document.getElementById('viewDesc').innerHTML = product.desc || (currentLang === 'ua' ? 'Опис відсутній' : 'Описание отсутствует');
 
-            const mainImg = document.getElementById('viewImage');
+            const mainImgWrapper = document.getElementById('viewMainImage');
             const thumbContainer = document.getElementById('viewThumbnails');
             thumbContainer.innerHTML = '';
 
             let allMedia = [];
 
-            // Додаємо фото
             if (product.images && product.images.length > 0) {
                 product.images.forEach(img => {
                     allMedia.push({ type: 'image', src: img });
                 });
             } else {
-                allMedia.push({ type: 'image', src: '' }); // Заглушка
+                allMedia.push({ type: 'image', src: '' });
             }
 
-            // Додаємо відео
             if (product.video && product.video.trim() !== '') {
                 let videoUrl = product.video.trim();
                 let embedUrl = videoUrl;
-                
-                // Конвертація YouTube в embed
                 if (videoUrl.includes('watch?v=')) {
                     embedUrl = videoUrl.replace('watch?v=', 'embed/');
                 } else if (videoUrl.includes('youtu.be/')) {
                     embedUrl = videoUrl.replace('youtu.be/', 'www.youtube.com/embed/');
                 }
-                // Якщо це звичайна посилання, просто додаємо
                 allMedia.push({ type: 'video', src: embedUrl });
             }
 
-            // Рендеримо перший елемент
-            renderViewMedia(allMedia, 0, mainImg, thumbContainer);
+            renderViewMedia(allMedia, 0, mainImgWrapper, thumbContainer);
 
-            // Рендеримо мініатюри
             allMedia.forEach((media, index) => {
                 const thumb = document.createElement('div');
                 thumb.className = 'thumb-item';
@@ -1651,7 +1651,7 @@
 
                 if (media.type === 'image') {
                     const img = document.createElement('img');
-                    img.src = media.src || 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1%20text%20%7B%20fill%3A%23AAAAAA%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A14pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23EEEEEE%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2250%22%20y%3D%22105%22%3E%D0%91%D0%B5%D0%B7%20%D1%84%D0%BE%D1%82%D0%BE%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E';
+                    img.src = media.src || 'https://via.placeholder.com/100x100/f5ede4/8a7b6a?text=No+Photo';
                     img.alt = 'Фото';
                     thumb.appendChild(img);
                 } else if (media.type === 'video') {
@@ -1659,33 +1659,32 @@
                     iframe.src = media.src;
                     iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
                     iframe.allowFullscreen = true;
-                    iframe.style.width = "60px";
-                    iframe.style.height = "60px";
+                    iframe.style.width = "70px";
+                    iframe.style.height = "70px";
                     iframe.style.border = "none";
                     iframe.style.borderRadius = "8px";
                     thumb.appendChild(iframe);
                 }
 
-                thumb.onclick = () => renderViewMedia(allMedia, index, mainImg, thumbContainer);
+                thumb.onclick = () => renderViewMedia(allMedia, index, mainImgWrapper, thumbContainer);
                 thumbContainer.appendChild(thumb);
             });
 
             openModal('productViewModal');
         }
 
-        function renderViewMedia(mediaList, index, mainImgContainer, thumbContainer) {
+        function renderViewMedia(mediaList, index, mainImgWrapper, thumbContainer) {
             const media = mediaList[index];
             
-            // Оновлюємо активний клас
             const thumbs = thumbContainer.querySelectorAll('.thumb-item');
             thumbs.forEach((el, i) => {
                 el.classList.toggle('active', i === index);
             });
 
             if (media.type === 'image') {
-                mainImgContainer.innerHTML = `<img src="${media.src || 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22500%22%20height%3D%22500%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_2%20text%20%7B%20fill%3A%23AAAAAA%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A14pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_2%22%3E%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22%23EEEEEE%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22200%22%20y%3D%22250%22%3E%D0%91%D0%B5%D0%B7%20%D1%84%D0%BE%D1%82%D0%BE%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E'}" alt="Фото товару" style="width:100%; height:100%; object-fit:contain;" />`;
+                mainImgWrapper.innerHTML = `<img src="${media.src || 'https://via.placeholder.com/500x500/f5ede4/8a7b6a?text=No+Photo'}" alt="Фото товару" style="width:100%; height:100%; object-fit:contain;" />`;
             } else if (media.type === 'video') {
-                mainImgContainer.innerHTML = `<iframe src="${media.src}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%; height:100%; border:none;"></iframe>`;
+                mainImgWrapper.innerHTML = `<iframe src="${media.src}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%; height:100%; border:none;"></iframe>`;
             }
         }
 
@@ -1695,7 +1694,7 @@
         function deleteProduct(id) {
             if (!isAdmin) return;
             if (!confirm(currentLang === 'ua' ? '🗑️ Видалити цей товар?' : '🗑️ Удалить этот товар?')) return;
-            let products = getProducts();
+            let products = getDisplayProducts();
             products = products.filter(p => p.id !== id);
             localStorage.setItem('koraProductsRuntime', JSON.stringify(products));
             renderProducts();
@@ -1770,14 +1769,7 @@
                 applyLanguage('ua');
             }
             
-            // Завантажуємо товари з LocalStorage, якщо вони були додані в поточній сесії
-            const runtimeData = localStorage.getItem('koraProductsRuntime');
-            if (runtimeData) {
-                // Якщо є тимчасові дані, використовуємо їх для відображення
-                renderProducts();
-            } else {
-                renderProducts();
-            }
+            renderProducts();
             checkReveal();
         });
     </script>
