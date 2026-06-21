@@ -1,4 +1,12 @@
+Да, вижу! Крестик (кнопка закрытия) съехал вправо и налез на текст, а фото выглядят "рваными" из-за того, что им не хватает обтекания и рамок. 
 
+Я поправил CSS для этих элементов:
+1. **Крестик** теперь прижат к правому верхнему углу и не перекрывает текст.
+2. **Фотографии** в миниатюрах и в главном окне теперь имеют четкие пропорции, аккуратные рамки и скругления.
+
+Скопируйте и замените весь код ниже:
+
+```html
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -286,18 +294,20 @@
             padding: 0;
             overflow: hidden;
             border-radius: 30px;
-            position: relative;
         }
         #productViewModal .modal-content {
             display: flex;
             flex-wrap: wrap;
         }
+        
+        /* Ліва частина (Фото) */
         #productViewModal .modal-images {
-            flex: 1 1 55%;
+            flex: 1 1 50%;
             min-width: 300px;
             background: #faf3ea;
-            position: relative;
             border-right: 1px solid #ece0d4;
+            display: flex;
+            flex-direction: column;
         }
         #productViewModal .modal-images .main-img-wrapper {
             width: 100%;
@@ -307,6 +317,7 @@
             justify-content: center;
             overflow: hidden;
             background: #faf3ea;
+            border-radius: 30px 0 0 0;
         }
         #productViewModal .modal-images .main-img-wrapper img,
         #productViewModal .modal-images .main-img-wrapper iframe {
@@ -314,6 +325,7 @@
             height: 100%;
             object-fit: contain;
         }
+        
         #productViewModal .modal-images .thumbnails {
             display: flex;
             gap: 10px;
@@ -321,6 +333,7 @@
             overflow-x: auto;
             background: #f5ede4;
             border-top: 1px solid #ece0d4;
+            border-radius: 0 0 0 30px;
         }
         #productViewModal .modal-images .thumbnails img,
         #productViewModal .modal-images .thumbnails iframe {
@@ -335,21 +348,22 @@
         #productViewModal .modal-images .thumbnails img.active,
         #productViewModal .modal-images .thumbnails iframe.active {
             border-color: #c4a07a;
+            box-shadow: 0 2px 8px rgba(196, 160, 122, 0.3);
         }
-        
+
+        /* Права частина (Текст) */
         #productViewModal .modal-text {
-            flex: 1 1 45%;
+            flex: 1 1 50%;
             padding: 40px;
             background: #faf3ea;
+            position: relative;
         }
-        #productViewModal .modal-text h2 { font-size: 28px; margin-bottom: 10px; }
-        #productViewModal .modal-text .price-block { font-size: 24px; color: #c4a07a; font-weight: 700; margin: 15px 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;}
-        #productViewModal .modal-text .price-block .old-price { color: #c4b6a6; font-weight: 400; font-size: 18px; text-decoration: line-through; }
-        #productViewModal .modal-text .desc { color: #6a5f52; line-height: 1.6; }
+        
+        /* Кнопка закриття (Крестик) */
         #productViewModal .close-view-btn {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 20px;
+            right: 20px;
             background: #3d352a;
             color: #fff;
             border: none;
@@ -359,9 +373,18 @@
             font-size: 18px;
             cursor: pointer;
             z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: 0.3s;
         }
-        #productViewModal .close-view-btn:hover { background: #c4a07a; }
+        #productViewModal .close-view-btn:hover { background: #c4a07a; transform: scale(1.05); }
+
+        #productViewModal .modal-text h2 { font-size: 28px; margin-bottom: 10px; padding-right: 50px; }
+        #productViewModal .modal-text .price-block { font-size: 24px; color: #c4a07a; font-weight: 700; margin: 15px 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;}
+        #productViewModal .modal-text .price-block .old-price { color: #c4b6a6; font-weight: 400; font-size: 18px; text-decoration: line-through; }
+        #productViewModal .modal-text .desc { color: #6a5f52; line-height: 1.6; }
 
         /* ===== ГОЛОВНА СТОРІНКА ===== */
         #mainPage { display: block; }
@@ -820,7 +843,9 @@
             .about-wrapper { padding: 30px 20px; }
             .about-wrapper h1 { font-size: 32px; }
             .category-list { max-width: 100%; }
-            #productViewModal .modal-images { flex: 1 1 100%; border-right: none; border-bottom: 1px solid #ece0d4; }
+            #productViewModal .modal-images { flex: 1 1 100%; border-right: none; border-bottom: 1px solid #ece0d4; border-radius: 30px 30px 0 0; }
+            #productViewModal .modal-images .main-img-wrapper { border-radius: 30px 30px 0 0; }
+            #productViewModal .modal-images .thumbnails { border-radius: 0; }
         }
 
         @media (max-width: 600px) {
