@@ -1,4 +1,25 @@
+Привет! Да, я могу это сделать. То, что вы показали на скриншоте — это **«Вариации товара»**. 
 
+**Важное предупреждение:** На вашем текущем сайте (который работает на GitHub без сервера) мы не можем хранить тяжелые фотографии для каждого размера отдельно. Поэтому я сделаю так, чтобы **при выборе размера менялась цена и описание**, а фото (если загружено) будет общим.
+
+### Как это будет работать у вас в админке:
+Вместо одной цены вы будете писать цены через запятую. Например:
+* **Название:** Плед "Карамель"
+* **Ціна:** `1200, 1600, 2000`
+* **Розміри:** `150x200, 180x220, 200x240`
+* **Опис (характеристики):** `Тканина: 100% льон, Склад: 1 плед, 2 подушки`, `Тканина: 100% вовна, Склад: 1 плед`, `Тканина: 100% бавовна, Склад: 1 плед та чохол`
+
+---
+
+### Полный готовый код (с выбором размеров/вариаций)
+Скопируйте его полностью и замените старый файл. **Пароль для входа: `admin123`**
+
+В этом коде:
+1. В админке появились новые поля для вариаций.
+2. В карточке товара (при клике) появились кнопки выбора размера.
+3. При нажатии на размер автоматически меняется цена и описание.
+
+```html
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -316,7 +337,6 @@
         #productViewModal .modal-images .main-img-wrapper iframe {
             width: 100%;
             height: 100%;
-            /* object-fit: contain ЗАМІНЕНО НА cover, щоб фото виглядали красиво і рівно */
             object-fit: cover; 
         }
         
@@ -345,14 +365,14 @@
             box-shadow: 0 2px 8px rgba(196, 160, 122, 0.3);
         }
 
-        /* Права частина (Текст) */
+        /* Права частина (Текст та Варіації) */
         #productViewModal .modal-text {
             flex: 1 1 50%;
             padding: 40px 40px 40px 30px;
             background: #faf3ea;
         }
         
-        /* Кнопка закриття (Крестик) */
+        /* Кнопка закриття */
         #productViewModal .close-view-btn {
             position: absolute;
             top: 15px;
@@ -374,10 +394,48 @@
         }
         #productViewModal .close-view-btn:hover { background: #c4a07a; transform: scale(1.05); }
 
-        #productViewModal .modal-text h2 { font-size: 28px; margin-bottom: 10px; padding-right: 40px; }
-        #productViewModal .modal-text .price-block { font-size: 24px; color: #c4a07a; font-weight: 700; margin: 15px 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;}
+        #productViewModal .modal-text h2 { font-size: 28px; margin-bottom: 5px; padding-right: 40px; }
+        #productViewModal .modal-text .price-block { font-size: 24px; color: #c4a07a; font-weight: 700; margin: 10px 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;}
         #productViewModal .modal-text .price-block .old-price { color: #c4b6a6; font-weight: 400; font-size: 18px; text-decoration: line-through; }
-        #productViewModal .modal-text .desc { color: #6a5f52; line-height: 1.6; }
+        #productViewModal .modal-text .desc { color: #6a5f52; line-height: 1.6; margin-bottom: 15px; }
+        
+        /* Блок вибору розмірів */
+        .variations-wrapper {
+            margin: 15px 0 10px 0;
+        }
+        .variations-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #6a5f52;
+            margin-bottom: 10px;
+        }
+        .variations-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .var-btn {
+            padding: 8px 20px;
+            border: 2px solid #e4d5c4;
+            border-radius: 30px;
+            background: #faf3ea;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+            color: #6a5f52;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .var-btn:hover {
+            border-color: #c4a07a;
+        }
+        .var-btn.active {
+            background: #c4a07a;
+            color: #fff;
+            border-color: #c4a07a;
+            box-shadow: 0 4px 10px rgba(196, 160, 122, 0.3);
+        }
 
         /* ===== ГОЛОВНА СТОРІНКА ===== */
         #mainPage { display: block; }
@@ -979,6 +1037,13 @@
                 </div>
                 <div class="modal-text">
                     <h2 id="viewTitle">Назва товару</h2>
+                    
+                    <!-- Блок вибору розмірів -->
+                    <div class="variations-wrapper" id="variationsBlock">
+                        <span class="variations-label" id="varLabel">Оберіть розмір:</span>
+                        <div class="variations-list" id="variationsList"></div>
+                    </div>
+
                     <div class="price-block" id="viewPrice"></div>
                     <div class="desc" id="viewDesc">Опис товару</div>
                 </div>
@@ -1006,8 +1071,10 @@
                 <h3 id="adminTitle"><i class="fas fa-plus-circle"></i> Додати товар</h3>
                 <div class="form-grid">
                     <input type="text" id="productName" placeholder="Назва товару (наприклад: Плед Карамель)" />
-                    <input type="text" id="productPrice" placeholder="Ціна (наприклад: 3450 ₴)" />
-                    <input type="text" id="productOldPrice" placeholder="Стара ціна (необов'язково)" />
+                    
+                    <input type="text" id="productSizes" placeholder="Розміри (через кому), напр: 150x200, 180x220" />
+                    <input type="text" id="productPrices" placeholder="Ціни (через кому), напр: 1200, 1600" />
+                    <input type="text" id="productOldPrices" placeholder="Старі ціни (через кому), напр: 2000, 2400" />
 
                     <select id="productCategory" class="full-width">
                         <option value="">Оберіть категорію...</option>
@@ -1033,7 +1100,7 @@
                     
                     <input type="text" id="productVideo" class="full-width" placeholder="Посилання на відео (YouTube, наприклад: https://www.youtube.com/watch?v=...)" />
 
-                    <textarea id="productDesc" class="full-width" placeholder="Опис товару..."></textarea>
+                    <textarea id="productDescs" class="full-width" placeholder="Описи для кожного розміру (через кому). Напр: Тканина льон, Склад 1 плед; Тканина вовна, Склад 2 пледа" style="min-height: 80px;"></textarea>
                 </div>
                 <button class="btn-add" id="addProductBtn"><i class="fas fa-plus"></i> <span id="addBtnText">Додати товар</span></button>
             </div>
@@ -1137,11 +1204,12 @@
         // ============================================================
         const PASSWORD = 'admin123';
         let isAdmin = false;
-        let uploadedImagesData = []; // Масив для зберігання завантажених фото (base64)
+        let uploadedImagesData = []; 
         let clickCount = 0;
         let clickTimer = null;
         let currentCategoryFilter = '';
         let currentLang = 'ua';
+        let currentSelectedVariant = 0;
 
         // ============================================================
         // 2. ПЕРЕКЛАДИ
@@ -1186,7 +1254,8 @@
                 'footerReturn': 'Обмін та повернення',
                 'footerContacts': 'Контакти',
                 'copyTooltip': 'Скопійовано!',
-                'footerCopy': '&copy; 2026 Kora Textile. Всі права захищено. Зроблено в Україні з ❤️'
+                'footerCopy': '&copy; 2026 Kora Textile. Всі права захищено. Зроблено в Україні з ❤️',
+                'varLabel': 'Оберіть розмір:'
             },
             'ru': {
                 'modalLoginTitle': 'Вход в админку',
@@ -1227,7 +1296,8 @@
                 'footerReturn': 'Обмен и возврат',
                 'footerContacts': 'Контакты',
                 'copyTooltip': 'Скопировано!',
-                'footerCopy': '&copy; 2026 Kora Textile. Все права защищены. Сделано в Украине с ❤️'
+                'footerCopy': '&copy; 2026 Kora Textile. Все права защищены. Сделано в Украине с ❤️',
+                'varLabel': 'Выберите размер:'
             }
         };
 
@@ -1300,9 +1370,13 @@
             document.getElementById('copyTooltip').innerText = t.copyTooltip;
             document.getElementById('footerCopy').innerHTML = t.footerCopy;
 
+            document.getElementById('varLabel').innerText = t.varLabel;
+
             document.getElementById('productName').placeholder = lang === 'ua' ? 'Назва товару (наприклад: Плед Карамель)' : 'Название товара (например: Плед Карамель)';
-            document.getElementById('productPrice').placeholder = lang === 'ua' ? 'Ціна (наприклад: 3450 ₴)' : 'Цена (например: 3450 ₴)';
-            document.getElementById('productOldPrice').placeholder = lang === 'ua' ? 'Стара ціна (необов\'язково)' : 'Старая цена (необязательно)';
+            document.getElementById('productSizes').placeholder = lang === 'ua' ? 'Розміри (через кому), напр: 150x200, 180x220' : 'Размеры (через запятую), напр: 150x200, 180x220';
+            document.getElementById('productPrices').placeholder = lang === 'ua' ? 'Ціни (через кому), напр: 1200, 1600' : 'Цены (через запятую), напр: 1200, 1600';
+            document.getElementById('productOldPrices').placeholder = lang === 'ua' ? 'Старі ціни (через кому), напр: 2000, 2400' : 'Старые цены (через запятую), напр: 2000, 2400';
+            document.getElementById('productDescs').placeholder = lang === 'ua' ? 'Описи для кожного розміру (через кому). Напр: Тканина льон, Склад 1 плед; Тканина вовна, Склад 2 пледа' : 'Описания для каждого размера (через запятую). Напр: Ткань лен, Состав 1 плед; Ткань шерсть, Состав 2 пледа';
             document.getElementById('productDesc').placeholder = lang === 'ua' ? 'Опис товару...' : 'Описание товара...';
             document.getElementById('productVideo').placeholder = lang === 'ua' ? 'Посилання на відео (YouTube, наприклад: https://www.youtube.com/watch?v=...)' : 'Ссылка на видео (YouTube, например: https://www.youtube.com/watch?v=...)';
         }
@@ -1402,26 +1476,21 @@
         });
 
         // ============================================================
-        // 7. РОБОТА З ТОВАРАМИ
+        // 7. РОБОТА З ТОВАРАМИ (З ВАРІАЦІЯМИ)
         // ============================================================
         function getProducts() {
             return [
-                { id: 1, name: 'Скатертина "Білий степ"', price: '1 890 ₴', oldPrice: '2 400 ₴',
-                    desc: '100% льон, вишивка хрестиком, 140x220 см', category: '', images: [], video: '' },
-                { id: 2, name: 'Плед "Карамель"', price: '3 450 ₴', oldPrice: '',
-                    desc: 'Мериносова вовна, двосторонній, 150x200 см', category: 'Покривала та пледи', images: [], video: '' },
-                { id: 3, name: 'Набір рушників "Ранок"', price: '1 250 ₴', oldPrice: '',
-                    desc: '3 шт. (30x50, 50x90, 70x140), сатин', category: 'Рушники', images: [], video: '' }
+                { id: 1, name: 'Скатертина "Білий степ"', sizes: ['140x220', '150x250'], prices: ['1 890 ₴', '2 200 ₴'], oldPrices: ['2 400 ₴', '2 800 ₴'], descs: ['100% льон, вишивка', '100% бавовна, гладка'], category: '', images: [], video: '' },
+                { id: 2, name: 'Плед "Карамель"', sizes: ['150x200', '200x220'], prices: ['3 450 ₴', '4 250 ₴'], oldPrices: ['', ''], descs: ['Мериносова вовна', 'Альпака'], category: 'Покривала та пледи', images: [], video: '' }
             ];
         }
 
         // ============================================================
-        // 8. ЗАВАНТАЖЕННЯ ФОТО (МУЛЬТИ-ЗАВАНТАЖЕННЯ)
+        // 8. ЗАВАНТАЖЕННЯ ФОТО
         // ============================================================
         function handleFiles(files) {
             if (!files || files.length === 0) return;
             const previewContainer = document.getElementById('multiPreview');
-            
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 if (file.size > 5 * 1024 * 1024) {
@@ -1429,11 +1498,9 @@
                     continue;
                 }
                 if (!file.type.startsWith('image/')) continue;
-
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     uploadedImagesData.push(e.target.result);
-                    // Додаємо прев'юшку в адмінку
                     const img = document.createElement('img');
                     img.src = e.target.result;
                     previewContainer.appendChild(img);
@@ -1444,7 +1511,6 @@
 
         const fileInput = document.getElementById('fileInput');
         const uploadZone = document.getElementById('uploadZone');
-
         uploadZone.addEventListener('click', () => fileInput.click());
         fileInput.addEventListener('change', (e) => {
             if (e.target.files.length > 0) {
@@ -1452,7 +1518,6 @@
                 document.getElementById('fileName').textContent = '✅ Обрано файлів: ' + e.target.files.length;
             }
         });
-
         uploadZone.addEventListener('dragover', (e) => {
             e.preventDefault();
             uploadZone.classList.add('dragover');
@@ -1471,18 +1536,30 @@
         });
 
         // ============================================================
-        // 9. ДОДАВАННЯ ТОВАРУ
+        // 9. ДОДАВАННЯ ТОВАРУ (НОВИЙ ФОРМАТ)
         // ============================================================
         document.getElementById('addProductBtn').addEventListener('click', function() {
             const name = document.getElementById('productName').value.trim();
-            const price = document.getElementById('productPrice').value.trim();
-            const oldPrice = document.getElementById('productOldPrice').value.trim();
-            const desc = document.getElementById('productDesc').value.trim();
+            const sizesRaw = document.getElementById('productSizes').value.trim();
+            const pricesRaw = document.getElementById('productPrices').value.trim();
+            const oldPricesRaw = document.getElementById('productOldPrices').value.trim();
+            const descsRaw = document.getElementById('productDescs').value.trim();
             const category = document.getElementById('productCategory').value;
             const video = document.getElementById('productVideo').value.trim();
 
-            if (!name || !price) {
-                alert(currentLang === 'ua' ? '❌ Заповніть назву та ціну!' : '❌ Заполните название и цену!');
+            if (!name || !sizesRaw || !pricesRaw) {
+                alert(currentLang === 'ua' ? '❌ Заповніть назву, розміри та ціни!' : '❌ Заполните название, размеры и цены!');
+                return;
+            }
+
+            // Розбиваємо по комі
+            const sizes = sizesRaw.split(',').map(s => s.trim());
+            const prices = pricesRaw.split(',').map(s => s.trim());
+            const oldPrices = oldPricesRaw.split(',').map(s => s.trim());
+            const descs = descsRaw.split(',').map(s => s.trim());
+
+            if (sizes.length !== prices.length) {
+                alert(currentLang === 'ua' ? '❌ Кількість розмірів та цін має співпадати!' : '❌ Количество размеров и цен должно совпадать!');
                 return;
             }
 
@@ -1491,11 +1568,12 @@
 
             products.push({
                 id: newId,
-                name,
-                price,
-                oldPrice,
-                desc,
-                category,
+                name: name,
+                sizes: sizes,
+                prices: prices,
+                oldPrices: oldPrices,
+                descs: descs,
+                category: category,
                 images: [...uploadedImagesData],
                 video: video
             });
@@ -1505,9 +1583,10 @@
             resetFilter();
 
             document.getElementById('productName').value = '';
-            document.getElementById('productPrice').value = '';
-            document.getElementById('productOldPrice').value = '';
-            document.getElementById('productDesc').value = '';
+            document.getElementById('productSizes').value = '';
+            document.getElementById('productPrices').value = '';
+            document.getElementById('productOldPrices').value = '';
+            document.getElementById('productDescs').value = '';
             document.getElementById('productCategory').value = '';
             document.getElementById('productVideo').value = '';
             document.getElementById('multiPreview').innerHTML = '';
@@ -1520,7 +1599,7 @@
         });
 
         // ============================================================
-        // 10. ВІДОБРАЖЕННЯ ТОВАРІВ ТА КАТЕГОРІЇ
+        // 10. ВІДОБРАЖЕННЯ ТОВАРІВ
         // ============================================================
         function getDisplayProducts() {
             const runtimeData = localStorage.getItem('koraProductsRuntime');
@@ -1590,8 +1669,8 @@
                         <div class="product-info">
                             ${p.category ? `<span class="category-tag">${p.category}</span>` : ''}
                             <h4>${p.name}</h4>
-                            <div class="desc">${p.desc || (currentLang === 'ua' ? 'Без опису' : 'Без описания')}</div>
-                            <div class="price-block">${p.price} ${p.oldPrice ? `<span class="old-price">${p.oldPrice}</span>` : ''}</div>
+                            <div class="desc">${p.descs && p.descs[0] ? p.descs[0] : (currentLang === 'ua' ? 'Без опису' : 'Без описания')}</div>
+                            <div class="price-block">${p.prices && p.prices[0] ? p.prices[0] : ''} ${p.oldPrices && p.oldPrices[0] ? `<span class="old-price">${p.oldPrices[0]}</span>` : ''}</div>
                         </div>
                     </div>
                 `;
@@ -1605,16 +1684,18 @@
         }
 
         // ============================================================
-        // 11. ПЕРЕГЛЯД ТОВАРУ (МОДАЛКА З ГАЛЕРЕЄЮ)
+        // 11. ПЕРЕГЛЯД ТОВАРУ (МОДАЛКА З ВАРІАЦІЯМИ)
         // ============================================================
         function openProductView(id) {
             const products = getDisplayProducts();
             const product = products.find(p => p.id === id);
             if (!product) return;
 
+            currentSelectedVariant = 0;
+
             document.getElementById('viewTitle').innerText = product.name;
-            document.getElementById('viewPrice').innerHTML = `${product.price} ${product.oldPrice ? `<span class="old-price">${product.oldPrice}</span>` : ''}`;
-            document.getElementById('viewDesc').innerHTML = product.desc || (currentLang === 'ua' ? 'Опис відсутній' : 'Описание отсутствует');
+            document.getElementById('viewPrice').innerHTML = `${product.prices[0]} ${product.oldPrices && product.oldPrices[0] ? `<span class="old-price">${product.oldPrices[0]}</span>` : ''}`;
+            document.getElementById('viewDesc').innerHTML = product.descs && product.descs[0] ? product.descs[0] : (currentLang === 'ua' ? 'Опис відсутній' : 'Описание отсутствует');
 
             const mainImgWrapper = document.getElementById('viewMainImage');
             const thumbContainer = document.getElementById('viewThumbnails');
@@ -1669,7 +1750,42 @@
                 thumbContainer.appendChild(thumb);
             });
 
+            // Відображення кнопок розмірів
+            const variationsList = document.getElementById('variationsList');
+            variationsList.innerHTML = '';
+            
+            if (product.sizes && product.sizes.length > 0) {
+                document.getElementById('variationsBlock').style.display = 'block';
+                product.sizes.forEach((size, index) => {
+                    const btn = document.createElement('button');
+                    btn.className = `var-btn ${index === 0 ? 'active' : ''}`;
+                    btn.innerText = size;
+                    btn.onclick = () => selectVariant(index, product);
+                    variationsList.appendChild(btn);
+                });
+            } else {
+                document.getElementById('variationsBlock').style.display = 'none';
+            }
+
             openModal('productViewModal');
+        }
+
+        function selectVariant(index, product) {
+            currentSelectedVariant = index;
+            
+            // Оновлюємо кнопки
+            const btns = document.querySelectorAll('.var-btn');
+            btns.forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+
+            // Оновлюємо ціну та опис
+            const price = product.prices[index] || '';
+            const oldPrice = product.oldPrices && product.oldPrices[index] ? product.oldPrices[index] : '';
+            const desc = product.descs && product.descs[index] ? product.descs[index] : (currentLang === 'ua' ? 'Опис відсутній' : 'Описание отсутствует');
+
+            document.getElementById('viewPrice').innerHTML = `${price} ${oldPrice ? `<span class="old-price">${oldPrice}</span>` : ''}`;
+            document.getElementById('viewDesc').innerHTML = desc;
         }
 
         function renderViewMedia(mediaList, index, mainImgWrapper, thumbContainer) {
@@ -1767,7 +1883,6 @@
             } else {
                 applyLanguage('ua');
             }
-            
             renderProducts();
             checkReveal();
         });
