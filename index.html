@@ -631,11 +631,10 @@
         .form-grid textarea { resize: vertical; min-height: 60px; }
         .form-grid .full-width { grid-column: 1 / -1; }
 
-        /* ===== ПОЛЯ ДЛЯ ВАРІАЦІЙ (НОВІ) ===== */
         .variations-fields {
             grid-column: 1 / -1;
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
             gap: 15px;
             background: #faf3ea;
             padding: 20px;
@@ -680,12 +679,12 @@
             font-weight: 500;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .variations-fields {
                 grid-template-columns: 1fr 1fr;
             }
         }
-        @media (max-width: 500px) {
+        @media (max-width: 600px) {
             .variations-fields {
                 grid-template-columns: 1fr;
             }
@@ -1106,7 +1105,6 @@
                         <option value="Піжами">Піжами</option>
                     </select>
 
-                    <!-- ===== НОВІ ПОЛЯ ДЛЯ ВАРІАЦІЙ ===== -->
                     <div class="variations-fields full-width">
                         <div class="var-group">
                             <div class="var-check">
@@ -1180,9 +1178,7 @@
                 </div>
             </div>
 
-            <div class="products-grid" id="productsGrid">
-                <!-- товари з JS -->
-            </div>
+            <div class="products-grid" id="productsGrid"></div>
         </div>
     </main>
 
@@ -1253,18 +1249,17 @@
 
     <script>
         // ============================================================
-        // 1. ЗМІННІ
+        // 1. ПЕРЕМЕННЫЕ
         // ============================================================
         const PASSWORD = 'admin123';
         let isAdmin = false;
-        let uploadedImagesData = []; 
+        let uploadedImagesData = [];
         let clickCount = 0;
         let clickTimer = null;
         let currentCategoryFilter = '';
         let currentLang = 'ua';
         let currentSelectedVariant = 0;
 
-        // Типи варіацій (ключі для зручності)
         const VARIANT_TYPES = ['half', 'double', 'euro', 'family'];
         const VARIANT_NAMES = {
             'ua': { half: 'Полуторний', double: 'Двуспалний', euro: 'Євро', family: 'Сімейний' },
@@ -1272,7 +1267,7 @@
         };
 
         // ============================================================
-        // 2. ПЕРЕКЛАДИ (розширені)
+        // 2. ПЕРЕВОДЫ
         // ============================================================
         const translations = {
             'ua': {
@@ -1323,7 +1318,14 @@
                 'noPhoto': 'Фото відсутнє',
                 'noDescription': 'Опис відсутній',
                 'noProducts': 'Товарів поки немає. Додайте перший!',
-                'noProductsCategory': 'У категорії "{category}" поки немає товарів.'
+                'noProductsCategory': 'У категорії "{category}" поки немає товарів.',
+                'enterName': '❌ Введіть назву товару!',
+                'enterPrice': '❌ Введіть ціну для {type}',
+                'selectType': '❌ Оберіть хоча б один тип (полуторний, двуспалний, євро або сімейний)!',
+                'productAdded': '✅ Товар додано!',
+                'deleteConfirm': '🗑️ Видалити цей товар?',
+                'fileTooBig': '❌ Файл {name} занадто великий! Максимум 5 МБ.',
+                'filesSelected': 'Обрано файлів: '
             },
             'ru': {
                 'modalLoginTitle': 'Вход в админку',
@@ -1373,13 +1375,28 @@
                 'noPhoto': 'Фото отсутствует',
                 'noDescription': 'Описание отсутствует',
                 'noProducts': 'Товаров пока нет. Добавьте первый!',
-                'noProductsCategory': 'В категории "{category}" пока нет товаров.'
+                'noProductsCategory': 'В категории "{category}" пока нет товаров.',
+                'enterName': '❌ Введите название товара!',
+                'enterPrice': '❌ Введите цену для {type}',
+                'selectType': '❌ Выберите хотя бы один тип (полуторный, двуспальный, евро или семейный)!',
+                'productAdded': '✅ Товар добавлен!',
+                'deleteConfirm': '🗑️ Удалить этот товар?',
+                'fileTooBig': '❌ Файл {name} слишком большой! Максимум 5 МБ.',
+                'filesSelected': 'Выбрано файлов: '
             }
         };
 
         // ============================================================
-        // 3. ФУНКЦІЇ МОВИ (оновлені)
+        // 3. ФУНКЦИИ ПЕРЕВОДА
         // ============================================================
+        function t(key, params = {}) {
+            let text = translations[currentLang][key] || key;
+            for (const [k, v] of Object.entries(params)) {
+                text = text.replace(`{${k}}`, v);
+            }
+            return text;
+        }
+
         function toggleLangMenu() {
             document.getElementById('langDropdown').classList.toggle('show');
             document.getElementById('langOverlay').classList.toggle('show');
@@ -1397,11 +1414,9 @@
         function applyLanguage(lang) {
             const t = translations[lang];
             
-            // Оновлюємо активну мову в меню
             document.getElementById('langUa').classList.toggle('active-lang', lang === 'ua');
             document.getElementById('langRu').classList.toggle('active-lang', lang === 'ru');
             
-            // Модальні вікна
             document.getElementById('modalLoginTitle').innerHTML = t.modalLoginTitle;
             document.getElementById('modalLoginDesc').innerText = t.modalLoginDesc;
             document.getElementById('errorMsg').innerHTML = t.errorMsg;
@@ -1420,22 +1435,18 @@
             document.getElementById('returnDesc3').innerHTML = t.returnDesc3;
             document.getElementById('returnBtn').innerText = t.returnBtn;
 
-            // Hero
             document.getElementById('heroBadge').innerHTML = t.heroBadge;
             document.getElementById('heroTitle').innerHTML = t.heroTitle;
             document.getElementById('heroDesc').innerText = t.heroDesc;
 
-            // Адмінка
             document.getElementById('adminTitle').innerHTML = t.adminTitle;
             document.getElementById('uploadTitle').innerHTML = t.uploadTitle;
             document.getElementById('uploadHint').innerText = t.uploadHint;
             document.getElementById('addBtnText').innerText = t.addBtnText;
 
-            // Каталог
             document.getElementById('catalogSub').innerHTML = t.catalogSub;
             document.getElementById('catalogTitle').innerText = t.catalogTitle;
 
-            // Про нас
             document.getElementById('aboutTitle').innerHTML = t.aboutTitle;
             document.getElementById('aboutDesc1').innerHTML = t.aboutDesc1;
             document.getElementById('aboutDesc2').innerText = t.aboutDesc2;
@@ -1443,7 +1454,6 @@
             document.getElementById('aboutDesc3').innerText = t.aboutDesc3;
             document.getElementById('backHomeBtnText').innerText = t.backHomeBtnText;
 
-            // Футер
             document.getElementById('footerDesc').innerText = t.footerDesc;
             document.getElementById('footerCatalog').innerText = t.footerCatalog;
             document.getElementById('footerInfo').innerText = t.footerInfo;
@@ -1454,34 +1464,21 @@
             document.getElementById('copyTooltip').innerText = t.copyTooltip;
             document.getElementById('footerCopy').innerHTML = t.footerCopy;
 
-            // Модалка перегляду
             document.getElementById('varLabel').innerText = t.varLabel;
 
-            // Підписи до чекбоксів
             document.getElementById('labelHalf').innerText = t.labelHalf;
             document.getElementById('labelDouble').innerText = t.labelDouble;
             document.getElementById('labelEuro').innerText = t.labelEuro;
             document.getElementById('labelFamily').innerText = t.labelFamily;
 
-            // Плейсхолдери
             document.getElementById('productName').placeholder = lang === 'ua' ? 'Назва товару (наприклад: Комплект постільної білизни)' : 'Название товара (например: Комплект постельного белья)';
             document.getElementById('productVideo').placeholder = lang === 'ua' ? 'Посилання на відео (YouTube, наприклад: https://www.youtube.com/watch?v=...)' : 'Ссылка на видео (YouTube, например: https://www.youtube.com/watch?v=...)';
 
-            // Оновлюємо відображення товарів
             renderProducts();
         }
 
-        // Допоміжна функція для перекладу динамічних текстів
-        function t(key, params = {}) {
-            let text = translations[currentLang][key] || key;
-            for (const [k, v] of Object.entries(params)) {
-                text = text.replace(`{${k}}`, v);
-            }
-            return text;
-        }
-
         // ============================================================
-        // 4. НАВІГАЦІЯ
+        // 4. НАВИГАЦИЯ
         // ============================================================
         function goToAboutPage() {
             document.getElementById('mainPage').style.display = 'none';
@@ -1509,7 +1506,7 @@
         function goToMainPage() { navigateHome(event); }
 
         // ============================================================
-        // 5. МОДАЛЬНІ ВІКНА
+        // 5. МОДАЛЬНЫЕ ОКНА
         // ============================================================
         function openModal(id) { document.getElementById(id).classList.add('show'); }
         function closeModal(id) { document.getElementById(id).classList.remove('show'); }
@@ -1520,7 +1517,7 @@
         });
 
         // ============================================================
-        // 6. ВХІД В АДМІНКУ
+        // 6. ВХОД В АДМИНКУ
         // ============================================================
         document.getElementById('secretLogo').addEventListener('click', function(e) {
             e.preventDefault();
@@ -1575,7 +1572,7 @@
         });
 
         // ============================================================
-        // 7. РОБОТА З ТОВАРАМИ (НОВА СТРУКТУРА)
+        // 7. РАБОТА С ТОВАРАМИ
         // ============================================================
         function getDefaultProducts() {
             return [
@@ -1608,7 +1605,7 @@
         }
 
         // ============================================================
-        // 8. ЗАВАНТАЖЕННЯ ФОТО
+        // 8. ЗАГРУЗКА ФОТО
         // ============================================================
         function handleFiles(files) {
             if (!files || files.length === 0) return;
@@ -1616,7 +1613,7 @@
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 if (file.size > 5 * 1024 * 1024) {
-                    alert(currentLang === 'ua' ? '❌ Файл ' + file.name + ' занадто великий! Максимум 5 МБ.' : '❌ Файл ' + file.name + ' слишком большой! Максимум 5 МБ.');
+                    alert(t('fileTooBig', { name: file.name }));
                     continue;
                 }
                 if (!file.type.startsWith('image/')) continue;
@@ -1637,7 +1634,7 @@
         fileInput.addEventListener('change', (e) => {
             if (e.target.files.length > 0) {
                 handleFiles(e.target.files);
-                document.getElementById('fileName').textContent = '✅ ' + (currentLang === 'ua' ? 'Обрано файлів: ' : 'Выбрано файлов: ') + e.target.files.length;
+                document.getElementById('fileName').textContent = '✅ ' + t('filesSelected') + e.target.files.length;
             }
         });
         uploadZone.addEventListener('dragover', (e) => {
@@ -1653,12 +1650,12 @@
             uploadZone.classList.remove('dragover');
             if (e.dataTransfer.files.length > 0) {
                 handleFiles(e.dataTransfer.files);
-                document.getElementById('fileName').textContent = '✅ ' + (currentLang === 'ua' ? 'Обрано файлів: ' : 'Выбрано файлов: ') + e.dataTransfer.files.length;
+                document.getElementById('fileName').textContent = '✅ ' + t('filesSelected') + e.dataTransfer.files.length;
             }
         });
 
         // ============================================================
-        // 9. ДОДАВАННЯ ТОВАРУ (НОВА ЛОГІКА)
+        // 9. ДОБАВЛЕНИЕ ТОВАРА
         // ============================================================
         document.getElementById('addProductBtn').addEventListener('click', function() {
             const name = document.getElementById('productName').value.trim();
@@ -1666,11 +1663,10 @@
             const video = document.getElementById('productVideo').value.trim();
 
             if (!name) {
-                alert(currentLang === 'ua' ? '❌ Введіть назву товару!' : '❌ Введите название товара!');
+                alert(t('enterName'));
                 return;
             }
 
-            // Збираємо варіації
             const variants = [];
             const typeMap = {
                 'half': { check: 'varHalf', price: 'priceHalf', oldPrice: 'oldPriceHalf', desc: 'descHalf' },
@@ -1688,7 +1684,7 @@
                     const desc = document.getElementById(ids.desc).value.trim();
                     
                     if (!price) {
-                        alert(currentLang === 'ua' ? `❌ Введіть ціну для ${VARIANT_NAMES[currentLang][type]}` : `❌ Введите цену для ${VARIANT_NAMES[currentLang][type]}`);
+                        alert(t('enterPrice', { type: VARIANT_NAMES[currentLang][type] }));
                         return;
                     }
                     
@@ -1698,7 +1694,7 @@
             }
 
             if (!hasVariant) {
-                alert(currentLang === 'ua' ? '❌ Оберіть хоча б один тип (полуторний, двуспалний, євро або сімейний)!' : '❌ Выберите хотя бы один тип (полуторный, двуспальный, евро или семейный)!');
+                alert(t('selectType'));
                 return;
             }
 
@@ -1718,7 +1714,6 @@
             renderProducts();
             resetFilter();
 
-            // Очищаємо форму
             document.getElementById('productName').value = '';
             document.getElementById('productCategory').value = '';
             document.getElementById('productVideo').value = '';
@@ -1727,7 +1722,6 @@
             uploadedImagesData = [];
             document.getElementById('fileInput').value = '';
 
-            // Очищаємо всі поля варіацій
             for (const ids of Object.values(typeMap)) {
                 document.getElementById(ids.check).checked = false;
                 document.getElementById(ids.price).value = '';
@@ -1735,11 +1729,11 @@
                 document.getElementById(ids.desc).value = '';
             }
 
-            alert(currentLang === 'ua' ? '✅ Товар додано!' : '✅ Товар добавлен!');
+            alert(t('productAdded'));
         });
 
         // ============================================================
-        // 10. ВІДОБРАЖЕННЯ ТОВАРІВ (оновлене)
+        // 10. ОТОБРАЖЕНИЕ ТОВАРОВ
         // ============================================================
         function getDisplayProducts() {
             return getProducts();
@@ -1825,7 +1819,7 @@
         }
 
         // ============================================================
-        // 11. ПЕРЕГЛЯД ТОВАРУ (оновлений)
+        // 11. ПРОСМОТР ТОВАРА
         // ============================================================
         function openProductView(id) {
             const products = getDisplayProducts();
@@ -1897,7 +1891,6 @@
                 thumbContainer.appendChild(thumb);
             });
 
-            // Відображення кнопок варіацій
             const variationsList = document.getElementById('variationsList');
             variationsList.innerHTML = '';
             
@@ -1948,11 +1941,11 @@
         }
 
         // ============================================================
-        // 12. ВИДАЛЕННЯ ТОВАРУ
+        // 12. УДАЛЕНИЕ ТОВАРА
         // ============================================================
         function deleteProduct(id) {
             if (!isAdmin) return;
-            if (!confirm(currentLang === 'ua' ? '🗑️ Видалити цей товар?' : '🗑️ Удалить этот товар?')) return;
+            if (!confirm(t('deleteConfirm'))) return;
             let products = getProducts();
             products = products.filter(p => p.id !== id);
             saveProducts(products);
@@ -1960,7 +1953,7 @@
         }
 
         // ============================================================
-        // 13. КОПІЮВАННЯ НОМЕРА
+        // 13. КОПИРОВАНИЕ НОМЕРА
         // ============================================================
         function copyPhone(event) {
             event.preventDefault();
@@ -1995,7 +1988,7 @@
         }
 
         // ============================================================
-        // 14. ПРОКРУТКА ТА АНІМАЦІЯ
+        // 14. ПРОКРУТКА И АНИМАЦИЯ
         // ============================================================
         const scrollBtn = document.getElementById('scrollTopBtn');
         window.addEventListener('scroll', () => {
