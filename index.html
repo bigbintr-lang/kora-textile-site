@@ -123,6 +123,7 @@
         .form-grid textarea { resize: vertical; min-height: 60px; }
         .form-grid .full-width { grid-column: 1 / -1; }
 
+        /* ===== КРАСИВЫЕ КВАДРАТНЫЕ ЧЕКБОКСЫ ===== */
         .variations-fields {
             grid-column: 1 / -1;
             display: grid;
@@ -147,25 +148,77 @@
         .variations-fields .var-group .var-check {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             margin-bottom: 5px;
+            cursor: pointer;
         }
 
+        /* Скрываем стандартный чекбокс */
         .variations-fields .var-group .var-check input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            accent-color: #c4a07a;
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* Создаём красивый квадратный чекбокс */
+        .variations-fields .var-group .var-check .custom-checkbox {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            min-height: 24px;
+            border: 2px solid #d4bca3;
+            border-radius: 6px;
+            background: #faf3ea;
+            transition: all 0.2s ease;
+            position: relative;
             cursor: pointer;
-            margin: 0;
-            padding: 0;
             flex-shrink: 0;
         }
 
+        .variations-fields .var-group .var-check .custom-checkbox:hover {
+            border-color: #c4a07a;
+            background: #f5ede4;
+        }
+
+        /* Галочка внутри */
+        .variations-fields .var-group .var-check .custom-checkbox::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 14px;
+            height: 14px;
+            background: #c4a07a;
+            border-radius: 3px;
+            transition: transform 0.2s ease;
+        }
+
+        /* Состояние "выбрано" */
+        .variations-fields .var-group .var-check input[type="checkbox"]:checked + .custom-checkbox {
+            border-color: #c4a07a;
+            background: #c4a07a;
+            box-shadow: 0 2px 8px rgba(196, 160, 122, 0.3);
+        }
+
+        .variations-fields .var-group .var-check input[type="checkbox"]:checked + .custom-checkbox::after {
+            transform: translate(-50%, -50%) scale(1);
+            background: #fff;
+        }
+
+        .variations-fields .var-group .var-check input[type="checkbox"]:checked + .custom-checkbox {
+            background: #c4a07a;
+        }
+
+        /* Метка */
         .variations-fields .var-group .var-check label {
             cursor: pointer;
             font-weight: 600;
             font-size: 15px;
             color: #3d352a;
+            user-select: none;
         }
 
         .variations-fields .var-group input,
@@ -189,6 +242,12 @@
         .variations-fields .var-group textarea {
             min-height: 70px;
             resize: vertical;
+        }
+
+        /* Если чекбокс выбран, подсвечиваем всю группу */
+        .variations-fields .var-group.selected {
+            border-color: #c4a07a;
+            box-shadow: 0 2px 12px rgba(196, 160, 122, 0.15);
         }
 
         @media (max-width: 1024px) { .variations-fields { grid-template-columns: 1fr 1fr; } }
@@ -407,11 +466,12 @@
                         <option value="Піжами">Піжами</option>
                     </select>
 
-                    <div class="variations-fields full-width">
+                    <div class="variations-fields full-width" id="variationsFields">
                         <!-- Полуторный -->
-                        <div class="var-group">
-                            <div class="var-check">
+                        <div class="var-group" id="groupHalf">
+                            <div class="var-check" onclick="toggleCheckbox('varHalf', 'groupHalf')">
                                 <input type="checkbox" id="varHalf" />
+                                <span class="custom-checkbox"></span>
                                 <label for="varHalf" id="labelHalf">Полуторний</label>
                             </div>
                             <input type="text" id="priceHalf" placeholder='Ціна (напр. 1250 ₴)' />
@@ -420,9 +480,10 @@
                         </div>
 
                         <!-- Двуспальный -->
-                        <div class="var-group">
-                            <div class="var-check">
+                        <div class="var-group" id="groupDouble">
+                            <div class="var-check" onclick="toggleCheckbox('varDouble', 'groupDouble')">
                                 <input type="checkbox" id="varDouble" />
+                                <span class="custom-checkbox"></span>
                                 <label for="varDouble" id="labelDouble">Двуспалний</label>
                             </div>
                             <input type="text" id="priceDouble" placeholder='Ціна (напр. 1450 ₴)' />
@@ -431,9 +492,10 @@
                         </div>
 
                         <!-- Евро -->
-                        <div class="var-group">
-                            <div class="var-check">
+                        <div class="var-group" id="groupEuro">
+                            <div class="var-check" onclick="toggleCheckbox('varEuro', 'groupEuro')">
                                 <input type="checkbox" id="varEuro" />
+                                <span class="custom-checkbox"></span>
                                 <label for="varEuro" id="labelEuro">Євро</label>
                             </div>
                             <input type="text" id="priceEuro" placeholder='Ціна (напр. 1650 ₴)' />
@@ -442,9 +504,10 @@
                         </div>
 
                         <!-- Семейный -->
-                        <div class="var-group">
-                            <div class="var-check">
+                        <div class="var-group" id="groupFamily">
+                            <div class="var-check" onclick="toggleCheckbox('varFamily', 'groupFamily')">
                                 <input type="checkbox" id="varFamily" />
+                                <span class="custom-checkbox"></span>
                                 <label for="varFamily" id="labelFamily">Сімейний</label>
                             </div>
                             <input type="text" id="priceFamily" placeholder='Ціна (напр. 1850 ₴)' />
@@ -693,7 +756,25 @@
         };
 
         // ============================================================
-        // 3. ФУНКЦИИ ПЕРЕВОДА
+        // 3. ФУНКЦИЯ ДЛЯ ЧЕКБОКСОВ - ВКЛ/ВЫКЛ
+        // ============================================================
+        function toggleCheckbox(checkboxId, groupId) {
+            const checkbox = document.getElementById(checkboxId);
+            const group = document.getElementById(groupId);
+            
+            // Переключаем состояние чекбокса
+            checkbox.checked = !checkbox.checked;
+            
+            // Добавляем/убираем класс selected для подсветки группы
+            if (checkbox.checked) {
+                group.classList.add('selected');
+            } else {
+                group.classList.remove('selected');
+            }
+        }
+
+        // ============================================================
+        // 4. ФУНКЦИИ ПЕРЕВОДА
         // ============================================================
         function t(key, params = {}) {
             let text = translations[currentLang][key] || key;
@@ -784,7 +865,7 @@
         }
 
         // ============================================================
-        // 4. НАВИГАЦИЯ
+        // 5. НАВИГАЦИЯ
         // ============================================================
         function goToAboutPage() {
             document.getElementById('mainPage').style.display = 'none';
@@ -812,7 +893,7 @@
         function goToMainPage() { navigateHome(event); }
 
         // ============================================================
-        // 5. МОДАЛЬНЫЕ ОКНА
+        // 6. МОДАЛЬНЫЕ ОКНА
         // ============================================================
         function openModal(id) { document.getElementById(id).classList.add('show'); }
         function closeModal(id) { document.getElementById(id).classList.remove('show'); }
@@ -823,7 +904,7 @@
         });
 
         // ============================================================
-        // 6. ВХОД В АДМИНКУ
+        // 7. ВХОД В АДМИНКУ
         // ============================================================
         document.getElementById('secretLogo').addEventListener('click', function(e) {
             e.preventDefault();
@@ -878,7 +959,7 @@
         });
 
         // ============================================================
-        // 7. РАБОТА С ТОВАРАМИ
+        // 8. РАБОТА С ТОВАРАМИ
         // ============================================================
         function getDefaultProducts() {
             return [
@@ -911,7 +992,7 @@
         }
 
         // ============================================================
-        // 8. ЗАГРУЗКА ФОТО
+        // 9. ЗАГРУЗКА ФОТО
         // ============================================================
         function handleFiles(files) {
             if (!files || files.length === 0) return;
@@ -961,7 +1042,7 @@
         });
 
         // ============================================================
-        // 9. ДОБАВЛЕНИЕ ТОВАРА - ГЛАВНАЯ ФУНКЦИЯ
+        // 10. ДОБАВЛЕНИЕ ТОВАРА
         // ============================================================
         document.getElementById('addProductBtn').addEventListener('click', function() {
             const name = document.getElementById('productName').value.trim();
@@ -973,7 +1054,6 @@
                 return;
             }
 
-            // Собираем варианты
             const variants = [];
             const typeMap = {
                 'half': { 
@@ -1008,7 +1088,6 @@
 
             let hasVariant = false;
             
-            // Проходим по всем типам и проверяем чекбоксы
             for (const [typeKey, ids] of Object.entries(typeMap)) {
                 const checkbox = document.getElementById(ids.check);
                 const isChecked = checkbox.checked;
@@ -1018,16 +1097,13 @@
                     const oldPrice = document.getElementById(ids.oldPrice).value.trim();
                     const desc = document.getElementById(ids.desc).value.trim();
                     
-                    // Проверяем что цена заполнена
                     if (!price) {
                         const typeName = VARIANT_NAMES[currentLang][typeKey] || ids.label;
                         alert(t('enterPrice', { type: typeName }));
-                        // Возвращаем фокус на поле с ценой
                         document.getElementById(ids.price).focus();
                         return;
                     }
                     
-                    // Добавляем вариант
                     variants.push({ 
                         type: typeKey, 
                         price: price, 
@@ -1038,20 +1114,15 @@
                 }
             }
 
-            // Проверяем что выбран хотя бы один тип
             if (!hasVariant) {
                 alert(t('selectType'));
                 return;
             }
 
-            // Получаем существующие товары
             let products = getProducts();
-            
-            // Генерируем новый ID
             const maxId = products.reduce((max, p) => Math.max(max, p.id), 0);
             const newId = maxId + 1;
 
-            // Создаем новый товар
             const newProduct = {
                 id: newId,
                 name: name,
@@ -1061,15 +1132,12 @@
                 variants: variants
             };
 
-            // Добавляем и сохраняем
             products.push(newProduct);
             saveProducts(products);
             
-            // Обновляем отображение
             renderProducts();
             resetFilter();
 
-            // Очищаем форму
             document.getElementById('productName').value = '';
             document.getElementById('productCategory').value = '';
             document.getElementById('productVideo').value = '';
@@ -1078,19 +1146,24 @@
             uploadedImagesData = [];
             document.getElementById('fileInput').value = '';
 
-            // Очищаем все чекбоксы и поля
             for (const ids of Object.values(typeMap)) {
-                document.getElementById(ids.check).checked = false;
+                const checkbox = document.getElementById(ids.check);
+                checkbox.checked = false;
                 document.getElementById(ids.price).value = '';
                 document.getElementById(ids.oldPrice).value = '';
                 document.getElementById(ids.desc).value = '';
+                
+                // Убираем подсветку группы
+                const groupId = ids.check.replace('var', 'group');
+                const group = document.getElementById(groupId);
+                if (group) group.classList.remove('selected');
             }
 
             alert(t('productAdded'));
         });
 
         // ============================================================
-        // 10. ОТОБРАЖЕНИЕ ТОВАРОВ
+        // 11. ОТОБРАЖЕНИЕ ТОВАРОВ
         // ============================================================
         function getDisplayProducts() {
             return getProducts();
@@ -1176,7 +1249,7 @@
         }
 
         // ============================================================
-        // 11. ПРОСМОТР ТОВАРА
+        // 12. ПРОСМОТР ТОВАРА
         // ============================================================
         function openProductView(id) {
             const products = getDisplayProducts();
@@ -1298,7 +1371,7 @@
         }
 
         // ============================================================
-        // 12. УДАЛЕНИЕ ТОВАРА
+        // 13. УДАЛЕНИЕ ТОВАРА
         // ============================================================
         function deleteProduct(id) {
             if (!isAdmin) return;
@@ -1310,7 +1383,7 @@
         }
 
         // ============================================================
-        // 13. КОПИРОВАНИЕ НОМЕРА
+        // 14. КОПИРОВАНИЕ НОМЕРА
         // ============================================================
         function copyPhone(event) {
             event.preventDefault();
@@ -1345,7 +1418,7 @@
         }
 
         // ============================================================
-        // 14. ПРОКРУТКА И АНИМАЦИЯ
+        // 15. ПРОКРУТКА И АНИМАЦИЯ
         // ============================================================
         const scrollBtn = document.getElementById('scrollTopBtn');
         window.addEventListener('scroll', () => {
