@@ -55,9 +55,7 @@
         .error-msg { color: #b75a5a; font-size: 14px; margin-bottom: 15px; display: none; }
         .error-msg.show { display: block; }
 
-        /* ============================================================
-           НОВОЕ МОДАЛЬНОЕ ОКНО ПРОСМОТРА ТОВАРА
-           ============================================================ */
+        /* МОДАЛЬНОЕ ОКНО ПРОСМОТРА ТОВАРА */
         #productViewModal .modal-box {
             max-width: 900px;
             padding: 0;
@@ -71,8 +69,6 @@
             flex-wrap: wrap;
             min-height: 500px;
         }
-        
-        /* ЛЕВАЯ ЧАСТЬ - ФОТО */
         #productViewModal .modal-images {
             flex: 1 1 45%;
             min-width: 300px;
@@ -99,7 +95,6 @@
             height: 100%;
             object-fit: cover;
         }
-        
         #productViewModal .modal-images .thumbnails {
             display: flex;
             gap: 10px;
@@ -132,8 +127,6 @@
         #productViewModal .modal-images .thumbnails .thumb-item iframe {
             pointer-events: none;
         }
-        
-        /* ПРАВАЯ ЧАСТЬ - ИНФО */
         #productViewModal .modal-text {
             flex: 1 1 55%;
             padding: 30px 35px 30px 30px;
@@ -141,7 +134,6 @@
             display: flex;
             flex-direction: column;
         }
-        
         #productViewModal .close-view-btn {
             position: absolute;
             top: 15px;
@@ -163,7 +155,6 @@
             backdrop-filter: blur(4px);
         }
         #productViewModal .close-view-btn:hover { background: #c4a07a; transform: scale(1.05); }
-
         #productViewModal .modal-text .product-category {
             display: inline-block;
             background: #ece0d4;
@@ -176,7 +167,6 @@
             margin-bottom: 8px;
             align-self: flex-start;
         }
-
         #productViewModal .modal-text h2 {
             font-size: 26px;
             font-weight: 700;
@@ -185,8 +175,6 @@
             padding-right: 30px;
             line-height: 1.2;
         }
-
-        /* ===== КНОПКИ ВАРИАЦИЙ ===== */
         #productViewModal .variations-wrapper {
             margin: 12px 0 15px 0;
         }
@@ -228,8 +216,6 @@
             box-shadow: 0 4px 15px rgba(196, 160, 122, 0.35);
             transform: translateY(-2px);
         }
-
-        /* ===== ЦЕНА ===== */
         #productViewModal .price-block {
             font-size: 28px;
             color: #c4a07a;
@@ -246,8 +232,6 @@
             font-size: 20px;
             text-decoration: line-through;
         }
-
-        /* ===== ОПИСАНИЕ ===== */
         #productViewModal .desc-wrapper {
             background: #f5ede4;
             padding: 16px 20px;
@@ -271,8 +255,6 @@
             margin-bottom: 4px;
             display: block;
         }
-
-        /* ===== ХАРАКТЕРИСТИКИ ===== */
         #productViewModal .product-meta {
             display: flex;
             gap: 20px;
@@ -330,7 +312,6 @@
             }
         }
 
-        /* ОСТАЛЬНЫЕ СТИЛИ */
         #mainPage { display: block; }
         #aboutPage { display: none; }
 
@@ -515,12 +496,42 @@
         .empty-msg { text-align: center; padding: 60px 20px; color: #c4b6a6; font-size: 18px; }
         .empty-msg i { font-size: 50px; display: block; margin-bottom: 15px; opacity: 0.5; }
 
+        /* КНОПКИ КАТЕГОРИЙ */
         .category-list-wrapper { margin: 20px 0 40px 0; }
         .category-list { display: flex; flex-direction: column; gap: 12px; max-width: 600px; margin: 0 auto; }
-        .cat-btn { display: block; width: 100%; padding: 16px 20px; border: 1px solid #ece0d4; border-radius: 16px; background: #faf3ea; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; color: #6a5f52; cursor: pointer; transition: 0.3s; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
-        .cat-btn:hover { border-color: #c4a07a; background: #f5ede4; transform: translateY(-2px); }
-        .cat-btn.active { background: #c4a07a; color: #fff; border-color: #c4a07a; box-shadow: 0 4px 15px rgba(196,160,122,0.3); }
-        .cat-btn.active:hover { background: #ad8a67; transform: translateY(-2px); }
+        .cat-btn {
+            display: block;
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid transparent;
+            border-radius: 16px;
+            background: #faf3ea;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: #6a5f52;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+        }
+        .cat-btn:hover {
+            border-color: #c4a07a;
+            background: #f5ede4;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(196, 160, 122, 0.1);
+        }
+        .cat-btn.active {
+            background: #c4a07a;
+            color: #fff;
+            border-color: #c4a07a;
+            box-shadow: 0 4px 20px rgba(196, 160, 122, 0.35);
+            transform: translateY(-2px);
+        }
+        .cat-btn.active:hover {
+            background: #ad8a67;
+            border-color: #ad8a67;
+        }
 
         #aboutPage { min-height: 70vh; padding: 60px 0; }
         .about-wrapper { background: #faf3ea; padding: 60px; border-radius: 30px; border: 1px solid #ece0d4; box-shadow: 0 8px 25px rgba(0,0,0,0.03); position: relative; }
@@ -610,7 +621,7 @@
         <i class="fas fa-chevron-up"></i>
     </button>
 
-    <!-- МОДАЛЬНЫЕ ОКНА -->
+    <!-- МОДАЛЬНОЕ ОКНО ВХОДА -->
     <div class="modal-overlay" id="loginModal">
         <div class="modal-box">
             <h3 id="modalLoginTitle"><i class="fas fa-user-shield" style="color: #c4a07a;"></i> Вхід в адмінку</h3>
@@ -624,6 +635,7 @@
         </div>
     </div>
 
+    <!-- ОСТАЛЬНЫЕ МОДАЛКИ -->
     <div class="modal-overlay" id="pickupModal">
         <div class="modal-box">
             <h3 id="pickupTitle"><i class="fas fa-truck-loading" style="color: #c4a07a;"></i> Самовивіз</h3>
@@ -648,12 +660,10 @@
         </div>
     </div>
 
-    <!-- ===== НОВОЕ МОДАЛЬНОЕ ОКНО ПРОСМОТРА ===== -->
     <div class="modal-overlay" id="productViewModal">
         <div class="modal-box">
             <button class="close-view-btn" onclick="closeModal('productViewModal')"><i class="fas fa-times"></i></button>
             <div class="modal-content">
-                <!-- Левая часть - фото -->
                 <div class="modal-images">
                     <div class="main-img-wrapper" id="viewMainImage">
                         <div style="color: #c4b6a6; font-size: 18px; display: flex; flex-direction: column; align-items: center;">
@@ -663,28 +673,18 @@
                     </div>
                     <div class="thumbnails" id="viewThumbnails"></div>
                 </div>
-                
-                <!-- Правая часть - информация -->
                 <div class="modal-text">
                     <span class="product-category" id="viewCategory"></span>
                     <h2 id="viewTitle">Назва товару</h2>
-                    
-                    <!-- Кнопки выбора типа -->
                     <div class="variations-wrapper" id="variationsBlock">
                         <span class="variations-label" id="varLabel"><i class="fas fa-tag" style="margin-right: 6px;"></i> Оберіть тип:</span>
                         <div class="variations-list" id="variationsList"></div>
                     </div>
-
-                    <!-- Цена -->
                     <div class="price-block" id="viewPrice"></div>
-                    
-                    <!-- Описание -->
                     <div class="desc-wrapper">
                         <span class="desc-label"><i class="fas fa-align-left" style="margin-right: 6px;"></i> Опис</span>
                         <div class="desc" id="viewDesc">Опис товару</div>
                     </div>
-                    
-                    <!-- Мета-информация -->
                     <div class="product-meta">
                         <span class="meta-item"><i class="fas fa-box"></i> <span id="metaVariants">0 варіацій</span></span>
                         <span class="meta-item"><i class="fas fa-tag"></i> <span id="metaCategory">Категорія</span></span>
@@ -793,6 +793,7 @@
                 <h2 class="section-title" id="catalogTitle">Товари Kora Textile</h2>
             </div>
 
+            <!-- КАТЕГОРИИ -->
             <div class="category-list-wrapper">
                 <div class="category-list" id="categoryList">
                     <button class="cat-btn active" onclick="filterCategory('')">Всі товари</button>
@@ -1058,7 +1059,6 @@
             document.getElementById('langUa').classList.toggle('active-lang', lang === 'ua');
             document.getElementById('langRu').classList.toggle('active-lang', lang === 'ru');
             
-            // Модалки
             document.getElementById('modalLoginTitle').innerHTML = t.modalLoginTitle;
             document.getElementById('modalLoginDesc').innerText = t.modalLoginDesc;
             document.getElementById('errorMsg').innerHTML = t.errorMsg;
@@ -1077,22 +1077,18 @@
             document.getElementById('returnDesc3').innerHTML = t.returnDesc3;
             document.getElementById('returnBtn').innerText = t.returnBtn;
 
-            // Hero
             document.getElementById('heroBadge').innerHTML = t.heroBadge;
             document.getElementById('heroTitle').innerHTML = t.heroTitle;
             document.getElementById('heroDesc').innerText = t.heroDesc;
 
-            // Админка
             document.getElementById('adminTitle').innerHTML = t.adminTitle;
             document.getElementById('uploadTitle').innerHTML = t.uploadTitle;
             document.getElementById('uploadHint').innerText = t.uploadHint;
             document.getElementById('addBtnText').innerText = t.addBtnText;
 
-            // Каталог
             document.getElementById('catalogSub').innerHTML = t.catalogSub;
             document.getElementById('catalogTitle').innerText = t.catalogTitle;
 
-            // О нас
             document.getElementById('aboutTitle').innerHTML = t.aboutTitle;
             document.getElementById('aboutDesc1').innerHTML = t.aboutDesc1;
             document.getElementById('aboutDesc2').innerText = t.aboutDesc2;
@@ -1100,7 +1096,6 @@
             document.getElementById('aboutDesc3').innerText = t.aboutDesc3;
             document.getElementById('backHomeBtnText').innerText = t.backHomeBtnText;
 
-            // Футер
             document.getElementById('footerDesc').innerText = t.footerDesc;
             document.getElementById('footerCatalog').innerText = t.footerCatalog;
             document.getElementById('footerInfo').innerText = t.footerInfo;
@@ -1111,17 +1106,14 @@
             document.getElementById('copyTooltip').innerText = t.copyTooltip;
             document.getElementById('footerCopy').innerHTML = t.footerCopy;
 
-            // Модалка просмотра
             document.getElementById('varLabel').innerHTML = '<i class="fas fa-tag" style="margin-right: 6px;"></i> ' + t.varLabel;
             document.getElementById('noPhotoText').innerText = t.noPhoto;
 
-            // Чекбоксы
             document.getElementById('labelHalf').innerText = t.labelHalf;
             document.getElementById('labelDouble').innerText = t.labelDouble;
             document.getElementById('labelEuro').innerText = t.labelEuro;
             document.getElementById('labelFamily').innerText = t.labelFamily;
 
-            // Плейсхолдеры
             document.getElementById('productName').placeholder = lang === 'ua' ? 'Назва товару (наприклад: Комплект постільної білизни)' : 'Название товара (например: Комплект постельного белья)';
             document.getElementById('productVideo').placeholder = lang === 'ua' ? 'Посилання на відео (YouTube, наприклад: https://www.youtube.com/watch?v=...)' : 'Ссылка на видео (YouTube, например: https://www.youtube.com/watch?v=...)';
 
@@ -1156,8 +1148,14 @@
 
         function goToMainPage() { navigateHome(event); }
 
-        function openModal(id) { document.getElementById(id).classList.add('show'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+        function openModal(id) { 
+            document.getElementById(id).classList.add('show'); 
+        }
+        
+        function closeModal(id) { 
+            document.getElementById(id).classList.remove('show'); 
+        }
+        
         document.querySelectorAll('.modal-overlay').forEach(modal => {
             modal.addEventListener('click', (e) => {
                 if (e.target === e.currentTarget) modal.classList.remove('show');
@@ -1165,18 +1163,26 @@
         });
 
         // ============================================================
-        // 5. ВХОД В АДМИНКУ
+        // 5. ВХОД В АДМИНКУ - ИСПРАВЛЕНО!
         // ============================================================
         document.getElementById('secretLogo').addEventListener('click', function(e) {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            resetFilter();
+            
+            // Если уже админ - выходим
+            if (isAdmin) { 
+                logoutAdmin(); 
+                return; 
+            }
+            
             clickCount++;
             clearTimeout(clickTimer);
             clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
+            
             if (clickCount >= 5) {
-                clickCount = 0; clearTimeout(clickTimer);
-                if (isAdmin) { logoutAdmin(); return; }
+                clickCount = 0;
+                clearTimeout(clickTimer);
+                // ПОКАЗЫВАЕМ МОДАЛКУ ВХОДА
                 document.getElementById('loginModal').classList.add('show');
                 document.getElementById('passwordInput').value = '';
                 document.getElementById('errorMsg').classList.remove('show');
@@ -1197,7 +1203,8 @@
                 renderProducts();
             } else {
                 error.classList.add('show');
-                input.value = ''; input.focus();
+                input.value = ''; 
+                input.focus();
             }
         }
 
@@ -1231,9 +1238,9 @@
                     images: [],
                     video: '',
                     variants: [
-                        { type: 'half', price: '1 250 ₴', oldPrice: '1 500 ₴', desc: 'Полуторний комплект: простирадло 150×220, підковдра 145×215, наволочки 70×70 (2 шт.). Натуральний льон 100%, приємний на дотик. Ідеальний для одного або для дитячого ліжка.' },
-                        { type: 'double', price: '1 450 ₴', oldPrice: '1 700 ₴', desc: 'Двуспалний комплект: простирадло 200×220, підковдра 175×215, наволочки 70×70 (2 шт.). Льон високої якості, дихаючий та міцний.' },
-                        { type: 'euro', price: '1 650 ₴', oldPrice: '1 900 ₴', desc: 'Євро комплект: простирадло 220×240, підковдра 200×220, наволочки 70×70 (2 шт.). Льон преміум класу, надзвичайно м\'який та приємний.' },
+                        { type: 'half', price: '1 250 ₴', oldPrice: '1 500 ₴', desc: 'Полуторний комплект: простирадло 150×220, підковдра 145×215, наволочки 70×70 (2 шт.). Натуральний льон 100%, приємний на дотик.' },
+                        { type: 'double', price: '1 450 ₴', oldPrice: '1 700 ₴', desc: 'Двуспалний комплект: простирадло 200×220, підковдра 175×215, наволочки 70×70 (2 шт.). Льон високої якості.' },
+                        { type: 'euro', price: '1 650 ₴', oldPrice: '1 900 ₴', desc: 'Євро комплект: простирадло 220×240, підковдра 200×220, наволочки 70×70 (2 шт.). Льон преміум класу.' },
                         { type: 'family', price: '1 850 ₴', oldPrice: '2 200 ₴', desc: 'Сімейний комплект: простирадло 240×260, підковдри 145×215 (2 шт.), наволочки 70×70 (4 шт.). Ідеальний для великої родини.' }
                     ]
                 }
@@ -1394,19 +1401,23 @@
         });
 
         // ============================================================
-        // 9. ОТОБРАЖЕНИЕ ТОВАРОВ
+        // 9. ОТОБРАЖЕНИЕ ТОВАРОВ И КАТЕГОРИЙ - ИСПРАВЛЕНО!
         // ============================================================
         function getDisplayProducts() {
             return getProducts();
         }
 
         function filterCategory(category) {
+            // Если мы на странице "О нас" - переходим на главную
             if (document.getElementById('mainPage').style.display === 'none') {
                 goToMainPage();
                 setTimeout(() => filterCategory(category), 500);
                 return;
             }
+            
             currentCategoryFilter = category;
+            
+            // Обновляем активный класс у кнопок
             const buttons = document.querySelectorAll('.cat-btn');
             buttons.forEach(btn => {
                 btn.classList.remove('active');
@@ -1415,8 +1426,17 @@
                     btn.classList.add('active');
                 }
             });
+            
             renderProducts();
-            window.scrollTo({ top: document.getElementById('catalogHeader').offsetTop - 80, behavior: 'smooth' });
+            
+            // Плавная прокрутка к каталогу
+            const header = document.getElementById('catalogHeader');
+            if (header) {
+                window.scrollTo({ 
+                    top: header.offsetTop - 100, 
+                    behavior: 'smooth' 
+                });
+            }
         }
 
         function resetFilter() {
@@ -1424,7 +1444,9 @@
             const buttons = document.querySelectorAll('.cat-btn');
             buttons.forEach(btn => {
                 btn.classList.remove('active');
-                if (btn.innerText.trim() === 'Всі товари') btn.classList.add('active');
+                if (btn.innerText.trim() === 'Всі товари') {
+                    btn.classList.add('active');
+                }
             });
             renderProducts();
         }
@@ -1480,7 +1502,7 @@
         }
 
         // ============================================================
-        // 10. ПРОСМОТР ТОВАРА (НОВЫЙ УДОБНЫЙ)
+        // 10. ПРОСМОТР ТОВАРА
         // ============================================================
         function openProductView(id) {
             const products = getDisplayProducts();
@@ -1494,7 +1516,6 @@
 
             currentSelectedVariant = 0;
 
-            // Категория
             const categoryEl = document.getElementById('viewCategory');
             if (product.category) {
                 categoryEl.style.display = 'inline-block';
@@ -1503,19 +1524,15 @@
                 categoryEl.style.display = 'none';
             }
 
-            // Название
             document.getElementById('viewTitle').innerText = product.name;
 
-            // Первый вариант
             const firstVar = product.variants[0];
             document.getElementById('viewPrice').innerHTML = `${firstVar.price} ${firstVar.oldPrice ? `<span class="old-price">${firstVar.oldPrice}</span>` : ''}`;
             document.getElementById('viewDesc').innerHTML = firstVar.desc || t('noDescription');
 
-            // Мета-информация
             document.getElementById('metaVariants').innerText = `${product.variants.length} ${t('variantsCount')}`;
             document.getElementById('metaCategory').innerText = product.category || t('category');
 
-            // Фото
             const mainImgWrapper = document.getElementById('viewMainImage');
             const thumbContainer = document.getElementById('viewThumbnails');
             thumbContainer.innerHTML = '';
@@ -1569,7 +1586,6 @@
                 thumbContainer.appendChild(thumb);
             });
 
-            // Кнопки вариаций
             const variationsList = document.getElementById('variationsList');
             variationsList.innerHTML = '';
             
@@ -1696,6 +1712,14 @@
             }
             renderProducts();
             checkReveal();
+            
+            // Убеждаемся что "Всі товари" активна
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.innerText.trim() === 'Всі товари') {
+                    btn.classList.add('active');
+                }
+            });
         });
     </script>
 </body>
