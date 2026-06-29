@@ -123,7 +123,9 @@
         .form-grid textarea { resize: vertical; min-height: 60px; }
         .form-grid .full-width { grid-column: 1 / -1; }
 
-        /* ===== КРАСИВЫЕ КВАДРАТНЫЕ ЧЕКБОКСЫ ===== */
+        /* ============================================================
+           КРАСИВЫЕ КВАДРАТНЫЕ ЧЕКБОКСЫ
+           ============================================================ */
         .variations-fields {
             grid-column: 1 / -1;
             display: grid;
@@ -142,83 +144,84 @@
             background: #fff;
             padding: 15px;
             border-radius: 12px;
-            border: 1px solid #ece0d4;
+            border: 2px solid #ece0d4;
+            transition: all 0.3s ease;
         }
 
-        .variations-fields .var-group .var-check {
+        .variations-fields .var-group.selected {
+            border-color: #c4a07a;
+            box-shadow: 0 2px 16px rgba(196, 160, 122, 0.2);
+        }
+
+        /* ===== КАСТОМНЫЙ ЧЕКБОКС ===== */
+        .variations-fields .var-group .custom-checkbox-wrapper {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 5px;
             cursor: pointer;
+            margin-bottom: 8px;
+            padding: 4px 0;
         }
 
-        /* Скрываем стандартный чекбокс */
-        .variations-fields .var-group .var-check input[type="checkbox"] {
-            position: absolute;
-            opacity: 0;
-            width: 0;
-            height: 0;
+        .variations-fields .var-group .custom-checkbox-wrapper input[type="checkbox"] {
+            display: none;
         }
 
-        /* Создаём красивый квадратный чекбокс */
-        .variations-fields .var-group .var-check .custom-checkbox {
+        .variations-fields .var-group .custom-checkbox-wrapper .checkmark {
             display: inline-block;
-            width: 24px;
-            height: 24px;
-            min-width: 24px;
-            min-height: 24px;
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            min-height: 28px;
             border: 2px solid #d4bca3;
-            border-radius: 6px;
+            border-radius: 8px;
             background: #faf3ea;
-            transition: all 0.2s ease;
             position: relative;
-            cursor: pointer;
+            transition: all 0.25s ease;
             flex-shrink: 0;
         }
 
-        .variations-fields .var-group .var-check .custom-checkbox:hover {
+        .variations-fields .var-group .custom-checkbox-wrapper .checkmark:hover {
             border-color: #c4a07a;
             background: #f5ede4;
         }
 
-        /* Галочка внутри */
-        .variations-fields .var-group .var-check .custom-checkbox::after {
+        /* Галочка - появляется при выборе */
+        .variations-fields .var-group .custom-checkbox-wrapper .checkmark::after {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            width: 14px;
-            height: 14px;
+            width: 16px;
+            height: 16px;
             background: #c4a07a;
-            border-radius: 3px;
-            transition: transform 0.2s ease;
+            border-radius: 4px;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         /* Состояние "выбрано" */
-        .variations-fields .var-group .var-check input[type="checkbox"]:checked + .custom-checkbox {
+        .variations-fields .var-group .custom-checkbox-wrapper input[type="checkbox"]:checked + .checkmark {
             border-color: #c4a07a;
             background: #c4a07a;
-            box-shadow: 0 2px 8px rgba(196, 160, 122, 0.3);
+            box-shadow: 0 2px 12px rgba(196, 160, 122, 0.35);
         }
 
-        .variations-fields .var-group .var-check input[type="checkbox"]:checked + .custom-checkbox::after {
+        .variations-fields .var-group .custom-checkbox-wrapper input[type="checkbox"]:checked + .checkmark::after {
             transform: translate(-50%, -50%) scale(1);
-            background: #fff;
+            background: #ffffff;
         }
 
-        .variations-fields .var-group .var-check input[type="checkbox"]:checked + .custom-checkbox {
-            background: #c4a07a;
-        }
-
-        /* Метка */
-        .variations-fields .var-group .var-check label {
-            cursor: pointer;
+        .variations-fields .var-group .custom-checkbox-wrapper .label-text {
             font-weight: 600;
-            font-size: 15px;
+            font-size: 16px;
             color: #3d352a;
             user-select: none;
+            transition: color 0.3s;
+        }
+
+        .variations-fields .var-group.selected .custom-checkbox-wrapper .label-text {
+            color: #c4a07a;
         }
 
         .variations-fields .var-group input,
@@ -237,6 +240,7 @@
         .variations-fields .var-group textarea:focus {
             outline: none;
             border-color: #c4a07a;
+            box-shadow: 0 0 0 3px rgba(196, 160, 122, 0.1);
         }
 
         .variations-fields .var-group textarea {
@@ -244,14 +248,18 @@
             resize: vertical;
         }
 
-        /* Если чекбокс выбран, подсвечиваем всю группу */
-        .variations-fields .var-group.selected {
-            border-color: #c4a07a;
-            box-shadow: 0 2px 12px rgba(196, 160, 122, 0.15);
+        .variations-fields .var-group .field-hint {
+            font-size: 11px;
+            color: #b5a695;
+            margin-top: 2px;
         }
 
-        @media (max-width: 1024px) { .variations-fields { grid-template-columns: 1fr 1fr; } }
-        @media (max-width: 600px) { .variations-fields { grid-template-columns: 1fr; } }
+        @media (max-width: 1024px) { 
+            .variations-fields { grid-template-columns: 1fr 1fr; } 
+        }
+        @media (max-width: 600px) { 
+            .variations-fields { grid-template-columns: 1fr; } 
+        }
 
         .upload-zone { grid-column: 1 / -1; border: 2px dashed #d4bca3; border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: 0.3s; background: #faf3ea; position: relative; }
         .upload-zone:hover { border-color: #c4a07a; background: #f5ede4; }
@@ -466,14 +474,17 @@
                         <option value="Піжами">Піжами</option>
                     </select>
 
+                    <!-- ============================================= -->
+                    <!-- КВАДРАТНЫЕ ЧЕКБОКСЫ С ГАЛОЧКАМИ              -->
+                    <!-- ============================================= -->
                     <div class="variations-fields full-width" id="variationsFields">
                         <!-- Полуторный -->
                         <div class="var-group" id="groupHalf">
-                            <div class="var-check" onclick="toggleCheckbox('varHalf', 'groupHalf')">
+                            <label class="custom-checkbox-wrapper" onclick="toggleCheckbox('varHalf', 'groupHalf')">
                                 <input type="checkbox" id="varHalf" />
-                                <span class="custom-checkbox"></span>
-                                <label for="varHalf" id="labelHalf">Полуторний</label>
-                            </div>
+                                <span class="checkmark"></span>
+                                <span class="label-text" id="labelHalf">Полуторний</span>
+                            </label>
                             <input type="text" id="priceHalf" placeholder='Ціна (напр. 1250 ₴)' />
                             <input type="text" id="oldPriceHalf" placeholder='Стара ціна (необов\'язково)' />
                             <textarea id="descHalf" placeholder='Опис для полуторного...'></textarea>
@@ -481,11 +492,11 @@
 
                         <!-- Двуспальный -->
                         <div class="var-group" id="groupDouble">
-                            <div class="var-check" onclick="toggleCheckbox('varDouble', 'groupDouble')">
+                            <label class="custom-checkbox-wrapper" onclick="toggleCheckbox('varDouble', 'groupDouble')">
                                 <input type="checkbox" id="varDouble" />
-                                <span class="custom-checkbox"></span>
-                                <label for="varDouble" id="labelDouble">Двуспалний</label>
-                            </div>
+                                <span class="checkmark"></span>
+                                <span class="label-text" id="labelDouble">Двуспалний</span>
+                            </label>
                             <input type="text" id="priceDouble" placeholder='Ціна (напр. 1450 ₴)' />
                             <input type="text" id="oldPriceDouble" placeholder='Стара ціна (необов\'язково)' />
                             <textarea id="descDouble" placeholder='Опис для двуспалного...'></textarea>
@@ -493,11 +504,11 @@
 
                         <!-- Евро -->
                         <div class="var-group" id="groupEuro">
-                            <div class="var-check" onclick="toggleCheckbox('varEuro', 'groupEuro')">
+                            <label class="custom-checkbox-wrapper" onclick="toggleCheckbox('varEuro', 'groupEuro')">
                                 <input type="checkbox" id="varEuro" />
-                                <span class="custom-checkbox"></span>
-                                <label for="varEuro" id="labelEuro">Євро</label>
-                            </div>
+                                <span class="checkmark"></span>
+                                <span class="label-text" id="labelEuro">Євро</span>
+                            </label>
                             <input type="text" id="priceEuro" placeholder='Ціна (напр. 1650 ₴)' />
                             <input type="text" id="oldPriceEuro" placeholder='Стара ціна (необов\'язково)' />
                             <textarea id="descEuro" placeholder='Опис для євро...'></textarea>
@@ -505,11 +516,11 @@
 
                         <!-- Семейный -->
                         <div class="var-group" id="groupFamily">
-                            <div class="var-check" onclick="toggleCheckbox('varFamily', 'groupFamily')">
+                            <label class="custom-checkbox-wrapper" onclick="toggleCheckbox('varFamily', 'groupFamily')">
                                 <input type="checkbox" id="varFamily" />
-                                <span class="custom-checkbox"></span>
-                                <label for="varFamily" id="labelFamily">Сімейний</label>
-                            </div>
+                                <span class="checkmark"></span>
+                                <span class="label-text" id="labelFamily">Сімейний</span>
+                            </label>
                             <input type="text" id="priceFamily" placeholder='Ціна (напр. 1850 ₴)' />
                             <input type="text" id="oldPriceFamily" placeholder='Стара ціна (необов\'язково)' />
                             <textarea id="descFamily" placeholder='Опис для сімейного...'></textarea>
@@ -756,16 +767,14 @@
         };
 
         // ============================================================
-        // 3. ФУНКЦИЯ ДЛЯ ЧЕКБОКСОВ - ВКЛ/ВЫКЛ
+        // 3. ФУНКЦИЯ ДЛЯ ЧЕКБОКСОВ
         // ============================================================
         function toggleCheckbox(checkboxId, groupId) {
             const checkbox = document.getElementById(checkboxId);
             const group = document.getElementById(groupId);
             
-            // Переключаем состояние чекбокса
             checkbox.checked = !checkbox.checked;
             
-            // Добавляем/убираем класс selected для подсветки группы
             if (checkbox.checked) {
                 group.classList.add('selected');
             } else {
@@ -1056,49 +1065,22 @@
 
             const variants = [];
             const typeMap = {
-                'half': { 
-                    check: 'varHalf', 
-                    price: 'priceHalf', 
-                    oldPrice: 'oldPriceHalf', 
-                    desc: 'descHalf',
-                    label: 'Полуторний'
-                },
-                'double': { 
-                    check: 'varDouble', 
-                    price: 'priceDouble', 
-                    oldPrice: 'oldPriceDouble', 
-                    desc: 'descDouble',
-                    label: 'Двуспалний'
-                },
-                'euro': { 
-                    check: 'varEuro', 
-                    price: 'priceEuro', 
-                    oldPrice: 'oldPriceEuro', 
-                    desc: 'descEuro',
-                    label: 'Євро'
-                },
-                'family': { 
-                    check: 'varFamily', 
-                    price: 'priceFamily', 
-                    oldPrice: 'oldPriceFamily', 
-                    desc: 'descFamily',
-                    label: 'Сімейний'
-                }
+                'half': { check: 'varHalf', price: 'priceHalf', oldPrice: 'oldPriceHalf', desc: 'descHalf' },
+                'double': { check: 'varDouble', price: 'priceDouble', oldPrice: 'oldPriceDouble', desc: 'descDouble' },
+                'euro': { check: 'varEuro', price: 'priceEuro', oldPrice: 'oldPriceEuro', desc: 'descEuro' },
+                'family': { check: 'varFamily', price: 'priceFamily', oldPrice: 'oldPriceFamily', desc: 'descFamily' }
             };
 
             let hasVariant = false;
-            
             for (const [typeKey, ids] of Object.entries(typeMap)) {
                 const checkbox = document.getElementById(ids.check);
-                const isChecked = checkbox.checked;
-                
-                if (isChecked) {
+                if (checkbox.checked) {
                     const price = document.getElementById(ids.price).value.trim();
                     const oldPrice = document.getElementById(ids.oldPrice).value.trim();
                     const desc = document.getElementById(ids.desc).value.trim();
                     
                     if (!price) {
-                        const typeName = VARIANT_NAMES[currentLang][typeKey] || ids.label;
+                        const typeName = VARIANT_NAMES[currentLang][typeKey] || typeKey;
                         alert(t('enterPrice', { type: typeName }));
                         document.getElementById(ids.price).focus();
                         return;
@@ -1147,13 +1129,10 @@
             document.getElementById('fileInput').value = '';
 
             for (const ids of Object.values(typeMap)) {
-                const checkbox = document.getElementById(ids.check);
-                checkbox.checked = false;
+                document.getElementById(ids.check).checked = false;
                 document.getElementById(ids.price).value = '';
                 document.getElementById(ids.oldPrice).value = '';
                 document.getElementById(ids.desc).value = '';
-                
-                // Убираем подсветку группы
                 const groupId = ids.check.replace('var', 'group');
                 const group = document.getElementById(groupId);
                 if (group) group.classList.remove('selected');
