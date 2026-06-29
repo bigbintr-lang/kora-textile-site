@@ -55,29 +55,282 @@
         .error-msg { color: #b75a5a; font-size: 14px; margin-bottom: 15px; display: none; }
         .error-msg.show { display: block; }
 
-        #productViewModal .modal-box { max-width: 850px; padding: 0; overflow: hidden; border-radius: 30px; position: relative; }
-        #productViewModal .modal-content { display: flex; flex-wrap: wrap; }
-        #productViewModal .modal-images { flex: 1 1 50%; min-width: 300px; background: #faf3ea; border-right: 1px solid #ece0d4; display: flex; flex-direction: column; }
-        #productViewModal .modal-images .main-img-wrapper { width: 100%; height: 400px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #faf3ea; border-radius: 30px 0 0 0; }
-        #productViewModal .modal-images .main-img-wrapper img, #productViewModal .modal-images .main-img-wrapper iframe { width: 100%; height: 100%; object-fit: cover; }
-        #productViewModal .modal-images .thumbnails { display: flex; gap: 12px; padding: 15px; overflow-x: auto; background: #f5ede4; border-top: 1px solid #ece0d4; border-radius: 0 0 0 30px; }
-        #productViewModal .modal-images .thumbnails img, #productViewModal .modal-images .thumbnails iframe { width: 70px; height: 70px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid transparent; flex-shrink: 0; }
-        #productViewModal .modal-images .thumbnails img.active, #productViewModal .modal-images .thumbnails iframe.active { border-color: #c4a07a; box-shadow: 0 2px 8px rgba(196,160,122,0.3); }
-        #productViewModal .modal-text { flex: 1 1 50%; padding: 40px 40px 40px 30px; background: #faf3ea; }
-        #productViewModal .close-view-btn { position: absolute; top: 15px; right: 15px; background: #3d352a; color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 18px; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: 0.3s; }
-        #productViewModal .close-view-btn:hover { background: #c4a07a; transform: scale(1.05); }
-        #productViewModal .modal-text h2 { font-size: 28px; margin-bottom: 5px; padding-right: 40px; }
-        #productViewModal .modal-text .price-block { font-size: 24px; color: #c4a07a; font-weight: 700; margin: 10px 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-        #productViewModal .modal-text .price-block .old-price { color: #c4b6a6; font-weight: 400; font-size: 18px; text-decoration: line-through; }
-        #productViewModal .modal-text .desc { color: #6a5f52; line-height: 1.8; margin-bottom: 15px; font-size: 16px; }
+        /* ============================================================
+           НОВОЕ МОДАЛЬНОЕ ОКНО ПРОСМОТРА ТОВАРА
+           ============================================================ */
+        #productViewModal .modal-box {
+            max-width: 900px;
+            padding: 0;
+            overflow: hidden;
+            border-radius: 30px;
+            position: relative;
+            background: #faf3ea;
+        }
+        #productViewModal .modal-content {
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 500px;
+        }
         
-        .variations-wrapper { margin: 15px 0 10px 0; }
-        .variations-label { display: block; font-size: 14px; font-weight: 600; color: #6a5f52; margin-bottom: 10px; }
-        .variations-list { display: flex; flex-wrap: wrap; gap: 10px; }
-        .var-btn { padding: 8px 20px; border: 2px solid #e4d5c4; border-radius: 30px; background: #faf3ea; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 15px; color: #6a5f52; cursor: pointer; transition: 0.3s; }
-        .var-btn:hover { border-color: #c4a07a; }
-        .var-btn.active { background: #c4a07a; color: #fff; border-color: #c4a07a; box-shadow: 0 4px 10px rgba(196,160,122,0.3); }
+        /* ЛЕВАЯ ЧАСТЬ - ФОТО */
+        #productViewModal .modal-images {
+            flex: 1 1 45%;
+            min-width: 300px;
+            background: #faf3ea;
+            border-right: 1px solid #ece0d4;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        #productViewModal .modal-images .main-img-wrapper {
+            width: 100%;
+            height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #f5ede4;
+            border-radius: 16px;
+            position: relative;
+        }
+        #productViewModal .modal-images .main-img-wrapper img,
+        #productViewModal .modal-images .main-img-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        #productViewModal .modal-images .thumbnails {
+            display: flex;
+            gap: 10px;
+            padding: 15px 0 0 0;
+            overflow-x: auto;
+            flex-wrap: nowrap;
+        }
+        #productViewModal .modal-images .thumbnails .thumb-item {
+            width: 70px;
+            height: 70px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+            background: #f5ede4;
+        }
+        #productViewModal .modal-images .thumbnails .thumb-item.active {
+            border-color: #c4a07a;
+            box-shadow: 0 2px 12px rgba(196, 160, 122, 0.3);
+        }
+        #productViewModal .modal-images .thumbnails .thumb-item img,
+        #productViewModal .modal-images .thumbnails .thumb-item iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        #productViewModal .modal-images .thumbnails .thumb-item iframe {
+            pointer-events: none;
+        }
+        
+        /* ПРАВАЯ ЧАСТЬ - ИНФО */
+        #productViewModal .modal-text {
+            flex: 1 1 55%;
+            padding: 30px 35px 30px 30px;
+            background: #faf3ea;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #productViewModal .close-view-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(61, 53, 42, 0.85);
+            color: #fff;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: 0.3s;
+            backdrop-filter: blur(4px);
+        }
+        #productViewModal .close-view-btn:hover { background: #c4a07a; transform: scale(1.05); }
 
+        #productViewModal .modal-text .product-category {
+            display: inline-block;
+            background: #ece0d4;
+            color: #7d6348;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            align-self: flex-start;
+        }
+
+        #productViewModal .modal-text h2 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #3d352a;
+            padding-right: 30px;
+            line-height: 1.2;
+        }
+
+        /* ===== КНОПКИ ВАРИАЦИЙ ===== */
+        #productViewModal .variations-wrapper {
+            margin: 12px 0 15px 0;
+        }
+        #productViewModal .variations-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #8a7b6a;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        #productViewModal .variations-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        #productViewModal .var-btn {
+            padding: 8px 22px;
+            border: 2px solid #e4d5c4;
+            border-radius: 30px;
+            background: #faf3ea;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            color: #6a5f52;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        #productViewModal .var-btn:hover {
+            border-color: #c4a07a;
+            background: #f5ede4;
+            transform: translateY(-2px);
+        }
+        #productViewModal .var-btn.active {
+            background: #c4a07a;
+            color: #fff;
+            border-color: #c4a07a;
+            box-shadow: 0 4px 15px rgba(196, 160, 122, 0.35);
+            transform: translateY(-2px);
+        }
+
+        /* ===== ЦЕНА ===== */
+        #productViewModal .price-block {
+            font-size: 28px;
+            color: #c4a07a;
+            font-weight: 700;
+            margin: 8px 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        #productViewModal .price-block .old-price {
+            color: #c4b6a6;
+            font-weight: 400;
+            font-size: 20px;
+            text-decoration: line-through;
+        }
+
+        /* ===== ОПИСАНИЕ ===== */
+        #productViewModal .desc-wrapper {
+            background: #f5ede4;
+            padding: 16px 20px;
+            border-radius: 14px;
+            border-left: 4px solid #c4a07a;
+            margin: 8px 0 5px 0;
+            flex-grow: 1;
+        }
+        #productViewModal .desc-wrapper .desc {
+            color: #4a3f33;
+            line-height: 1.8;
+            font-size: 15px;
+            margin: 0;
+        }
+        #productViewModal .desc-wrapper .desc-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #8a7b6a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        /* ===== ХАРАКТЕРИСТИКИ ===== */
+        #productViewModal .product-meta {
+            display: flex;
+            gap: 20px;
+            margin: 10px 0 0 0;
+            flex-wrap: wrap;
+            padding-top: 12px;
+            border-top: 1px solid #ece0d4;
+        }
+        #productViewModal .product-meta .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: #8a7b6a;
+        }
+        #productViewModal .product-meta .meta-item i {
+            color: #c4a07a;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            #productViewModal .modal-images {
+                flex: 1 1 100%;
+                border-right: none;
+                border-bottom: 1px solid #ece0d4;
+                padding: 15px;
+            }
+            #productViewModal .modal-images .main-img-wrapper {
+                height: 280px;
+            }
+            #productViewModal .modal-text {
+                padding: 20px;
+            }
+            #productViewModal .modal-text h2 {
+                font-size: 22px;
+            }
+            #productViewModal .price-block {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #productViewModal .modal-images .main-img-wrapper {
+                height: 200px;
+            }
+            #productViewModal .modal-text {
+                padding: 15px;
+            }
+            #productViewModal .modal-text h2 {
+                font-size: 18px;
+            }
+            #productViewModal .var-btn {
+                padding: 6px 16px;
+                font-size: 13px;
+            }
+        }
+
+        /* ОСТАЛЬНЫЕ СТИЛИ */
         #mainPage { display: block; }
         #aboutPage { display: none; }
 
@@ -123,9 +376,7 @@
         .form-grid textarea { resize: vertical; min-height: 60px; }
         .form-grid .full-width { grid-column: 1 / -1; }
 
-        /* ============================================================
-           КРАСИВЫЕ КВАДРАТНЫЕ ЧЕКБОКСЫ
-           ============================================================ */
+        /* КВАДРАТНЫЕ ЧЕКБОКСЫ */
         .variations-fields {
             grid-column: 1 / -1;
             display: grid;
@@ -153,7 +404,6 @@
             box-shadow: 0 2px 16px rgba(196, 160, 122, 0.2);
         }
 
-        /* ===== КАСТОМНЫЙ ЧЕКБОКС ===== */
         .variations-fields .var-group .custom-checkbox-wrapper {
             display: flex;
             align-items: center;
@@ -186,7 +436,6 @@
             background: #f5ede4;
         }
 
-        /* Галочка - появляется при выборе */
         .variations-fields .var-group .custom-checkbox-wrapper .checkmark::after {
             content: '';
             position: absolute;
@@ -200,7 +449,6 @@
             transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* Состояние "выбрано" */
         .variations-fields .var-group .custom-checkbox-wrapper input[type="checkbox"]:checked + .checkmark {
             border-color: #c4a07a;
             background: #c4a07a;
@@ -248,18 +496,8 @@
             resize: vertical;
         }
 
-        .variations-fields .var-group .field-hint {
-            font-size: 11px;
-            color: #b5a695;
-            margin-top: 2px;
-        }
-
-        @media (max-width: 1024px) { 
-            .variations-fields { grid-template-columns: 1fr 1fr; } 
-        }
-        @media (max-width: 600px) { 
-            .variations-fields { grid-template-columns: 1fr; } 
-        }
+        @media (max-width: 1024px) { .variations-fields { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 600px) { .variations-fields { grid-template-columns: 1fr; } }
 
         .upload-zone { grid-column: 1 / -1; border: 2px dashed #d4bca3; border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: 0.3s; background: #faf3ea; position: relative; }
         .upload-zone:hover { border-color: #c4a07a; background: #f5ede4; }
@@ -317,9 +555,6 @@
             .about-wrapper { padding: 30px 20px; }
             .about-wrapper h1 { font-size: 32px; }
             .category-list { max-width: 100%; }
-            #productViewModal .modal-images { flex: 1 1 100%; border-right: none; border-bottom: 1px solid #ece0d4; border-radius: 30px 30px 0 0; }
-            #productViewModal .modal-images .main-img-wrapper { border-radius: 30px 30px 0 0; }
-            #productViewModal .modal-images .thumbnails { border-radius: 0; }
         }
 
         @media (max-width: 600px) {
@@ -334,8 +569,6 @@
             .lang-wrapper { top: 90px; right: 15px; }
             .lang-toggle-btn { width: 40px; height: 40px; font-size: 18px; }
             .cat-btn { font-size: 15px; padding: 14px 16px; }
-            #productViewModal .modal-text { padding: 25px; }
-            #productViewModal .modal-images .main-img-wrapper { height: 300px; }
         }
 
         .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.2,0.9,0.3,1); }
@@ -377,7 +610,7 @@
         <i class="fas fa-chevron-up"></i>
     </button>
 
-    <!-- Модалки -->
+    <!-- МОДАЛЬНЫЕ ОКНА -->
     <div class="modal-overlay" id="loginModal">
         <div class="modal-box">
             <h3 id="modalLoginTitle"><i class="fas fa-user-shield" style="color: #c4a07a;"></i> Вхід в адмінку</h3>
@@ -415,32 +648,53 @@
         </div>
     </div>
 
+    <!-- ===== НОВОЕ МОДАЛЬНОЕ ОКНО ПРОСМОТРА ===== -->
     <div class="modal-overlay" id="productViewModal">
         <div class="modal-box">
             <button class="close-view-btn" onclick="closeModal('productViewModal')"><i class="fas fa-times"></i></button>
             <div class="modal-content">
+                <!-- Левая часть - фото -->
                 <div class="modal-images">
                     <div class="main-img-wrapper" id="viewMainImage">
-                        <div style="color: #c4b6a6; font-size: 20px; display: flex; flex-direction: column; align-items: center;">
-                            <i class="fas fa-image" style="font-size: 50px; margin-bottom: 15px;"></i>
-                            <span>Фото відсутнє</span>
+                        <div style="color: #c4b6a6; font-size: 18px; display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-image" style="font-size: 40px; margin-bottom: 10px;"></i>
+                            <span id="noPhotoText">Фото відсутнє</span>
                         </div>
                     </div>
                     <div class="thumbnails" id="viewThumbnails"></div>
                 </div>
+                
+                <!-- Правая часть - информация -->
                 <div class="modal-text">
+                    <span class="product-category" id="viewCategory"></span>
                     <h2 id="viewTitle">Назва товару</h2>
+                    
+                    <!-- Кнопки выбора типа -->
                     <div class="variations-wrapper" id="variationsBlock">
-                        <span class="variations-label" id="varLabel">Оберіть тип:</span>
+                        <span class="variations-label" id="varLabel"><i class="fas fa-tag" style="margin-right: 6px;"></i> Оберіть тип:</span>
                         <div class="variations-list" id="variationsList"></div>
                     </div>
+
+                    <!-- Цена -->
                     <div class="price-block" id="viewPrice"></div>
-                    <div class="desc" id="viewDesc">Опис товару</div>
+                    
+                    <!-- Описание -->
+                    <div class="desc-wrapper">
+                        <span class="desc-label"><i class="fas fa-align-left" style="margin-right: 6px;"></i> Опис</span>
+                        <div class="desc" id="viewDesc">Опис товару</div>
+                    </div>
+                    
+                    <!-- Мета-информация -->
+                    <div class="product-meta">
+                        <span class="meta-item"><i class="fas fa-box"></i> <span id="metaVariants">0 варіацій</span></span>
+                        <span class="meta-item"><i class="fas fa-tag"></i> <span id="metaCategory">Категорія</span></span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- ГЛАВНАЯ СТРАНИЦА -->
     <main id="mainPage">
         <div class="container">
             <section class="hero" id="top">
@@ -474,11 +728,7 @@
                         <option value="Піжами">Піжами</option>
                     </select>
 
-                    <!-- ============================================= -->
-                    <!-- КВАДРАТНЫЕ ЧЕКБОКСЫ С ГАЛОЧКАМИ              -->
-                    <!-- ============================================= -->
                     <div class="variations-fields full-width" id="variationsFields">
-                        <!-- Полуторный -->
                         <div class="var-group" id="groupHalf">
                             <label class="custom-checkbox-wrapper" onclick="toggleCheckbox('varHalf', 'groupHalf')">
                                 <input type="checkbox" id="varHalf" />
@@ -490,7 +740,6 @@
                             <textarea id="descHalf" placeholder='Опис для полуторного...'></textarea>
                         </div>
 
-                        <!-- Двуспальный -->
                         <div class="var-group" id="groupDouble">
                             <label class="custom-checkbox-wrapper" onclick="toggleCheckbox('varDouble', 'groupDouble')">
                                 <input type="checkbox" id="varDouble" />
@@ -502,7 +751,6 @@
                             <textarea id="descDouble" placeholder='Опис для двуспалного...'></textarea>
                         </div>
 
-                        <!-- Евро -->
                         <div class="var-group" id="groupEuro">
                             <label class="custom-checkbox-wrapper" onclick="toggleCheckbox('varEuro', 'groupEuro')">
                                 <input type="checkbox" id="varEuro" />
@@ -514,7 +762,6 @@
                             <textarea id="descEuro" placeholder='Опис для євро...'></textarea>
                         </div>
 
-                        <!-- Семейный -->
                         <div class="var-group" id="groupFamily">
                             <label class="custom-checkbox-wrapper" onclick="toggleCheckbox('varFamily', 'groupFamily')">
                                 <input type="checkbox" id="varFamily" />
@@ -640,7 +887,6 @@
         let currentLang = 'ua';
         let currentSelectedVariant = 0;
 
-        const VARIANT_TYPES = ['half', 'double', 'euro', 'family'];
         const VARIANT_NAMES = {
             'ua': { half: 'Полуторний', double: 'Двуспалний', euro: 'Євро', family: 'Сімейний' },
             'ru': { half: 'Полуторный', double: 'Двуспальный', euro: 'Евро', family: 'Семейный' }
@@ -705,7 +951,9 @@
                 'productAdded': '✅ Товар додано!',
                 'deleteConfirm': '🗑️ Видалити цей товар?',
                 'fileTooBig': '❌ Файл {name} занадто великий! Максимум 5 МБ.',
-                'filesSelected': 'Обрано файлів: '
+                'filesSelected': 'Обрано файлів: ',
+                'variantsCount': 'варіацій',
+                'category': 'Категорія'
             },
             'ru': {
                 'modalLoginTitle': 'Вход в админку',
@@ -762,28 +1010,14 @@
                 'productAdded': '✅ Товар добавлен!',
                 'deleteConfirm': '🗑️ Удалить этот товар?',
                 'fileTooBig': '❌ Файл {name} слишком большой! Максимум 5 МБ.',
-                'filesSelected': 'Выбрано файлов: '
+                'filesSelected': 'Выбрано файлов: ',
+                'variantsCount': 'вариаций',
+                'category': 'Категория'
             }
         };
 
         // ============================================================
-        // 3. ФУНКЦИЯ ДЛЯ ЧЕКБОКСОВ
-        // ============================================================
-        function toggleCheckbox(checkboxId, groupId) {
-            const checkbox = document.getElementById(checkboxId);
-            const group = document.getElementById(groupId);
-            
-            checkbox.checked = !checkbox.checked;
-            
-            if (checkbox.checked) {
-                group.classList.add('selected');
-            } else {
-                group.classList.remove('selected');
-            }
-        }
-
-        // ============================================================
-        // 4. ФУНКЦИИ ПЕРЕВОДА
+        // 3. ФУНКЦИИ
         // ============================================================
         function t(key, params = {}) {
             let text = translations[currentLang][key] || key;
@@ -791,6 +1025,17 @@
                 text = text.replace(`{${k}}`, v);
             }
             return text;
+        }
+
+        function toggleCheckbox(checkboxId, groupId) {
+            const checkbox = document.getElementById(checkboxId);
+            const group = document.getElementById(groupId);
+            checkbox.checked = !checkbox.checked;
+            if (checkbox.checked) {
+                group.classList.add('selected');
+            } else {
+                group.classList.remove('selected');
+            }
         }
 
         function toggleLangMenu() {
@@ -813,6 +1058,7 @@
             document.getElementById('langUa').classList.toggle('active-lang', lang === 'ua');
             document.getElementById('langRu').classList.toggle('active-lang', lang === 'ru');
             
+            // Модалки
             document.getElementById('modalLoginTitle').innerHTML = t.modalLoginTitle;
             document.getElementById('modalLoginDesc').innerText = t.modalLoginDesc;
             document.getElementById('errorMsg').innerHTML = t.errorMsg;
@@ -831,18 +1077,22 @@
             document.getElementById('returnDesc3').innerHTML = t.returnDesc3;
             document.getElementById('returnBtn').innerText = t.returnBtn;
 
+            // Hero
             document.getElementById('heroBadge').innerHTML = t.heroBadge;
             document.getElementById('heroTitle').innerHTML = t.heroTitle;
             document.getElementById('heroDesc').innerText = t.heroDesc;
 
+            // Админка
             document.getElementById('adminTitle').innerHTML = t.adminTitle;
             document.getElementById('uploadTitle').innerHTML = t.uploadTitle;
             document.getElementById('uploadHint').innerText = t.uploadHint;
             document.getElementById('addBtnText').innerText = t.addBtnText;
 
+            // Каталог
             document.getElementById('catalogSub').innerHTML = t.catalogSub;
             document.getElementById('catalogTitle').innerText = t.catalogTitle;
 
+            // О нас
             document.getElementById('aboutTitle').innerHTML = t.aboutTitle;
             document.getElementById('aboutDesc1').innerHTML = t.aboutDesc1;
             document.getElementById('aboutDesc2').innerText = t.aboutDesc2;
@@ -850,6 +1100,7 @@
             document.getElementById('aboutDesc3').innerText = t.aboutDesc3;
             document.getElementById('backHomeBtnText').innerText = t.backHomeBtnText;
 
+            // Футер
             document.getElementById('footerDesc').innerText = t.footerDesc;
             document.getElementById('footerCatalog').innerText = t.footerCatalog;
             document.getElementById('footerInfo').innerText = t.footerInfo;
@@ -860,13 +1111,17 @@
             document.getElementById('copyTooltip').innerText = t.copyTooltip;
             document.getElementById('footerCopy').innerHTML = t.footerCopy;
 
-            document.getElementById('varLabel').innerText = t.varLabel;
+            // Модалка просмотра
+            document.getElementById('varLabel').innerHTML = '<i class="fas fa-tag" style="margin-right: 6px;"></i> ' + t.varLabel;
+            document.getElementById('noPhotoText').innerText = t.noPhoto;
 
+            // Чекбоксы
             document.getElementById('labelHalf').innerText = t.labelHalf;
             document.getElementById('labelDouble').innerText = t.labelDouble;
             document.getElementById('labelEuro').innerText = t.labelEuro;
             document.getElementById('labelFamily').innerText = t.labelFamily;
 
+            // Плейсхолдеры
             document.getElementById('productName').placeholder = lang === 'ua' ? 'Назва товару (наприклад: Комплект постільної білизни)' : 'Название товара (например: Комплект постельного белья)';
             document.getElementById('productVideo').placeholder = lang === 'ua' ? 'Посилання на відео (YouTube, наприклад: https://www.youtube.com/watch?v=...)' : 'Ссылка на видео (YouTube, например: https://www.youtube.com/watch?v=...)';
 
@@ -874,7 +1129,7 @@
         }
 
         // ============================================================
-        // 5. НАВИГАЦИЯ
+        // 4. НАВИГАЦИЯ
         // ============================================================
         function goToAboutPage() {
             document.getElementById('mainPage').style.display = 'none';
@@ -901,9 +1156,6 @@
 
         function goToMainPage() { navigateHome(event); }
 
-        // ============================================================
-        // 6. МОДАЛЬНЫЕ ОКНА
-        // ============================================================
         function openModal(id) { document.getElementById(id).classList.add('show'); }
         function closeModal(id) { document.getElementById(id).classList.remove('show'); }
         document.querySelectorAll('.modal-overlay').forEach(modal => {
@@ -913,7 +1165,7 @@
         });
 
         // ============================================================
-        // 7. ВХОД В АДМИНКУ
+        // 5. ВХОД В АДМИНКУ
         // ============================================================
         document.getElementById('secretLogo').addEventListener('click', function(e) {
             e.preventDefault();
@@ -968,7 +1220,7 @@
         });
 
         // ============================================================
-        // 8. РАБОТА С ТОВАРАМИ
+        // 6. РАБОТА С ТОВАРАМИ
         // ============================================================
         function getDefaultProducts() {
             return [
@@ -979,10 +1231,10 @@
                     images: [],
                     video: '',
                     variants: [
-                        { type: 'half', price: '1250 ₴', oldPrice: '1500 ₴', desc: 'Полуторний комплект: простирадло 150×220, підковдра 145×215, наволочки 70×70 (2 шт.). Натуральний льон 100%, приємний на дотик.' },
-                        { type: 'double', price: '1450 ₴', oldPrice: '1700 ₴', desc: 'Двуспалний комплект: простирадло 200×220, підковдра 175×215, наволочки 70×70 (2 шт.). Льон високої якості.' },
-                        { type: 'euro', price: '1650 ₴', oldPrice: '1900 ₴', desc: 'Євро комплект: простирадло 220×240, підковдра 200×220, наволочки 70×70 (2 шт.). Льон преміум класу.' },
-                        { type: 'family', price: '1850 ₴', oldPrice: '2200 ₴', desc: 'Сімейний комплект: простирадло 240×260, підковдри 145×215 (2 шт.), наволочки 70×70 (4 шт.). Ідеальний для великої родини.' }
+                        { type: 'half', price: '1 250 ₴', oldPrice: '1 500 ₴', desc: 'Полуторний комплект: простирадло 150×220, підковдра 145×215, наволочки 70×70 (2 шт.). Натуральний льон 100%, приємний на дотик. Ідеальний для одного або для дитячого ліжка.' },
+                        { type: 'double', price: '1 450 ₴', oldPrice: '1 700 ₴', desc: 'Двуспалний комплект: простирадло 200×220, підковдра 175×215, наволочки 70×70 (2 шт.). Льон високої якості, дихаючий та міцний.' },
+                        { type: 'euro', price: '1 650 ₴', oldPrice: '1 900 ₴', desc: 'Євро комплект: простирадло 220×240, підковдра 200×220, наволочки 70×70 (2 шт.). Льон преміум класу, надзвичайно м\'який та приємний.' },
+                        { type: 'family', price: '1 850 ₴', oldPrice: '2 200 ₴', desc: 'Сімейний комплект: простирадло 240×260, підковдри 145×215 (2 шт.), наволочки 70×70 (4 шт.). Ідеальний для великої родини.' }
                     ]
                 }
             ];
@@ -1001,7 +1253,7 @@
         }
 
         // ============================================================
-        // 9. ЗАГРУЗКА ФОТО
+        // 7. ЗАГРУЗКА ФОТО
         // ============================================================
         function handleFiles(files) {
             if (!files || files.length === 0) return;
@@ -1051,7 +1303,7 @@
         });
 
         // ============================================================
-        // 10. ДОБАВЛЕНИЕ ТОВАРА
+        // 8. ДОБАВЛЕНИЕ ТОВАРА
         // ============================================================
         document.getElementById('addProductBtn').addEventListener('click', function() {
             const name = document.getElementById('productName').value.trim();
@@ -1142,7 +1394,7 @@
         });
 
         // ============================================================
-        // 11. ОТОБРАЖЕНИЕ ТОВАРОВ
+        // 9. ОТОБРАЖЕНИЕ ТОВАРОВ
         // ============================================================
         function getDisplayProducts() {
             return getProducts();
@@ -1228,7 +1480,7 @@
         }
 
         // ============================================================
-        // 12. ПРОСМОТР ТОВАРА
+        // 10. ПРОСМОТР ТОВАРА (НОВЫЙ УДОБНЫЙ)
         // ============================================================
         function openProductView(id) {
             const products = getDisplayProducts();
@@ -1242,11 +1494,28 @@
 
             currentSelectedVariant = 0;
 
+            // Категория
+            const categoryEl = document.getElementById('viewCategory');
+            if (product.category) {
+                categoryEl.style.display = 'inline-block';
+                categoryEl.innerText = product.category;
+            } else {
+                categoryEl.style.display = 'none';
+            }
+
+            // Название
             document.getElementById('viewTitle').innerText = product.name;
+
+            // Первый вариант
             const firstVar = product.variants[0];
             document.getElementById('viewPrice').innerHTML = `${firstVar.price} ${firstVar.oldPrice ? `<span class="old-price">${firstVar.oldPrice}</span>` : ''}`;
             document.getElementById('viewDesc').innerHTML = firstVar.desc || t('noDescription');
 
+            // Мета-информация
+            document.getElementById('metaVariants').innerText = `${product.variants.length} ${t('variantsCount')}`;
+            document.getElementById('metaCategory').innerText = product.category || t('category');
+
+            // Фото
             const mainImgWrapper = document.getElementById('viewMainImage');
             const thumbContainer = document.getElementById('viewThumbnails');
             thumbContainer.innerHTML = '';
@@ -1281,7 +1550,7 @@
 
                 if (media.type === 'image') {
                     const img = document.createElement('img');
-                    img.src = media.src || 'https://via.placeholder.com/100x100/f5ede4/8a7b6a?text=No+Photo';
+                    img.src = media.src || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Crect fill="%23f5ede4" width="100" height="100"/%3E%3Ctext x="50" y="55" font-family="Arial" font-size="12" fill="%23c4b6a6" text-anchor="middle"%3ENo photo%3C/text%3E%3C/svg%3E';
                     img.alt = 'Фото';
                     thumb.appendChild(img);
                 } else if (media.type === 'video') {
@@ -1289,8 +1558,8 @@
                     iframe.src = media.src;
                     iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
                     iframe.allowFullscreen = true;
-                    iframe.style.width = "70px";
-                    iframe.style.height = "70px";
+                    iframe.style.width = "100%";
+                    iframe.style.height = "100%";
                     iframe.style.border = "none";
                     iframe.style.borderRadius = "8px";
                     thumb.appendChild(iframe);
@@ -1300,6 +1569,7 @@
                 thumbContainer.appendChild(thumb);
             });
 
+            // Кнопки вариаций
             const variationsList = document.getElementById('variationsList');
             variationsList.innerHTML = '';
             
@@ -1343,14 +1613,14 @@
             });
 
             if (media.type === 'image') {
-                mainImgWrapper.innerHTML = `<img src="${media.src || 'https://via.placeholder.com/500x500/f5ede4/8a7b6a?text=No+Photo'}" alt="Фото товару" style="width:100%; height:100%; object-fit:cover;" />`;
+                mainImgWrapper.innerHTML = `<img src="${media.src || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500"%3E%3Crect fill="%23f5ede4" width="500" height="500"/%3E%3Ctext x="250" y="260" font-family="Arial" font-size="24" fill="%23c4b6a6" text-anchor="middle"%3E${t('noPhoto')}%3C/text%3E%3C/svg%3E'}" alt="Фото товару" style="width:100%; height:100%; object-fit:cover;" />`;
             } else if (media.type === 'video') {
                 mainImgWrapper.innerHTML = `<iframe src="${media.src}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%; height:100%; border:none;"></iframe>`;
             }
         }
 
         // ============================================================
-        // 13. УДАЛЕНИЕ ТОВАРА
+        // 11. УДАЛЕНИЕ ТОВАРА
         // ============================================================
         function deleteProduct(id) {
             if (!isAdmin) return;
@@ -1362,7 +1632,7 @@
         }
 
         // ============================================================
-        // 14. КОПИРОВАНИЕ НОМЕРА
+        // 12. КОПИРОВАНИЕ НОМЕРА
         // ============================================================
         function copyPhone(event) {
             event.preventDefault();
@@ -1397,7 +1667,7 @@
         }
 
         // ============================================================
-        // 15. ПРОКРУТКА И АНИМАЦИЯ
+        // 13. ПРОКРУТКА И АНИМАЦИЯ
         // ============================================================
         const scrollBtn = document.getElementById('scrollTopBtn');
         window.addEventListener('scroll', () => {
