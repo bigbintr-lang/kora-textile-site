@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -41,7 +40,6 @@
             padding: 0 30px;
         }
 
-        /* ===== HEADER ===== */
         header {
             padding: 20px 0;
             background: rgba(245, 237, 228, 0.92);
@@ -108,7 +106,6 @@
             display: flex;
         }
 
-        /* ===== КНОПКА ЗМІНИ МОВИ ===== */
         .lang-wrapper {
             position: fixed;
             top: 110px;
@@ -196,7 +193,6 @@
             display: block;
         }
 
-        /* ===== МОДАЛЬНІ ВІКНА (Авторизація та Інфо) ===== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -249,7 +245,8 @@
         }
         .modal-box button:hover { background: #c4a07a; }
 
-        .modal-box input {
+        .modal-box input,
+        .modal-box textarea {
             width: 100%;
             padding: 14px 18px;
             border: 2px solid #e4d5c4;
@@ -260,7 +257,8 @@
             font-family: 'Inter', sans-serif;
             background: #faf3ea;
         }
-        .modal-box input:focus {
+        .modal-box input:focus,
+        .modal-box textarea:focus {
             outline: none;
             border-color: #c4a07a;
         }
@@ -280,7 +278,6 @@
         }
         .error-msg.show { display: block; }
 
-        /* ===== КАРТОЧКА ТОВАРУ (Модалка перегляду) ===== */
         #productViewModal .modal-box {
             max-width: 850px;
             padding: 0;
@@ -293,7 +290,6 @@
             flex-wrap: wrap;
         }
         
-        /* Ліва частина (Фото) */
         #productViewModal .modal-images {
             flex: 1 1 50%;
             min-width: 300px;
@@ -344,14 +340,12 @@
             box-shadow: 0 2px 8px rgba(196, 160, 122, 0.3);
         }
 
-        /* Права частина (Текст та Варіації) */
         #productViewModal .modal-text {
             flex: 1 1 50%;
             padding: 40px 40px 40px 30px;
             background: #faf3ea;
         }
         
-        /* Кнопка закриття */
         #productViewModal .close-view-btn {
             position: absolute;
             top: 15px;
@@ -376,9 +370,8 @@
         #productViewModal .modal-text h2 { font-size: 28px; margin-bottom: 5px; padding-right: 40px; }
         #productViewModal .modal-text .price-block { font-size: 24px; color: #c4a07a; font-weight: 700; margin: 10px 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;}
         #productViewModal .modal-text .price-block .old-price { color: #c4b6a6; font-weight: 400; font-size: 18px; text-decoration: line-through; }
-        #productViewModal .modal-text .desc { color: #6a5f52; line-height: 1.6; margin-bottom: 15px; }
+        #productViewModal .modal-text .desc { color: #6a5f52; line-height: 1.8; margin-bottom: 15px; font-size: 16px; }
         
-        /* Блок вибору розмірів */
         .variations-wrapper {
             margin: 15px 0 10px 0;
         }
@@ -416,11 +409,9 @@
             box-shadow: 0 4px 10px rgba(196, 160, 122, 0.3);
         }
 
-        /* ===== ГОЛОВНА СТОРІНКА ===== */
         #mainPage { display: block; }
         #aboutPage { display: none; }
 
-        /* ===== ГЕРОЙ ===== */
         .hero {
             padding: 60px 0 80px;
             display: flex;
@@ -495,7 +486,6 @@
             50% { transform: translateY(-20px) rotate(5deg); }
         }
 
-        /* ===== КАТАЛОГ ===== */
         .section-title {
             font-size: 36px;
             font-weight: 700;
@@ -597,7 +587,6 @@
         .delete-btn:hover { background: #b75a5a; transform: scale(1.1); }
         .delete-btn.show { display: flex; }
 
-        /* ===== АДМІН-ПАНЕЛЬ ===== */
         .admin-panel {
             background: #f5ede4;
             border-radius: 30px;
@@ -642,7 +631,66 @@
         .form-grid textarea { resize: vertical; min-height: 60px; }
         .form-grid .full-width { grid-column: 1 / -1; }
 
-        /* ===== ЗОНА ЗАВАНТАЖЕННЯ ФОТО ===== */
+        /* ===== ПОЛЯ ДЛЯ ВАРІАЦІЙ (НОВІ) ===== */
+        .variations-fields {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            background: #faf3ea;
+            padding: 20px;
+            border-radius: 16px;
+            border: 2px solid #ece0d4;
+        }
+        .variations-fields .var-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .variations-fields .var-group label {
+            font-weight: 600;
+            font-size: 14px;
+            color: #6a5f52;
+        }
+        .variations-fields .var-group textarea {
+            min-height: 80px;
+            font-size: 14px;
+            padding: 10px 14px;
+        }
+        .variations-fields .var-group input {
+            font-size: 14px;
+            padding: 10px 14px;
+        }
+        .variations-fields .var-group .var-check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 5px;
+        }
+        .variations-fields .var-group .var-check input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #c4a07a;
+            cursor: pointer;
+            margin: 0;
+            padding: 0;
+        }
+        .variations-fields .var-group .var-check label {
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .variations-fields {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 500px) {
+            .variations-fields {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .upload-zone {
             grid-column: 1 / -1;
             border: 2px dashed #d4bca3;
@@ -709,7 +757,6 @@
         }
         .empty-msg i { font-size: 50px; display: block; margin-bottom: 15px; opacity: 0.5; }
 
-        /* ===== КАТЕГОРІЇ ВЕРТИКАЛЬНО ===== */
         .category-list-wrapper { margin: 20px 0 40px 0; }
         .category-list { display: flex; flex-direction: column; gap: 12px; max-width: 600px; margin: 0 auto; }
         .cat-btn {
@@ -732,7 +779,6 @@
         .cat-btn.active { background: #c4a07a; color: #fff; border-color: #c4a07a; box-shadow: 0 4px 15px rgba(196, 160, 122, 0.3); }
         .cat-btn.active:hover { background: #ad8a67; transform: translateY(-2px); }
 
-        /* ===== СТОРІНКА "ПРО НАС" ===== */
         #aboutPage { min-height: 70vh; padding: 60px 0; }
         .about-wrapper {
             background: #faf3ea;
@@ -772,7 +818,6 @@
         }
         .btn-back-home:hover { background: #c4a07a; transform: translateY(-3px); }
 
-        /* ===== ФУТЕР ===== */
         footer {
             border-top: 1px solid #e4d5c4;
             padding: 50px 0 30px;
@@ -864,7 +909,6 @@
             padding-top: 30px;
         }
 
-        /* ===== АДАПТИВ ===== */
         @media (max-width: 900px) {
             .hero-text h1 { font-size: 40px; }
             .form-grid { grid-template-columns: 1fr; }
@@ -876,6 +920,9 @@
             #productViewModal .modal-images { flex: 1 1 100%; border-right: none; border-bottom: 1px solid #ece0d4; border-radius: 30px 30px 0 0; }
             #productViewModal .modal-images .main-img-wrapper { border-radius: 30px 30px 0 0; }
             #productViewModal .modal-images .thumbnails { border-radius: 0; }
+            .variations-fields {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
         @media (max-width: 600px) {
@@ -892,6 +939,9 @@
             .cat-btn { font-size: 15px; padding: 14px 16px; }
             #productViewModal .modal-text { padding: 25px; }
             #productViewModal .modal-images .main-img-wrapper { height: 300px; }
+            .variations-fields {
+                grid-template-columns: 1fr;
+            }
         }
 
         .reveal {
@@ -932,7 +982,6 @@
 </head>
 <body>
 
-    <!-- ===== КНОПКА ЗМІНИ МОВИ ===== -->
     <div class="lang-overlay" id="langOverlay" onclick="toggleLangMenu()"></div>
     <div class="lang-wrapper">
         <button class="lang-toggle-btn" id="langToggleBtn" onclick="toggleLangMenu()">
@@ -955,12 +1004,10 @@
         </div>
     </header>
 
-    <!-- Кнопка прокрутки вгору -->
     <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Наверх">
         <i class="fas fa-chevron-up"></i>
     </button>
 
-    <!-- ===== МОДАЛЬНЕ ВІКНО ВХОДУ ===== -->
     <div class="modal-overlay" id="loginModal">
         <div class="modal-box">
             <h3 id="modalLoginTitle"><i class="fas fa-user-shield" style="color: #c4a07a;"></i> Вхід в адмінку</h3>
@@ -974,7 +1021,6 @@
         </div>
     </div>
 
-    <!-- ===== МОДАЛЬНЕ ВІКНО "САМОВИВІЗ" ===== -->
     <div class="modal-overlay" id="pickupModal">
         <div class="modal-box">
             <h3 id="pickupTitle"><i class="fas fa-truck-loading" style="color: #c4a07a;"></i> Самовивіз</h3>
@@ -987,7 +1033,6 @@
         </div>
     </div>
 
-    <!-- ===== МОДАЛЬНЕ ВІКНО "ОБМІН ТА ПОВЕРНЕННЯ" ===== -->
     <div class="modal-overlay" id="returnModal">
         <div class="modal-box">
             <h3 id="returnTitle"><i class="fas fa-undo-alt" style="color: #c4a07a;"></i> Обмін та повернення</h3>
@@ -1000,7 +1045,6 @@
         </div>
     </div>
 
-    <!-- ===== МОДАЛЬНЕ ВІКНО ПЕРЕГЛЯДУ ТОВАРУ ===== -->
     <div class="modal-overlay" id="productViewModal">
         <div class="modal-box">
             <button class="close-view-btn" onclick="closeModal('productViewModal')"><i class="fas fa-times"></i></button>
@@ -1017,9 +1061,8 @@
                 <div class="modal-text">
                     <h2 id="viewTitle">Назва товару</h2>
                     
-                    <!-- Блок вибору розмірів -->
                     <div class="variations-wrapper" id="variationsBlock">
-                        <span class="variations-label" id="varLabel">Оберіть розмір:</span>
+                        <span class="variations-label" id="varLabel">Оберіть тип:</span>
                         <div class="variations-list" id="variationsList"></div>
                     </div>
 
@@ -1030,7 +1073,6 @@
         </div>
     </div>
 
-    <!-- ===== ГОЛОВНА СТОРІНКА ===== -->
     <main id="mainPage">
         <div class="container">
             <section class="hero" id="top">
@@ -1049,12 +1091,8 @@
             <div class="admin-panel" id="adminPanel">
                 <h3 id="adminTitle"><i class="fas fa-plus-circle"></i> Додати товар</h3>
                 <div class="form-grid">
-                    <input type="text" id="productName" placeholder="Назва товару (наприклад: Плед Карамель)" />
+                    <input type="text" id="productName" placeholder="Назва товару (наприклад: Комплект постільної білизни)" />
                     
-                    <input type="text" id="productSizes" placeholder="Розміри (через кому), напр: 150x200, 180x220" />
-                    <input type="text" id="productPrices" placeholder="Ціни (через кому), напр: 1200, 1600" />
-                    <input type="text" id="productOldPrices" placeholder="Старі ціни (через кому), напр: 2000, 2400" />
-
                     <select id="productCategory" class="full-width">
                         <option value="">Оберіть категорію...</option>
                         <option value="Постільна білизна бязь Голд">Постільна білизна бязь Голд</option>
@@ -1068,6 +1106,46 @@
                         <option value="Піжами">Піжами</option>
                     </select>
 
+                    <!-- ===== НОВІ ПОЛЯ ДЛЯ ВАРІАЦІЙ ===== -->
+                    <div class="variations-fields full-width">
+                        <div class="var-group">
+                            <div class="var-check">
+                                <input type="checkbox" id="varHalf" />
+                                <label for="varHalf" id="labelHalf">Полуторний</label>
+                            </div>
+                            <input type="text" id="priceHalf" placeholder='Ціна (напр. 1250 ₴)' />
+                            <input type="text" id="oldPriceHalf" placeholder='Стара ціна (необов\'язково)' />
+                            <textarea id="descHalf" placeholder='Опис для полуторного...'></textarea>
+                        </div>
+                        <div class="var-group">
+                            <div class="var-check">
+                                <input type="checkbox" id="varDouble" />
+                                <label for="varDouble" id="labelDouble">Двуспалний</label>
+                            </div>
+                            <input type="text" id="priceDouble" placeholder='Ціна (напр. 1450 ₴)' />
+                            <input type="text" id="oldPriceDouble" placeholder='Стара ціна (необов\'язково)' />
+                            <textarea id="descDouble" placeholder='Опис для двуспалного...'></textarea>
+                        </div>
+                        <div class="var-group">
+                            <div class="var-check">
+                                <input type="checkbox" id="varEuro" />
+                                <label for="varEuro" id="labelEuro">Євро</label>
+                            </div>
+                            <input type="text" id="priceEuro" placeholder='Ціна (напр. 1650 ₴)' />
+                            <input type="text" id="oldPriceEuro" placeholder='Стара ціна (необов\'язково)' />
+                            <textarea id="descEuro" placeholder='Опис для євро...'></textarea>
+                        </div>
+                        <div class="var-group">
+                            <div class="var-check">
+                                <input type="checkbox" id="varFamily" />
+                                <label for="varFamily" id="labelFamily">Сімейний</label>
+                            </div>
+                            <input type="text" id="priceFamily" placeholder='Ціна (напр. 1850 ₴)' />
+                            <input type="text" id="oldPriceFamily" placeholder='Стара ціна (необов\'язково)' />
+                            <textarea id="descFamily" placeholder='Опис для сімейного...'></textarea>
+                        </div>
+                    </div>
+
                     <div class="upload-zone full-width" id="uploadZone">
                         <i class="fas fa-cloud-upload-alt"></i>
                         <div id="uploadTitle"><strong>Натисніть або перетягніть фото (можна вибрати декілька)</strong></div>
@@ -1078,8 +1156,6 @@
                     </div>
                     
                     <input type="text" id="productVideo" class="full-width" placeholder="Посилання на відео (YouTube, наприклад: https://www.youtube.com/watch?v=...)" />
-
-                    <textarea id="productDescs" class="full-width" placeholder="Описи для кожного розміру (через кому). Напр: Тканина льон, Склад 1 плед; Тканина вовна, Склад 2 пледа" style="min-height: 80px;"></textarea>
                 </div>
                 <button class="btn-add" id="addProductBtn"><i class="fas fa-plus"></i> <span id="addBtnText">Додати товар</span></button>
             </div>
@@ -1089,7 +1165,6 @@
                 <h2 class="section-title" id="catalogTitle">Товари Kora Textile</h2>
             </div>
 
-            <!-- ===== ВЕРТИКАЛЬНИЙ СПИСОК КАТЕГОРІЙ ===== -->
             <div class="category-list-wrapper">
                 <div class="category-list" id="categoryList">
                     <button class="cat-btn active" onclick="filterCategory('')">Всі товари</button>
@@ -1111,7 +1186,6 @@
         </div>
     </main>
 
-    <!-- ===== СТОРІНКА "ПРО НАС" ===== -->
     <section id="aboutPage">
         <div class="container">
             <div class="about-wrapper">
@@ -1190,8 +1264,15 @@
         let currentLang = 'ua';
         let currentSelectedVariant = 0;
 
+        // Типи варіацій (ключі для зручності)
+        const VARIANT_TYPES = ['half', 'double', 'euro', 'family'];
+        const VARIANT_NAMES = {
+            'ua': { half: 'Полуторний', double: 'Двуспалний', euro: 'Євро', family: 'Сімейний' },
+            'ru': { half: 'Полуторный', double: 'Двуспальный', euro: 'Евро', family: 'Семейный' }
+        };
+
         // ============================================================
-        // 2. ПЕРЕКЛАДИ
+        // 2. ПЕРЕКЛАДИ (розширені)
         // ============================================================
         const translations = {
             'ua': {
@@ -1234,7 +1315,15 @@
                 'footerContacts': 'Контакти',
                 'copyTooltip': 'Скопійовано!',
                 'footerCopy': '&copy; 2026 Kora Textile. Всі права захищено. Зроблено в Україні з ❤️',
-                'varLabel': 'Оберіть розмір:'
+                'varLabel': 'Оберіть тип:',
+                'labelHalf': 'Полуторний',
+                'labelDouble': 'Двуспалний',
+                'labelEuro': 'Євро',
+                'labelFamily': 'Сімейний',
+                'noPhoto': 'Фото відсутнє',
+                'noDescription': 'Опис відсутній',
+                'noProducts': 'Товарів поки немає. Додайте перший!',
+                'noProductsCategory': 'У категорії "{category}" поки немає товарів.'
             },
             'ru': {
                 'modalLoginTitle': 'Вход в админку',
@@ -1276,12 +1365,20 @@
                 'footerContacts': 'Контакты',
                 'copyTooltip': 'Скопировано!',
                 'footerCopy': '&copy; 2026 Kora Textile. Все права защищены. Сделано в Украине с ❤️',
-                'varLabel': 'Выберите размер:'
+                'varLabel': 'Выберите тип:',
+                'labelHalf': 'Полуторный',
+                'labelDouble': 'Двуспальный',
+                'labelEuro': 'Евро',
+                'labelFamily': 'Семейный',
+                'noPhoto': 'Фото отсутствует',
+                'noDescription': 'Описание отсутствует',
+                'noProducts': 'Товаров пока нет. Добавьте первый!',
+                'noProductsCategory': 'В категории "{category}" пока нет товаров.'
             }
         };
 
         // ============================================================
-        // 3. ФУНКЦІЇ МОВИ
+        // 3. ФУНКЦІЇ МОВИ (оновлені)
         // ============================================================
         function toggleLangMenu() {
             document.getElementById('langDropdown').classList.toggle('show');
@@ -1299,9 +1396,12 @@
 
         function applyLanguage(lang) {
             const t = translations[lang];
+            
+            // Оновлюємо активну мову в меню
             document.getElementById('langUa').classList.toggle('active-lang', lang === 'ua');
             document.getElementById('langRu').classList.toggle('active-lang', lang === 'ru');
             
+            // Модальні вікна
             document.getElementById('modalLoginTitle').innerHTML = t.modalLoginTitle;
             document.getElementById('modalLoginDesc').innerText = t.modalLoginDesc;
             document.getElementById('errorMsg').innerHTML = t.errorMsg;
@@ -1320,18 +1420,22 @@
             document.getElementById('returnDesc3').innerHTML = t.returnDesc3;
             document.getElementById('returnBtn').innerText = t.returnBtn;
 
+            // Hero
             document.getElementById('heroBadge').innerHTML = t.heroBadge;
             document.getElementById('heroTitle').innerHTML = t.heroTitle;
             document.getElementById('heroDesc').innerText = t.heroDesc;
 
+            // Адмінка
             document.getElementById('adminTitle').innerHTML = t.adminTitle;
             document.getElementById('uploadTitle').innerHTML = t.uploadTitle;
             document.getElementById('uploadHint').innerText = t.uploadHint;
             document.getElementById('addBtnText').innerText = t.addBtnText;
 
+            // Каталог
             document.getElementById('catalogSub').innerHTML = t.catalogSub;
             document.getElementById('catalogTitle').innerText = t.catalogTitle;
 
+            // Про нас
             document.getElementById('aboutTitle').innerHTML = t.aboutTitle;
             document.getElementById('aboutDesc1').innerHTML = t.aboutDesc1;
             document.getElementById('aboutDesc2').innerText = t.aboutDesc2;
@@ -1339,6 +1443,7 @@
             document.getElementById('aboutDesc3').innerText = t.aboutDesc3;
             document.getElementById('backHomeBtnText').innerText = t.backHomeBtnText;
 
+            // Футер
             document.getElementById('footerDesc').innerText = t.footerDesc;
             document.getElementById('footerCatalog').innerText = t.footerCatalog;
             document.getElementById('footerInfo').innerText = t.footerInfo;
@@ -1349,15 +1454,30 @@
             document.getElementById('copyTooltip').innerText = t.copyTooltip;
             document.getElementById('footerCopy').innerHTML = t.footerCopy;
 
+            // Модалка перегляду
             document.getElementById('varLabel').innerText = t.varLabel;
 
-            document.getElementById('productName').placeholder = lang === 'ua' ? 'Назва товару (наприклад: Плед Карамель)' : 'Название товара (например: Плед Карамель)';
-            document.getElementById('productSizes').placeholder = lang === 'ua' ? 'Розміри (через кому), напр: 150x200, 180x220' : 'Размеры (через запятую), напр: 150x200, 180x220';
-            document.getElementById('productPrices').placeholder = lang === 'ua' ? 'Ціни (через кому), напр: 1200, 1600' : 'Цены (через запятую), напр: 1200, 1600';
-            document.getElementById('productOldPrices').placeholder = lang === 'ua' ? 'Старі ціни (через кому), напр: 2000, 2400' : 'Старые цены (через запятую), напр: 2000, 2400';
-            document.getElementById('productDescs').placeholder = lang === 'ua' ? 'Описи для кожного розміру (через кому). Напр: Тканина льон, Склад 1 плед; Тканина вовна, Склад 2 пледа' : 'Описания для каждого размера (через запятую). Напр: Ткань лен, Состав 1 плед; Ткань шерсть, Состав 2 пледа';
-            document.getElementById('productDesc').placeholder = lang === 'ua' ? 'Опис товару...' : 'Описание товара...';
+            // Підписи до чекбоксів
+            document.getElementById('labelHalf').innerText = t.labelHalf;
+            document.getElementById('labelDouble').innerText = t.labelDouble;
+            document.getElementById('labelEuro').innerText = t.labelEuro;
+            document.getElementById('labelFamily').innerText = t.labelFamily;
+
+            // Плейсхолдери
+            document.getElementById('productName').placeholder = lang === 'ua' ? 'Назва товару (наприклад: Комплект постільної білизни)' : 'Название товара (например: Комплект постельного белья)';
             document.getElementById('productVideo').placeholder = lang === 'ua' ? 'Посилання на відео (YouTube, наприклад: https://www.youtube.com/watch?v=...)' : 'Ссылка на видео (YouTube, например: https://www.youtube.com/watch?v=...)';
+
+            // Оновлюємо відображення товарів
+            renderProducts();
+        }
+
+        // Допоміжна функція для перекладу динамічних текстів
+        function t(key, params = {}) {
+            let text = translations[currentLang][key] || key;
+            for (const [k, v] of Object.entries(params)) {
+                text = text.replace(`{${k}}`, v);
+            }
+            return text;
         }
 
         // ============================================================
@@ -1455,13 +1575,36 @@
         });
 
         // ============================================================
-        // 7. РОБОТА З ТОВАРАМИ (З ВАРІАЦІЯМИ)
+        // 7. РОБОТА З ТОВАРАМИ (НОВА СТРУКТУРА)
         // ============================================================
-        function getProducts() {
+        function getDefaultProducts() {
             return [
-                { id: 1, name: 'Скатертина "Білий степ"', sizes: ['140x220', '150x250'], prices: ['1 890 ₴', '2 200 ₴'], oldPrices: ['2 400 ₴', '2 800 ₴'], descs: ['100% льон, вишивка', '100% бавовна, гладка'], category: '', images: [], video: '' },
-                { id: 2, name: 'Плед "Карамель"', sizes: ['150x200', '200x220'], prices: ['3 450 ₴', '4 250 ₴'], oldPrices: ['', ''], descs: ['Мериносова вовна', 'Альпака'], category: 'Покривала та пледи', images: [], video: '' }
+                {
+                    id: 1,
+                    name: 'Комплект постільної білизни "Льон"',
+                    category: 'Постільна білизна бязь Голд',
+                    images: [],
+                    video: '',
+                    variants: [
+                        { type: 'half', price: '1250 ₴', oldPrice: '1500 ₴', desc: 'Полуторний комплект: простирадло 150×220, підковдра 145×215, наволочки 70×70 (2 шт.). Натуральний льон 100%, приємний на дотик.' },
+                        { type: 'double', price: '1450 ₴', oldPrice: '1700 ₴', desc: 'Двуспалний комплект: простирадло 200×220, підковдра 175×215, наволочки 70×70 (2 шт.). Льон високої якості.' },
+                        { type: 'euro', price: '1650 ₴', oldPrice: '1900 ₴', desc: 'Євро комплект: простирадло 220×240, підковдра 200×220, наволочки 70×70 (2 шт.). Льон преміум класу.' },
+                        { type: 'family', price: '1850 ₴', oldPrice: '2200 ₴', desc: 'Сімейний комплект: простирадло 240×260, підковдри 145×215 (2 шт.), наволочки 70×70 (4 шт.). Ідеальний для великої родини.' }
+                    ]
+                }
             ];
+        }
+
+        function getProducts() {
+            const runtimeData = localStorage.getItem('koraProductsRuntime');
+            if (runtimeData) {
+                try { return JSON.parse(runtimeData); } catch { /* ignore */ }
+            }
+            return getDefaultProducts();
+        }
+
+        function saveProducts(products) {
+            localStorage.setItem('koraProductsRuntime', JSON.stringify(products));
         }
 
         // ============================================================
@@ -1494,7 +1637,7 @@
         fileInput.addEventListener('change', (e) => {
             if (e.target.files.length > 0) {
                 handleFiles(e.target.files);
-                document.getElementById('fileName').textContent = '✅ Обрано файлів: ' + e.target.files.length;
+                document.getElementById('fileName').textContent = '✅ ' + (currentLang === 'ua' ? 'Обрано файлів: ' : 'Выбрано файлов: ') + e.target.files.length;
             }
         });
         uploadZone.addEventListener('dragover', (e) => {
@@ -1510,35 +1653,52 @@
             uploadZone.classList.remove('dragover');
             if (e.dataTransfer.files.length > 0) {
                 handleFiles(e.dataTransfer.files);
-                document.getElementById('fileName').textContent = '✅ Обрано файлів: ' + e.dataTransfer.files.length;
+                document.getElementById('fileName').textContent = '✅ ' + (currentLang === 'ua' ? 'Обрано файлів: ' : 'Выбрано файлов: ') + e.dataTransfer.files.length;
             }
         });
 
         // ============================================================
-        // 9. ДОДАВАННЯ ТОВАРУ (НОВИЙ ФОРМАТ)
+        // 9. ДОДАВАННЯ ТОВАРУ (НОВА ЛОГІКА)
         // ============================================================
         document.getElementById('addProductBtn').addEventListener('click', function() {
             const name = document.getElementById('productName').value.trim();
-            const sizesRaw = document.getElementById('productSizes').value.trim();
-            const pricesRaw = document.getElementById('productPrices').value.trim();
-            const oldPricesRaw = document.getElementById('productOldPrices').value.trim();
-            const descsRaw = document.getElementById('productDescs').value.trim();
             const category = document.getElementById('productCategory').value;
             const video = document.getElementById('productVideo').value.trim();
 
-            if (!name || !sizesRaw || !pricesRaw) {
-                alert(currentLang === 'ua' ? '❌ Заповніть назву, розміри та ціни!' : '❌ Заполните название, размеры и цены!');
+            if (!name) {
+                alert(currentLang === 'ua' ? '❌ Введіть назву товару!' : '❌ Введите название товара!');
                 return;
             }
 
-            // Розбиваємо по комі
-            const sizes = sizesRaw.split(',').map(s => s.trim());
-            const prices = pricesRaw.split(',').map(s => s.trim());
-            const oldPrices = oldPricesRaw.split(',').map(s => s.trim());
-            const descs = descsRaw.split(',').map(s => s.trim());
+            // Збираємо варіації
+            const variants = [];
+            const typeMap = {
+                'half': { check: 'varHalf', price: 'priceHalf', oldPrice: 'oldPriceHalf', desc: 'descHalf' },
+                'double': { check: 'varDouble', price: 'priceDouble', oldPrice: 'oldPriceDouble', desc: 'descDouble' },
+                'euro': { check: 'varEuro', price: 'priceEuro', oldPrice: 'oldPriceEuro', desc: 'descEuro' },
+                'family': { check: 'varFamily', price: 'priceFamily', oldPrice: 'oldPriceFamily', desc: 'descFamily' }
+            };
 
-            if (sizes.length !== prices.length) {
-                alert(currentLang === 'ua' ? '❌ Кількість розмірів та цін має співпадати!' : '❌ Количество размеров и цен должно совпадать!');
+            let hasVariant = false;
+            for (const [type, ids] of Object.entries(typeMap)) {
+                const checked = document.getElementById(ids.check).checked;
+                if (checked) {
+                    const price = document.getElementById(ids.price).value.trim();
+                    const oldPrice = document.getElementById(ids.oldPrice).value.trim();
+                    const desc = document.getElementById(ids.desc).value.trim();
+                    
+                    if (!price) {
+                        alert(currentLang === 'ua' ? `❌ Введіть ціну для ${VARIANT_NAMES[currentLang][type]}` : `❌ Введите цену для ${VARIANT_NAMES[currentLang][type]}`);
+                        return;
+                    }
+                    
+                    variants.push({ type, price, oldPrice, desc });
+                    hasVariant = true;
+                }
+            }
+
+            if (!hasVariant) {
+                alert(currentLang === 'ua' ? '❌ Оберіть хоча б один тип (полуторний, двуспалний, євро або сімейний)!' : '❌ Выберите хотя бы один тип (полуторный, двуспальный, евро или семейный)!');
                 return;
             }
 
@@ -1548,43 +1708,40 @@
             products.push({
                 id: newId,
                 name: name,
-                sizes: sizes,
-                prices: prices,
-                oldPrices: oldPrices,
-                descs: descs,
                 category: category,
                 images: [...uploadedImagesData],
-                video: video
+                video: video,
+                variants: variants
             });
 
-            localStorage.setItem('koraProductsRuntime', JSON.stringify(products));
+            saveProducts(products);
             renderProducts();
             resetFilter();
 
+            // Очищаємо форму
             document.getElementById('productName').value = '';
-            document.getElementById('productSizes').value = '';
-            document.getElementById('productPrices').value = '';
-            document.getElementById('productOldPrices').value = '';
-            document.getElementById('productDescs').value = '';
             document.getElementById('productCategory').value = '';
             document.getElementById('productVideo').value = '';
             document.getElementById('multiPreview').innerHTML = '';
             document.getElementById('fileName').textContent = '';
-            document.getElementById('uploadZone').style.borderColor = '#d4bca3';
             uploadedImagesData = [];
             document.getElementById('fileInput').value = '';
 
-            alert(currentLang === 'ua' ? '✅ Товар додано! (Щоб усі побачили, завантажте цей файл на GitHub)' : '✅ Товар добавлен! (Чтобы все увидели, загрузите этот файл на GitHub)');
+            // Очищаємо всі поля варіацій
+            for (const ids of Object.values(typeMap)) {
+                document.getElementById(ids.check).checked = false;
+                document.getElementById(ids.price).value = '';
+                document.getElementById(ids.oldPrice).value = '';
+                document.getElementById(ids.desc).value = '';
+            }
+
+            alert(currentLang === 'ua' ? '✅ Товар додано!' : '✅ Товар добавлен!');
         });
 
         // ============================================================
-        // 10. ВІДОБРАЖЕННЯ ТОВАРІВ
+        // 10. ВІДОБРАЖЕННЯ ТОВАРІВ (оновлене)
         // ============================================================
         function getDisplayProducts() {
-            const runtimeData = localStorage.getItem('koraProductsRuntime');
-            if (runtimeData) {
-                try { return JSON.parse(runtimeData); } catch { /* ignore */ }
-            }
             return getProducts();
         }
 
@@ -1626,17 +1783,22 @@
             }
 
             if (products.length === 0) {
+                const msg = currentCategoryFilter 
+                    ? t('noProductsCategory', { category: currentCategoryFilter })
+                    : t('noProducts');
                 grid.innerHTML = `
                     <div class="empty-msg" style="grid-column: 1 / -1;">
                         <i class="fas fa-box-open"></i>
-                        ${currentCategoryFilter ? `У категорії "${currentCategoryFilter}" поки немає товарів.` : (currentLang === 'ua' ? 'Товарів поки немає. Додайте перший!' : 'Товаров пока нет. Добавьте первый!')}
+                        ${msg}
                     </div>
                 `;
                 return;
             }
 
             grid.innerHTML = products.map(p => {
-                let previewImg = p.images && p.images.length > 0 ? p.images[0] : '';
+                const firstVariant = p.variants && p.variants.length > 0 ? p.variants[0] : null;
+                const previewImg = p.images && p.images.length > 0 ? p.images[0] : '';
+                const typeName = firstVariant ? VARIANT_NAMES[currentLang][firstVariant.type] : '';
                 
                 return `
                     <div class="product-card reveal" data-id="${p.id}" onclick="openProductView(${p.id})">
@@ -1648,8 +1810,8 @@
                         <div class="product-info">
                             ${p.category ? `<span class="category-tag">${p.category}</span>` : ''}
                             <h4>${p.name}</h4>
-                            <div class="desc">${p.descs && p.descs[0] ? p.descs[0] : (currentLang === 'ua' ? 'Без опису' : 'Без описания')}</div>
-                            <div class="price-block">${p.prices && p.prices[0] ? p.prices[0] : ''} ${p.oldPrices && p.oldPrices[0] ? `<span class="old-price">${p.oldPrices[0]}</span>` : ''}</div>
+                            <div class="desc">${firstVariant && firstVariant.desc ? firstVariant.desc.substring(0, 60) + '...' : (typeName || t('noDescription'))}</div>
+                            <div class="price-block">${firstVariant ? firstVariant.price : ''} ${firstVariant && firstVariant.oldPrice ? `<span class="old-price">${firstVariant.oldPrice}</span>` : ''}</div>
                         </div>
                     </div>
                 `;
@@ -1663,18 +1825,24 @@
         }
 
         // ============================================================
-        // 11. ПЕРЕГЛЯД ТОВАРУ (МОДАЛКА З ВАРІАЦІЯМИ)
+        // 11. ПЕРЕГЛЯД ТОВАРУ (оновлений)
         // ============================================================
         function openProductView(id) {
             const products = getDisplayProducts();
             const product = products.find(p => p.id === id);
             if (!product) return;
 
+            if (!product.variants || product.variants.length === 0) {
+                alert('Товар не має варіацій');
+                return;
+            }
+
             currentSelectedVariant = 0;
 
             document.getElementById('viewTitle').innerText = product.name;
-            document.getElementById('viewPrice').innerHTML = `${product.prices[0]} ${product.oldPrices && product.oldPrices[0] ? `<span class="old-price">${product.oldPrices[0]}</span>` : ''}`;
-            document.getElementById('viewDesc').innerHTML = product.descs && product.descs[0] ? product.descs[0] : (currentLang === 'ua' ? 'Опис відсутній' : 'Описание отсутствует');
+            const firstVar = product.variants[0];
+            document.getElementById('viewPrice').innerHTML = `${firstVar.price} ${firstVar.oldPrice ? `<span class="old-price">${firstVar.oldPrice}</span>` : ''}`;
+            document.getElementById('viewDesc').innerHTML = firstVar.desc || t('noDescription');
 
             const mainImgWrapper = document.getElementById('viewMainImage');
             const thumbContainer = document.getElementById('viewThumbnails');
@@ -1729,16 +1897,17 @@
                 thumbContainer.appendChild(thumb);
             });
 
-            // Відображення кнопок розмірів
+            // Відображення кнопок варіацій
             const variationsList = document.getElementById('variationsList');
             variationsList.innerHTML = '';
             
-            if (product.sizes && product.sizes.length > 0) {
+            if (product.variants && product.variants.length > 0) {
                 document.getElementById('variationsBlock').style.display = 'block';
-                product.sizes.forEach((size, index) => {
+                product.variants.forEach((variant, index) => {
                     const btn = document.createElement('button');
                     btn.className = `var-btn ${index === 0 ? 'active' : ''}`;
-                    btn.innerText = size;
+                    const typeName = VARIANT_NAMES[currentLang][variant.type] || variant.type;
+                    btn.innerText = typeName;
                     btn.onclick = () => selectVariant(index, product);
                     variationsList.appendChild(btn);
                 });
@@ -1751,20 +1920,16 @@
 
         function selectVariant(index, product) {
             currentSelectedVariant = index;
+            const variant = product.variants[index];
+            if (!variant) return;
             
-            // Оновлюємо кнопки
             const btns = document.querySelectorAll('.var-btn');
             btns.forEach((btn, i) => {
                 btn.classList.toggle('active', i === index);
             });
 
-            // Оновлюємо ціну та опис
-            const price = product.prices[index] || '';
-            const oldPrice = product.oldPrices && product.oldPrices[index] ? product.oldPrices[index] : '';
-            const desc = product.descs && product.descs[index] ? product.descs[index] : (currentLang === 'ua' ? 'Опис відсутній' : 'Описание отсутствует');
-
-            document.getElementById('viewPrice').innerHTML = `${price} ${oldPrice ? `<span class="old-price">${oldPrice}</span>` : ''}`;
-            document.getElementById('viewDesc').innerHTML = desc;
+            document.getElementById('viewPrice').innerHTML = `${variant.price} ${variant.oldPrice ? `<span class="old-price">${variant.oldPrice}</span>` : ''}`;
+            document.getElementById('viewDesc').innerHTML = variant.desc || t('noDescription');
         }
 
         function renderViewMedia(mediaList, index, mainImgWrapper, thumbContainer) {
@@ -1788,9 +1953,9 @@
         function deleteProduct(id) {
             if (!isAdmin) return;
             if (!confirm(currentLang === 'ua' ? '🗑️ Видалити цей товар?' : '🗑️ Удалить этот товар?')) return;
-            let products = getDisplayProducts();
+            let products = getProducts();
             products = products.filter(p => p.id !== id);
-            localStorage.setItem('koraProductsRuntime', JSON.stringify(products));
+            saveProducts(products);
             renderProducts();
         }
 
@@ -1832,11 +1997,6 @@
         // ============================================================
         // 14. ПРОКРУТКА ТА АНІМАЦІЯ
         // ============================================================
-        function scrollToTop(event) {
-            if (event) event.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
         const scrollBtn = document.getElementById('scrollTopBtn');
         window.addEventListener('scroll', () => {
             scrollBtn.classList.toggle('show', window.scrollY > 400);
@@ -1868,4 +2028,3 @@
     </script>
 </body>
 </html>
-```
