@@ -712,7 +712,7 @@
         <i class="fas fa-chevron-up"></i>
     </button>
 
-    <!-- ===== МОДАЛЬНОЕ ОКНО ВХОДА - ГАРАНТИРОВАННО РАБОТАЕТ ===== -->
+    <!-- ===== МОДАЛЬНОЕ ОКНО ВХОДА - СЕКРЕТНОЕ ===== -->
     <div class="modal-overlay" id="loginModal">
         <div class="modal-box">
             <h3 id="modalLoginTitle"><i class="fas fa-user-shield" style="color: #c4a07a;"></i> Вхід в адмінку</h3>
@@ -973,11 +973,11 @@
         const PASSWORD = 'admin123';
         let isAdmin = false;
         let uploadedImagesData = [];
-        let clickCount = 0;
-        let clickTimer = null;
         let currentCategoryFilter = '';
         let currentLang = 'ua';
         let currentSelectedVariant = 0;
+        let tapCount = 0;
+        let tapTimer = null;
 
         const VARIANT_NAMES = {
             'ua': { half: 'Полуторний', double: 'Двуспалний', euro: 'Євро', family: 'Сімейний' },
@@ -1150,7 +1150,6 @@
             document.getElementById('langUa').classList.toggle('active-lang', lang === 'ua');
             document.getElementById('langRu').classList.toggle('active-lang', lang === 'ru');
             
-            // Модалка входа
             document.getElementById('modalLoginTitle').innerHTML = t.modalLoginTitle;
             document.getElementById('modalLoginDesc').innerText = t.modalLoginDesc;
             document.getElementById('errorMsg').innerHTML = t.errorMsg;
@@ -1240,7 +1239,6 @@
 
         function goToMainPage() { navigateHome(event); }
 
-        // ===== ФУНКЦИИ ДЛЯ МОДАЛОК =====
         function openModal(id) { 
             document.getElementById(id).classList.add('show'); 
         }
@@ -1256,12 +1254,10 @@
         });
 
         // ============================================================
-        // 5. ВХОД В АДМИНКУ - ИСПРАВЛЕНО! ТЕПЕРЬ ТОЧНО РАБОТАЕТ
+        // 5. СЕКРЕТНЫЙ ВХОД - БЫСТРОЕ ДВОЙНОЕ НАЖАТИЕ НА ЛОГОТИП
         // ============================================================
-        // Отслеживаем клики по логотипу
         document.getElementById('secretLogo').addEventListener('click', function(e) {
             e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
             
             // Если уже админ - выходим
             if (isAdmin) { 
@@ -1269,19 +1265,25 @@
                 return; 
             }
             
-            clickCount++;
-            clearTimeout(clickTimer);
-            clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
+            // Считаем клики
+            tapCount++;
+            clearTimeout(tapTimer);
             
-            if (clickCount >= 5) {
-                clickCount = 0;
-                clearTimeout(clickTimer);
-                // ПОКАЗЫВАЕМ МОДАЛКУ ВХОДА - РАБОТАЕТ!
+            // Если два клика за 500мс - открываем
+            if (tapCount >= 2) {
+                tapCount = 0;
+                clearTimeout(tapTimer);
                 document.getElementById('loginModal').classList.add('show');
                 document.getElementById('passwordInput').value = '';
                 document.getElementById('errorMsg').classList.remove('show');
                 setTimeout(() => document.getElementById('passwordInput').focus(), 200);
+                return;
             }
+            
+            // Сбрасываем счетчик через 500мс
+            tapTimer = setTimeout(() => {
+                tapCount = 0;
+            }, 500);
         });
 
         function loginAsAdmin() {
@@ -1309,7 +1311,6 @@
             renderProducts();
         }
 
-        // Кнопки входа/отмены
         document.getElementById('loginBtn').addEventListener('click', loginAsAdmin);
         document.getElementById('cancelBtn').addEventListener('click', () => {
             document.getElementById('loginModal').classList.remove('show');
@@ -1805,7 +1806,6 @@
             renderProducts();
             checkReveal();
             
-            // Убеждаемся что "Всі товари" активна
             document.querySelectorAll('.cat-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if (btn.innerText.trim() === 'Всі товари') {
