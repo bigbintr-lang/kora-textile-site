@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kora Textile — Натуральний текстиль з України</title>
+    <title>Kora Textile — Натуральный текстиль из Украины</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
@@ -641,31 +641,24 @@
             border-radius: 16px;
             border: 2px solid #ece0d4;
         }
+
         .variations-fields .var-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #ece0d4;
         }
-        .variations-fields .var-group label {
-            font-weight: 600;
-            font-size: 14px;
-            color: #6a5f52;
-        }
-        .variations-fields .var-group textarea {
-            min-height: 80px;
-            font-size: 14px;
-            padding: 10px 14px;
-        }
-        .variations-fields .var-group input {
-            font-size: 14px;
-            padding: 10px 14px;
-        }
+
         .variations-fields .var-group .var-check {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             margin-bottom: 5px;
         }
+
         .variations-fields .var-group .var-check input[type="checkbox"] {
             width: 20px;
             height: 20px;
@@ -673,10 +666,46 @@
             cursor: pointer;
             margin: 0;
             padding: 0;
+            flex-shrink: 0;
         }
+
         .variations-fields .var-group .var-check label {
             cursor: pointer;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 15px;
+            color: #3d352a;
+        }
+
+        .variations-fields .var-group input,
+        .variations-fields .var-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #e4d5c4;
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            background: #faf3ea;
+            transition: 0.3s;
+        }
+
+        .variations-fields .var-group input:focus,
+        .variations-fields .var-group textarea:focus {
+            outline: none;
+            border-color: #c4a07a;
+        }
+
+        .variations-fields .var-group textarea {
+            min-height: 70px;
+            resize: vertical;
+        }
+
+        .variations-fields .var-group .field-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #8a7b6a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 5px;
         }
 
         @media (max-width: 1024px) {
@@ -684,6 +713,7 @@
                 grid-template-columns: 1fr 1fr;
             }
         }
+
         @media (max-width: 600px) {
             .variations-fields {
                 grid-template-columns: 1fr;
@@ -919,9 +949,6 @@
             #productViewModal .modal-images { flex: 1 1 100%; border-right: none; border-bottom: 1px solid #ece0d4; border-radius: 30px 30px 0 0; }
             #productViewModal .modal-images .main-img-wrapper { border-radius: 30px 30px 0 0; }
             #productViewModal .modal-images .thumbnails { border-radius: 0; }
-            .variations-fields {
-                grid-template-columns: 1fr 1fr;
-            }
         }
 
         @media (max-width: 600px) {
@@ -938,9 +965,6 @@
             .cat-btn { font-size: 15px; padding: 14px 16px; }
             #productViewModal .modal-text { padding: 25px; }
             #productViewModal .modal-images .main-img-wrapper { height: 300px; }
-            .variations-fields {
-                grid-template-columns: 1fr;
-            }
         }
 
         .reveal {
@@ -1106,6 +1130,7 @@
                     </select>
 
                     <div class="variations-fields full-width">
+                        <!-- Полуторный -->
                         <div class="var-group">
                             <div class="var-check">
                                 <input type="checkbox" id="varHalf" />
@@ -1115,6 +1140,8 @@
                             <input type="text" id="oldPriceHalf" placeholder='Стара ціна (необов\'язково)' />
                             <textarea id="descHalf" placeholder='Опис для полуторного...'></textarea>
                         </div>
+
+                        <!-- Двуспальный -->
                         <div class="var-group">
                             <div class="var-check">
                                 <input type="checkbox" id="varDouble" />
@@ -1124,6 +1151,8 @@
                             <input type="text" id="oldPriceDouble" placeholder='Стара ціна (необов\'язково)' />
                             <textarea id="descDouble" placeholder='Опис для двуспалного...'></textarea>
                         </div>
+
+                        <!-- Евро -->
                         <div class="var-group">
                             <div class="var-check">
                                 <input type="checkbox" id="varEuro" />
@@ -1133,6 +1162,8 @@
                             <input type="text" id="oldPriceEuro" placeholder='Стара ціна (необов\'язково)' />
                             <textarea id="descEuro" placeholder='Опис для євро...'></textarea>
                         </div>
+
+                        <!-- Семейный -->
                         <div class="var-group">
                             <div class="var-check">
                                 <input type="checkbox" id="varFamily" />
