@@ -36,6 +36,7 @@
         .lang-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 998; }
         .lang-overlay.show { display: block; }
 
+        /* МОДАЛЬНЫЕ ОКНА */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.35); backdrop-filter: blur(4px); z-index: 999; justify-content: center; align-items: center; }
         .modal-overlay.show { display: flex; }
         .modal-box { background: #faf3ea; padding: 40px; border-radius: 30px; max-width: 500px; width: 90%; box-shadow: 0 30px 60px rgba(0,0,0,0.08); animation: modalIn 0.3s ease; position: relative; }
@@ -55,161 +56,34 @@
         .error-msg { color: #b75a5a; font-size: 14px; margin-bottom: 15px; display: none; }
         .error-msg.show { display: block; }
 
-        /* ============================================================
-           МОДАЛЬНОЕ ОКНО ПРОСМОТРА ТОВАРА - УМЕНЬШЕННОЕ
-           ============================================================ */
-        #productViewModal .modal-box {
-            max-width: 650px;
-            padding: 0;
-            overflow: hidden;
-            border-radius: 24px;
-            position: relative;
-        }
-        #productViewModal .modal-content {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        #productViewModal .modal-images {
-            flex: 1 1 100%;
-            min-width: 200px;
-            background: #faf3ea;
-            border-bottom: 1px solid #ece0d4;
-            display: flex;
-            flex-direction: column;
-            padding: 15px;
-        }
-        #productViewModal .modal-images .main-img-wrapper {
-            width: 100%;
-            height: 280px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background: #faf3ea;
-            border-radius: 16px;
-        }
-        #productViewModal .modal-images .main-img-wrapper img,
-        #productViewModal .modal-images .main-img-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        #productViewModal .modal-images .thumbnails {
-            display: flex;
-            gap: 10px;
-            padding: 12px 0 0 0;
-            overflow-x: auto;
-            background: #faf3ea;
-            border-radius: 0;
-            flex-wrap: nowrap;
-        }
-        #productViewModal .modal-images .thumbnails img,
-        #productViewModal .modal-images .thumbnails iframe {
-            width: 56px;
-            height: 56px;
-            object-fit: cover;
-            border-radius: 8px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            flex-shrink: 0;
-        }
-        #productViewModal .modal-images .thumbnails img.active,
-        #productViewModal .modal-images .thumbnails iframe.active {
-            border-color: #c4a07a;
-            box-shadow: 0 2px 8px rgba(196,160,122,0.3);
-        }
-        #productViewModal .modal-text {
-            flex: 1 1 100%;
-            padding: 20px 25px 25px 25px;
-            background: #faf3ea;
-        }
-        #productViewModal .close-view-btn {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: rgba(61, 53, 42, 0.85);
-            color: #fff;
-            border: none;
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            font-size: 16px;
-            cursor: pointer;
-            z-index: 20;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: 0.3s;
-        }
+        /* ===== МОДАЛКА ПРОСМОТРА ТОВАРА ===== */
+        #productViewModal .modal-box { max-width: 650px; padding: 0; overflow: hidden; border-radius: 24px; position: relative; }
+        #productViewModal .modal-content { display: flex; flex-wrap: wrap; }
+        #productViewModal .modal-images { flex: 1 1 100%; min-width: 200px; background: #faf3ea; border-bottom: 1px solid #ece0d4; display: flex; flex-direction: column; padding: 15px; }
+        #productViewModal .modal-images .main-img-wrapper { width: 100%; height: 280px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #faf3ea; border-radius: 16px; }
+        #productViewModal .modal-images .main-img-wrapper img, #productViewModal .modal-images .main-img-wrapper iframe { width: 100%; height: 100%; object-fit: cover; }
+        #productViewModal .modal-images .thumbnails { display: flex; gap: 10px; padding: 12px 0 0 0; overflow-x: auto; background: #faf3ea; border-radius: 0; flex-wrap: nowrap; }
+        #productViewModal .modal-images .thumbnails img, #productViewModal .modal-images .thumbnails iframe { width: 56px; height: 56px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid transparent; flex-shrink: 0; }
+        #productViewModal .modal-images .thumbnails img.active, #productViewModal .modal-images .thumbnails iframe.active { border-color: #c4a07a; box-shadow: 0 2px 8px rgba(196,160,122,0.3); }
+        #productViewModal .modal-text { flex: 1 1 100%; padding: 20px 25px 25px 25px; background: #faf3ea; }
+        #productViewModal .close-view-btn { position: absolute; top: 12px; right: 12px; background: rgba(61,53,42,0.85); color: #fff; border: none; width: 34px; height: 34px; border-radius: 50%; font-size: 16px; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: 0.3s; }
         #productViewModal .close-view-btn:hover { background: #c4a07a; transform: scale(1.05); }
-        #productViewModal .modal-text h2 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            padding-right: 30px;
-            color: #3d352a;
-        }
-        #productViewModal .modal-text .price-block {
-            font-size: 20px;
-            color: #c4a07a;
-            font-weight: 700;
-            margin: 6px 0 8px 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        #productViewModal .modal-text .price-block .old-price {
-            color: #c4b6a6;
-            font-weight: 400;
-            font-size: 16px;
-            text-decoration: line-through;
-        }
-        #productViewModal .modal-text .desc {
-            color: #6a5f52;
-            line-height: 1.6;
-            font-size: 14px;
-            margin-bottom: 6px;
-        }
+        #productViewModal .modal-text h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; padding-right: 30px; color: #3d352a; }
+        #productViewModal .modal-text .price-block { font-size: 20px; color: #c4a07a; font-weight: 700; margin: 6px 0 8px 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        #productViewModal .modal-text .price-block .old-price { color: #c4b6a6; font-weight: 400; font-size: 16px; text-decoration: line-through; }
+        #productViewModal .modal-text .desc { color: #6a5f52; line-height: 1.6; font-size: 14px; margin-bottom: 6px; }
         
         .variations-wrapper { margin: 10px 0 8px 0; }
-        .variations-label {
-            display: block;
-            font-size: 12px;
-            font-weight: 600;
-            color: #6a5f52;
-            margin-bottom: 6px;
-        }
+        .variations-label { display: block; font-size: 12px; font-weight: 600; color: #6a5f52; margin-bottom: 6px; }
         .variations-list { display: flex; flex-wrap: wrap; gap: 6px; }
-        .var-btn {
-            padding: 5px 16px;
-            border: 2px solid #e4d5c4;
-            border-radius: 30px;
-            background: #faf3ea;
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: 13px;
-            color: #6a5f52;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+        .var-btn { padding: 5px 16px; border: 2px solid #e4d5c4; border-radius: 30px; background: #faf3ea; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 13px; color: #6a5f52; cursor: pointer; transition: 0.3s; }
         .var-btn:hover { border-color: #c4a07a; }
         .var-btn.active { background: #c4a07a; color: #fff; border-color: #c4a07a; box-shadow: 0 4px 10px rgba(196,160,122,0.3); }
-
-        @media (max-width: 600px) {
-            #productViewModal .modal-box { max-width: 95%; }
-            #productViewModal .modal-images .main-img-wrapper { height: 200px; }
-            #productViewModal .modal-text { padding: 15px; }
-            #productViewModal .modal-text h2 { font-size: 18px; }
-            #productViewModal .modal-text .price-block { font-size: 18px; }
-            #productViewModal .modal-images .thumbnails img,
-            #productViewModal .modal-images .thumbnails iframe { width: 46px; height: 46px; }
-        }
 
         #mainPage { display: block; }
         #aboutPage { display: none; }
 
+        /* ГЕРОЙ */
         .hero { padding: 60px 0 80px; display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
         .hero-text { flex: 1 1 45%; }
         .hero-text .badge { display: inline-block; background: #ece0d4; color: #7d6348; padding: 6px 18px; border-radius: 30px; font-size: 14px; font-weight: 600; letter-spacing: 1px; margin-bottom: 20px; }
@@ -224,6 +98,7 @@
         .section-title { font-size: 36px; font-weight: 700; margin-bottom: 15px; }
         .section-sub { font-size: 18px; color: #8a7b6a; margin-bottom: 40px; display: block; }
 
+        /* ТОВАРЫ */
         .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin: 40px 0 70px; }
         .product-card { background: #faf3ea; border-radius: 30px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.03); transition: 0.4s; border: 1px solid #ece0d4; position: relative; cursor: pointer; }
         .product-card:hover { transform: scale(1.02); box-shadow: 0 20px 40px rgba(196,160,122,0.12); }
@@ -241,6 +116,7 @@
         .delete-btn:hover { background: #b75a5a; transform: scale(1.1); }
         .delete-btn.show { display: flex; }
 
+        /* АДМИН-ПАНЕЛЬ */
         .admin-panel { background: #f5ede4; border-radius: 30px; padding: 40px; margin: 40px 0; display: none; border: 2px dashed #d4bca3; }
         .admin-panel.show { display: block; }
         .admin-panel h3 { font-size: 24px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
@@ -252,125 +128,22 @@
         .form-grid textarea { resize: vertical; min-height: 60px; }
         .form-grid .full-width { grid-column: 1 / -1; }
 
-        .variations-fields {
-            grid-column: 1 / -1;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 15px;
-            background: #faf3ea;
-            padding: 20px;
-            border-radius: 16px;
-            border: 2px solid #ece0d4;
-        }
-
-        .variations-fields .var-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            background: #fff;
-            padding: 15px;
-            border-radius: 12px;
-            border: 2px solid #ece0d4;
-            transition: all 0.3s ease;
-        }
-
-        .variations-fields .var-group.selected {
-            border-color: #c4a07a;
-            box-shadow: 0 2px 16px rgba(196, 160, 122, 0.2);
-        }
-
-        .variations-fields .var-group .custom-checkbox-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            margin-bottom: 8px;
-            padding: 4px 0;
-        }
-
-        .variations-fields .var-group .custom-checkbox-wrapper input[type="checkbox"] {
-            display: none;
-        }
-
-        .variations-fields .var-group .custom-checkbox-wrapper .checkmark {
-            display: inline-block;
-            width: 28px;
-            height: 28px;
-            min-width: 28px;
-            min-height: 28px;
-            border: 2px solid #d4bca3;
-            border-radius: 8px;
-            background: #faf3ea;
-            position: relative;
-            transition: all 0.25s ease;
-            flex-shrink: 0;
-        }
-
-        .variations-fields .var-group .custom-checkbox-wrapper .checkmark:hover {
-            border-color: #c4a07a;
-            background: #f5ede4;
-        }
-
-        .variations-fields .var-group .custom-checkbox-wrapper .checkmark::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            width: 16px;
-            height: 16px;
-            background: #c4a07a;
-            border-radius: 4px;
-            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .variations-fields .var-group .custom-checkbox-wrapper input[type="checkbox"]:checked + .checkmark {
-            border-color: #c4a07a;
-            background: #c4a07a;
-            box-shadow: 0 2px 12px rgba(196, 160, 122, 0.35);
-        }
-
-        .variations-fields .var-group .custom-checkbox-wrapper input[type="checkbox"]:checked + .checkmark::after {
-            transform: translate(-50%, -50%) scale(1);
-            background: #ffffff;
-        }
-
-        .variations-fields .var-group .custom-checkbox-wrapper .label-text {
-            font-weight: 600;
-            font-size: 16px;
-            color: #3d352a;
-            user-select: none;
-            transition: color 0.3s;
-        }
-
-        .variations-fields .var-group.selected .custom-checkbox-wrapper .label-text {
-            color: #c4a07a;
-        }
-
-        .variations-fields .var-group input,
-        .variations-fields .var-group textarea {
-            width: 100%;
-            padding: 10px 14px;
-            border: 2px solid #e4d5c4;
-            border-radius: 12px;
-            font-size: 14px;
-            font-family: 'Inter', sans-serif;
-            background: #faf3ea;
-            transition: 0.3s;
-        }
-
-        .variations-fields .var-group input:focus,
-        .variations-fields .var-group textarea:focus {
-            outline: none;
-            border-color: #c4a07a;
-            box-shadow: 0 0 0 3px rgba(196, 160, 122, 0.1);
-        }
-
-        .variations-fields .var-group textarea {
-            min-height: 70px;
-            resize: vertical;
-        }
-
+        /* ЧЕКБОКСЫ */
+        .variations-fields { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 15px; background: #faf3ea; padding: 20px; border-radius: 16px; border: 2px solid #ece0d4; }
+        .variations-fields .var-group { display: flex; flex-direction: column; gap: 8px; background: #fff; padding: 15px; border-radius: 12px; border: 2px solid #ece0d4; transition: all 0.3s ease; }
+        .variations-fields .var-group.selected { border-color: #c4a07a; box-shadow: 0 2px 16px rgba(196,160,122,0.2); }
+        .variations-fields .var-group .custom-checkbox-wrapper { display: flex; align-items: center; gap: 12px; cursor: pointer; margin-bottom: 8px; padding: 4px 0; }
+        .variations-fields .var-group .custom-checkbox-wrapper input[type="checkbox"] { display: none; }
+        .variations-fields .var-group .custom-checkbox-wrapper .checkmark { display: inline-block; width: 28px; height: 28px; min-width: 28px; min-height: 28px; border: 2px solid #d4bca3; border-radius: 8px; background: #faf3ea; position: relative; transition: all 0.25s ease; flex-shrink: 0; }
+        .variations-fields .var-group .custom-checkbox-wrapper .checkmark:hover { border-color: #c4a07a; background: #f5ede4; }
+        .variations-fields .var-group .custom-checkbox-wrapper .checkmark::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); width: 16px; height: 16px; background: #c4a07a; border-radius: 4px; transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .variations-fields .var-group .custom-checkbox-wrapper input[type="checkbox"]:checked + .checkmark { border-color: #c4a07a; background: #c4a07a; box-shadow: 0 2px 12px rgba(196,160,122,0.35); }
+        .variations-fields .var-group .custom-checkbox-wrapper input[type="checkbox"]:checked + .checkmark::after { transform: translate(-50%, -50%) scale(1); background: #ffffff; }
+        .variations-fields .var-group .custom-checkbox-wrapper .label-text { font-weight: 600; font-size: 16px; color: #3d352a; user-select: none; transition: color 0.3s; }
+        .variations-fields .var-group.selected .custom-checkbox-wrapper .label-text { color: #c4a07a; }
+        .variations-fields .var-group input, .variations-fields .var-group textarea { width: 100%; padding: 10px 14px; border: 2px solid #e4d5c4; border-radius: 12px; font-size: 14px; font-family: 'Inter', sans-serif; background: #faf3ea; transition: 0.3s; }
+        .variations-fields .var-group input:focus, .variations-fields .var-group textarea:focus { outline: none; border-color: #c4a07a; box-shadow: 0 0 0 3px rgba(196,160,122,0.1); }
+        .variations-fields .var-group textarea { min-height: 70px; resize: vertical; }
         @media (max-width: 1024px) { .variations-fields { grid-template-columns: 1fr 1fr; } }
         @media (max-width: 600px) { .variations-fields { grid-template-columns: 1fr; } }
 
@@ -390,12 +163,243 @@
         .empty-msg { text-align: center; padding: 60px 20px; color: #c4b6a6; font-size: 18px; }
         .empty-msg i { font-size: 50px; display: block; margin-bottom: 15px; opacity: 0.5; }
 
+        /* КАТЕГОРИИ */
         .category-list-wrapper { margin: 20px 0 40px 0; }
         .category-list { display: flex; flex-direction: column; gap: 12px; max-width: 600px; margin: 0 auto; }
         .cat-btn { display: block; width: 100%; padding: 16px 20px; border: 1px solid #ece0d4; border-radius: 16px; background: #faf3ea; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; color: #6a5f52; cursor: pointer; transition: 0.3s; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
         .cat-btn:hover { border-color: #c4a07a; background: #f5ede4; transform: translateY(-2px); }
         .cat-btn.active { background: #c4a07a; color: #fff; border-color: #c4a07a; box-shadow: 0 4px 15px rgba(196,160,122,0.3); }
         .cat-btn.active:hover { background: #ad8a67; transform: translateY(-2px); }
+
+        /* ===== СИСТЕМА ОТЗЫВОВ ===== */
+        .reviews-section {
+            margin: 50px 0 30px 0;
+            padding: 40px 0;
+            border-top: 2px solid #ece0d4;
+        }
+        .reviews-section .section-title {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        .reviews-section .section-sub {
+            font-size: 16px;
+            color: #8a7b6a;
+            margin-bottom: 30px;
+        }
+
+        .review-form {
+            background: #faf3ea;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid #ece0d4;
+            margin-bottom: 30px;
+        }
+        .review-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .review-form input, .review-form textarea, .review-form select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e4d5c4;
+            border-radius: 14px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            transition: 0.3s;
+        }
+        .review-form input:focus, .review-form textarea:focus, .review-form select:focus {
+            outline: none;
+            border-color: #c4a07a;
+        }
+        .review-form textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .review-form .full-width {
+            grid-column: 1 / -1;
+        }
+        .review-form .rating-select {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            grid-column: 1 / -1;
+        }
+        .review-form .rating-select label {
+            font-weight: 600;
+            color: #6a5f52;
+            margin-right: 10px;
+        }
+        .review-form .rating-select .stars {
+            display: flex;
+            gap: 4px;
+            cursor: pointer;
+        }
+        .review-form .rating-select .stars i {
+            font-size: 28px;
+            color: #d4bca3;
+            transition: 0.2s;
+        }
+        .review-form .rating-select .stars i.active {
+            color: #f5b342;
+        }
+        .review-form .rating-select .stars i:hover {
+            transform: scale(1.1);
+        }
+        .btn-submit-review {
+            background: #c4a07a;
+            color: #fff;
+            padding: 14px 36px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Inter', sans-serif;
+            grid-column: 1 / -1;
+        }
+        .btn-submit-review:hover {
+            background: #ad8a67;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(196,160,122,0.25);
+        }
+
+        .reviews-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .review-item {
+            background: #faf3ea;
+            padding: 25px;
+            border-radius: 18px;
+            border: 1px solid #ece0d4;
+            transition: 0.3s;
+        }
+        .review-item:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+        }
+        .review-item .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .review-item .review-author {
+            font-weight: 700;
+            font-size: 17px;
+            color: #3d352a;
+        }
+        .review-item .review-stars {
+            color: #f5b342;
+            font-size: 16px;
+            letter-spacing: 2px;
+        }
+        .review-item .review-date {
+            font-size: 13px;
+            color: #b5a695;
+        }
+        .review-item .review-text {
+            color: #6a5f52;
+            line-height: 1.7;
+            margin: 8px 0 12px 0;
+            font-size: 15px;
+        }
+        .review-item .review-answer {
+            background: #f5ede4;
+            padding: 15px 18px;
+            border-radius: 12px;
+            border-left: 3px solid #c4a07a;
+            margin-top: 10px;
+        }
+        .review-item .review-answer .answer-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #8a7b6a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .review-item .review-answer .answer-text {
+            color: #3d352a;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Админ-кнопки для отзывов */
+        .review-admin-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .review-admin-actions button {
+            padding: 6px 16px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-review-answer {
+            background: #c4a07a;
+            color: #fff;
+        }
+        .btn-review-answer:hover {
+            background: #ad8a67;
+            transform: translateY(-2px);
+        }
+        .btn-review-delete {
+            background: #e8d5c4;
+            color: #8a6a5a;
+        }
+        .btn-review-delete:hover {
+            background: #d4bca3;
+            transform: translateY(-2px);
+        }
+
+        /* Модалка ответа на отзыв */
+        .review-answer-modal .modal-box {
+            max-width: 550px;
+        }
+        .review-answer-modal textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e4d5c4;
+            border-radius: 16px;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            background: #faf3ea;
+            min-height: 100px;
+            resize: vertical;
+        }
+        .review-answer-modal textarea:focus {
+            outline: none;
+            border-color: #c4a07a;
+        }
+
+        @media (max-width: 600px) {
+            .review-form .form-row {
+                grid-template-columns: 1fr;
+            }
+            .review-item .review-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .review-admin-actions {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
 
         #aboutPage { min-height: 70vh; padding: 60px 0; }
         .about-wrapper { background: #faf3ea; padding: 60px; border-radius: 30px; border: 1px solid #ece0d4; box-shadow: 0 8px 25px rgba(0,0,0,0.03); position: relative; }
@@ -485,11 +489,11 @@
         <i class="fas fa-chevron-up"></i>
     </button>
 
-    <!-- Модалки -->
+    <!-- ===== МОДАЛКА ВХОДА В АДМИНКУ ===== -->
     <div class="modal-overlay" id="loginModal">
         <div class="modal-box">
             <h3 id="modalLoginTitle"><i class="fas fa-user-shield" style="color: #c4a07a;"></i> Вхід в адмінку</h3>
-            <p id="modalLoginDesc">Введіть пароль для керування товарами</p>
+            <p id="modalLoginDesc">Введіть пароль для керування товарами та відгуками</p>
             <div class="error-msg" id="errorMsg">❌ Невірний пароль! Спробуйте ще раз.</div>
             <input type="password" id="passwordInput" placeholder="Введіть пароль..." />
             <div class="btn-group">
@@ -499,6 +503,48 @@
         </div>
     </div>
 
+    <!-- ===== МОДАЛКА ОТВЕТА НА ОТЗЫВ ===== -->
+    <div class="modal-overlay review-answer-modal" id="answerModal">
+        <div class="modal-box">
+            <h3 id="answerTitle"><i class="fas fa-reply" style="color: #c4a07a;"></i> Відповісти на відгук</h3>
+            <p id="answerDesc" style="margin-bottom: 10px;">Напишіть відповідь на відгук <strong id="answerAuthorName"></strong></p>
+            <textarea id="answerInput" placeholder="Введіть вашу відповідь..."></textarea>
+            <input type="hidden" id="answerReviewId" />
+            <div class="btn-group">
+                <button class="btn-login" id="sendAnswerBtn"><i class="fas fa-paper-plane"></i> Відповісти</button>
+                <button class="btn-cancel" id="cancelAnswerBtn">Скасувати</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== МОДАЛКА ПРОСМОТРА ТОВАРА ===== -->
+    <div class="modal-overlay" id="productViewModal">
+        <div class="modal-box">
+            <button class="close-view-btn" onclick="closeModal('productViewModal')"><i class="fas fa-times"></i></button>
+            <div class="modal-content">
+                <div class="modal-images">
+                    <div class="main-img-wrapper" id="viewMainImage">
+                        <div style="color: #c4b6a6; font-size: 16px; display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-image" style="font-size: 36px; margin-bottom: 10px;"></i>
+                            <span id="noPhotoText">Фото відсутнє</span>
+                        </div>
+                    </div>
+                    <div class="thumbnails" id="viewThumbnails"></div>
+                </div>
+                <div class="modal-text">
+                    <h2 id="viewTitle">Назва товару</h2>
+                    <div class="variations-wrapper" id="variationsBlock">
+                        <span class="variations-label" id="varLabel">Оберіть тип:</span>
+                        <div class="variations-list" id="variationsList"></div>
+                    </div>
+                    <div class="price-block" id="viewPrice"></div>
+                    <div class="desc" id="viewDesc">Опис товару</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== МОДАЛКИ ===== -->
     <div class="modal-overlay" id="pickupModal">
         <div class="modal-box">
             <h3 id="pickupTitle"><i class="fas fa-truck-loading" style="color: #c4a07a;"></i> Самовивіз</h3>
@@ -523,35 +569,7 @@
         </div>
     </div>
 
-    <!-- ===== МОДАЛЬНОЕ ОКНО ПРОСМОТРА ТОВАРА ===== -->
-    <div class="modal-overlay" id="productViewModal">
-        <div class="modal-box">
-            <button class="close-view-btn" onclick="closeModal('productViewModal')"><i class="fas fa-times"></i></button>
-            <div class="modal-content">
-                <div class="modal-images">
-                    <div class="main-img-wrapper" id="viewMainImage">
-                        <div style="color: #c4b6a6; font-size: 16px; display: flex; flex-direction: column; align-items: center;">
-                            <i class="fas fa-image" style="font-size: 36px; margin-bottom: 10px;"></i>
-                            <span id="noPhotoText">Фото відсутнє</span>
-                        </div>
-                    </div>
-                    <div class="thumbnails" id="viewThumbnails"></div>
-                </div>
-                <div class="modal-text">
-                    <h2 id="viewTitle">Назва товару</h2>
-                    
-                    <div class="variations-wrapper" id="variationsBlock">
-                        <span class="variations-label" id="varLabel">Оберіть тип:</span>
-                        <div class="variations-list" id="variationsList"></div>
-                    </div>
-
-                    <div class="price-block" id="viewPrice"></div>
-                    <div class="desc" id="viewDesc">Опис товару</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <!-- ===== ГЛАВНАЯ СТРАНИЦА ===== -->
     <main id="mainPage">
         <div class="container">
             <section class="hero" id="top">
@@ -567,11 +585,11 @@
                 </div>
             </section>
 
+            <!-- ===== АДМИН-ПАНЕЛЬ ===== -->
             <div class="admin-panel" id="adminPanel">
                 <h3 id="adminTitle"><i class="fas fa-plus-circle"></i> Додати товар</h3>
                 <div class="form-grid">
                     <input type="text" id="productName" placeholder="Назва товару (наприклад: Комплект постільної білизни)" />
-                    
                     <select id="productCategory" class="full-width">
                         <option value="">Оберіть категорію...</option>
                         <option value="Постільна білизна бязь Голд">Постільна білизна бязь Голд</option>
@@ -596,7 +614,6 @@
                             <input type="text" id="oldPriceHalf" placeholder='Стара ціна (необов\'язково)' />
                             <textarea id="descHalf" placeholder='Опис для полуторного...'></textarea>
                         </div>
-
                         <div class="var-group" id="groupDouble">
                             <label class="custom-checkbox-wrapper" onclick="toggleCheckbox('varDouble', 'groupDouble')">
                                 <input type="checkbox" id="varDouble" />
@@ -607,7 +624,6 @@
                             <input type="text" id="oldPriceDouble" placeholder='Стара ціна (необов\'язково)' />
                             <textarea id="descDouble" placeholder='Опис для двуспалного...'></textarea>
                         </div>
-
                         <div class="var-group" id="groupEuro">
                             <label class="custom-checkbox-wrapper" onclick="toggleCheckbox('varEuro', 'groupEuro')">
                                 <input type="checkbox" id="varEuro" />
@@ -618,7 +634,6 @@
                             <input type="text" id="oldPriceEuro" placeholder='Стара ціна (необов\'язково)' />
                             <textarea id="descEuro" placeholder='Опис для євро...'></textarea>
                         </div>
-
                         <div class="var-group" id="groupFamily">
                             <label class="custom-checkbox-wrapper" onclick="toggleCheckbox('varFamily', 'groupFamily')">
                                 <input type="checkbox" id="varFamily" />
@@ -645,6 +660,7 @@
                 <button class="btn-add" id="addProductBtn"><i class="fas fa-plus"></i> <span id="addBtnText">Додати товар</span></button>
             </div>
 
+            <!-- ===== КАТАЛОГ ===== -->
             <div class="reveal" id="catalogHeader">
                 <span class="section-sub" id="catalogSub"><i class="fas fa-tag"></i> Наш каталог</span>
                 <h2 class="section-title" id="catalogTitle">Товари Kora Textile</h2>
@@ -666,9 +682,47 @@
             </div>
 
             <div class="products-grid" id="productsGrid"></div>
+
+            <!-- ===== СИСТЕМА ОТЗЫВОВ ===== -->
+            <div class="reviews-section" id="reviewsSection">
+                <h2 class="section-title" id="reviewsTitle"><i class="fas fa-star" style="color: #f5b342;"></i> Відгуки наших клієнтів</h2>
+                <p class="section-sub" id="reviewsSub">Ваша думка важлива для нас! Залиште відгук про наші товари.</p>
+
+                <!-- Форма отправки отзыва -->
+                <div class="review-form" id="reviewForm">
+                    <div class="form-row">
+                        <input type="text" id="reviewName" placeholder="Ваше ім'я *" />
+                        <input type="email" id="reviewEmail" placeholder="Ваш email (необов'язково)" />
+                    </div>
+                    <div class="form-row">
+                        <select id="reviewProduct" class="full-width">
+                            <option value="">Оберіть товар...</option>
+                        </select>
+                    </div>
+                    <div class="rating-select">
+                        <label>Ваша оцінка:</label>
+                        <div class="stars" id="starsContainer">
+                            <i class="fas fa-star" data-star="1"></i>
+                            <i class="fas fa-star" data-star="2"></i>
+                            <i class="fas fa-star" data-star="3"></i>
+                            <i class="fas fa-star" data-star="4"></i>
+                            <i class="fas fa-star" data-star="5"></i>
+                        </div>
+                        <span id="ratingLabel" style="font-weight:600;color:#c4a07a;margin-left:8px;">0/5</span>
+                    </div>
+                    <div class="full-width">
+                        <textarea id="reviewText" placeholder="Ваш відгук... *" rows="3"></textarea>
+                    </div>
+                    <button class="btn-submit-review" id="submitReviewBtn"><i class="fas fa-paper-plane"></i> Залишити відгук</button>
+                </div>
+
+                <!-- Список отзывов -->
+                <div class="reviews-list" id="reviewsList"></div>
+            </div>
         </div>
     </main>
 
+    <!-- ===== СТРАНИЦА "О НАС" ===== -->
     <section id="aboutPage">
         <div class="container">
             <div class="about-wrapper">
@@ -687,6 +741,7 @@
         </div>
     </section>
 
+    <!-- ===== ФУТЕР ===== -->
     <footer class="container">
         <div class="footer-grid">
             <div class="footer-brand">
@@ -743,8 +798,8 @@
         let currentCategoryFilter = '';
         let currentLang = 'ua';
         let currentSelectedVariant = 0;
+        let selectedRating = 0;
 
-        const VARIANT_TYPES = ['half', 'double', 'euro', 'family'];
         const VARIANT_NAMES = {
             'ua': { half: 'Полуторний', double: 'Двуспалний', euro: 'Євро', family: 'Сімейний' },
             'ru': { half: 'Полуторный', double: 'Двуспальный', euro: 'Евро', family: 'Семейный' }
@@ -756,7 +811,7 @@
         const translations = {
             'ua': {
                 'modalLoginTitle': 'Вхід в адмінку',
-                'modalLoginDesc': 'Введіть пароль для керування товарами',
+                'modalLoginDesc': 'Введіть пароль для керування товарами та відгуками',
                 'errorMsg': '❌ Невірний пароль! Спробуйте ще раз.',
                 'loginBtnText': 'Увійти',
                 'cancelBtnText': 'Скасувати',
@@ -809,11 +864,31 @@
                 'productAdded': '✅ Товар додано!',
                 'deleteConfirm': '🗑️ Видалити цей товар?',
                 'fileTooBig': '❌ Файл {name} занадто великий! Максимум 5 МБ.',
-                'filesSelected': 'Обрано файлів: '
+                'filesSelected': 'Обрано файлів: ',
+                'reviewsTitle': 'Відгуки наших клієнтів',
+                'reviewsSub': 'Ваша думка важлива для нас! Залиште відгук про наші товари.',
+                'reviewName': "Ваше ім'я *",
+                'reviewEmail': 'Ваш email (необов\'язково)',
+                'reviewProduct': 'Оберіть товар...',
+                'reviewText': 'Ваш відгук... *',
+                'submitReview': 'Залишити відгук',
+                'answerTitle': 'Відповісти на відгук',
+                'answerDesc': 'Напишіть відповідь на відгук',
+                'sendAnswer': 'Відповісти',
+                'cancelAnswer': 'Скасувати',
+                'answerLabel': 'Відповідь адміністратора:',
+                'replyBtn': 'Відповісти',
+                'deleteBtn': 'Видалити',
+                'ratingLabel': 'Оцінка:',
+                'noReviews': 'Поки немає відгуків. Будьте першим!',
+                'reviewDeleted': 'Відгук видалено!',
+                'answerSent': 'Відповідь надіслано!',
+                'reviewSent': 'Дякуємо за ваш відгук!',
+                'fillFields': 'Будь ласка, заповніть всі обов\'язкові поля!'
             },
             'ru': {
                 'modalLoginTitle': 'Вход в админку',
-                'modalLoginDesc': 'Введите пароль для управления товарами',
+                'modalLoginDesc': 'Введите пароль для управления товарами и отзывами',
                 'errorMsg': '❌ Неверный пароль! Попробуйте еще раз.',
                 'loginBtnText': 'Войти',
                 'cancelBtnText': 'Отмена',
@@ -866,28 +941,32 @@
                 'productAdded': '✅ Товар добавлен!',
                 'deleteConfirm': '🗑️ Удалить этот товар?',
                 'fileTooBig': '❌ Файл {name} слишком большой! Максимум 5 МБ.',
-                'filesSelected': 'Выбрано файлов: '
+                'filesSelected': 'Выбрано файлов: ',
+                'reviewsTitle': 'Отзывы наших клиентов',
+                'reviewsSub': 'Ваше мнение важно для нас! Оставьте отзыв о наших товарах.',
+                'reviewName': "Ваше имя *",
+                'reviewEmail': 'Ваш email (необязательно)',
+                'reviewProduct': 'Выберите товар...',
+                'reviewText': 'Ваш отзыв... *',
+                'submitReview': 'Оставить отзыв',
+                'answerTitle': 'Ответить на отзыв',
+                'answerDesc': 'Напишите ответ на отзыв',
+                'sendAnswer': 'Ответить',
+                'cancelAnswer': 'Отмена',
+                'answerLabel': 'Ответ администратора:',
+                'replyBtn': 'Ответить',
+                'deleteBtn': 'Удалить',
+                'ratingLabel': 'Оценка:',
+                'noReviews': 'Пока нет отзывов. Будьте первым!',
+                'reviewDeleted': 'Отзыв удален!',
+                'answerSent': 'Ответ отправлен!',
+                'reviewSent': 'Спасибо за ваш отзыв!',
+                'fillFields': 'Пожалуйста, заполните все обязательные поля!'
             }
         };
 
         // ============================================================
-        // 3. ФУНКЦИЯ ДЛЯ ЧЕКБОКСОВ
-        // ============================================================
-        function toggleCheckbox(checkboxId, groupId) {
-            const checkbox = document.getElementById(checkboxId);
-            const group = document.getElementById(groupId);
-            
-            checkbox.checked = !checkbox.checked;
-            
-            if (checkbox.checked) {
-                group.classList.add('selected');
-            } else {
-                group.classList.remove('selected');
-            }
-        }
-
-        // ============================================================
-        // 4. ФУНКЦИИ ПЕРЕВОДА
+        // 3. ОСНОВНЫЕ ФУНКЦИИ
         // ============================================================
         function t(key, params = {}) {
             let text = translations[currentLang][key] || key;
@@ -895,6 +974,17 @@
                 text = text.replace(`{${k}}`, v);
             }
             return text;
+        }
+
+        function toggleCheckbox(checkboxId, groupId) {
+            const checkbox = document.getElementById(checkboxId);
+            const group = document.getElementById(groupId);
+            checkbox.checked = !checkbox.checked;
+            if (checkbox.checked) {
+                group.classList.add('selected');
+            } else {
+                group.classList.remove('selected');
+            }
         }
 
         function toggleLangMenu() {
@@ -974,11 +1064,25 @@
             document.getElementById('productName').placeholder = lang === 'ua' ? 'Назва товару (наприклад: Комплект постільної білизни)' : 'Название товара (например: Комплект постельного белья)';
             document.getElementById('productVideo').placeholder = lang === 'ua' ? 'Посилання на відео (YouTube, наприклад: https://www.youtube.com/watch?v=...)' : 'Ссылка на видео (YouTube, например: https://www.youtube.com/watch?v=...)';
 
+            // Отзывы
+            document.getElementById('reviewsTitle').innerHTML = '<i class="fas fa-star" style="color: #f5b342;"></i> ' + t.reviewsTitle;
+            document.getElementById('reviewsSub').innerText = t.reviewsSub;
+            document.getElementById('reviewName').placeholder = t.reviewName;
+            document.getElementById('reviewEmail').placeholder = t.reviewEmail;
+            document.getElementById('reviewProduct').options[0].text = t.reviewProduct;
+            document.getElementById('reviewText').placeholder = t.reviewText;
+            document.getElementById('submitReviewBtn').innerHTML = '<i class="fas fa-paper-plane"></i> ' + t.submitReview;
+            document.getElementById('answerTitle').innerHTML = '<i class="fas fa-reply" style="color: #c4a07a;"></i> ' + t.answerTitle;
+            document.getElementById('answerDesc').innerHTML = t.answerDesc + ' <strong id="answerAuthorName"></strong>';
+            document.getElementById('sendAnswerBtn').innerHTML = '<i class="fas fa-paper-plane"></i> ' + t.sendAnswer;
+            document.getElementById('cancelAnswerBtn').innerText = t.cancelAnswer;
+
             renderProducts();
+            renderReviews();
         }
 
         // ============================================================
-        // 5. НАВИГАЦИЯ
+        // 4. НАВИГАЦИЯ
         // ============================================================
         function goToAboutPage() {
             document.getElementById('mainPage').style.display = 'none';
@@ -1005,9 +1109,6 @@
 
         function goToMainPage() { navigateHome(event); }
 
-        // ============================================================
-        // 6. МОДАЛЬНЫЕ ОКНА
-        // ============================================================
         function openModal(id) { document.getElementById(id).classList.add('show'); }
         function closeModal(id) { document.getElementById(id).classList.remove('show'); }
         document.querySelectorAll('.modal-overlay').forEach(modal => {
@@ -1017,18 +1118,23 @@
         });
 
         // ============================================================
-        // 7. ВХОД В АДМИНКУ
+        // 5. СЕКРЕТНЫЙ ВХОД В АДМИНКУ (двойной клик по логотипу)
         // ============================================================
         document.getElementById('secretLogo').addEventListener('click', function(e) {
             e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            resetFilter();
+            
+            if (isAdmin) { 
+                logoutAdmin(); 
+                return; 
+            }
+            
             clickCount++;
             clearTimeout(clickTimer);
-            clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
-            if (clickCount >= 5) {
-                clickCount = 0; clearTimeout(clickTimer);
-                if (isAdmin) { logoutAdmin(); return; }
+            clickTimer = setTimeout(() => { clickCount = 0; }, 500);
+            
+            if (clickCount >= 2) {
+                clickCount = 0;
+                clearTimeout(clickTimer);
                 document.getElementById('loginModal').classList.add('show');
                 document.getElementById('passwordInput').value = '';
                 document.getElementById('errorMsg').classList.remove('show');
@@ -1047,9 +1153,11 @@
                 error.classList.remove('show');
                 input.value = '';
                 renderProducts();
+                renderReviews();
             } else {
                 error.classList.add('show');
-                input.value = ''; input.focus();
+                input.value = ''; 
+                input.focus();
             }
         }
 
@@ -1058,6 +1166,7 @@
             document.getElementById('adminPanel').classList.remove('show');
             document.getElementById('adminBadge').classList.remove('show');
             renderProducts();
+            renderReviews();
         }
 
         document.getElementById('loginBtn').addEventListener('click', loginAsAdmin);
@@ -1072,7 +1181,7 @@
         });
 
         // ============================================================
-        // 8. РАБОТА С ТОВАРАМИ
+        // 6. РАБОТА С ТОВАРАМИ
         // ============================================================
         function getDefaultProducts() {
             return [
@@ -1088,6 +1197,17 @@
                         { type: 'euro', price: '1650 ₴', oldPrice: '1900 ₴', desc: 'Євро комплект: простирадло 220×240, підковдра 200×220, наволочки 70×70 (2 шт.). Льон преміум класу.' },
                         { type: 'family', price: '1850 ₴', oldPrice: '2200 ₴', desc: 'Сімейний комплект: простирадло 240×260, підковдри 145×215 (2 шт.), наволочки 70×70 (4 шт.). Ідеальний для великої родини.' }
                     ]
+                },
+                {
+                    id: 2,
+                    name: 'Плед "Карамель"',
+                    category: 'Покривала та пледи',
+                    images: [],
+                    video: '',
+                    variants: [
+                        { type: 'half', price: '850 ₴', oldPrice: '', desc: 'Полуторний плед: 150×200, м\'який, теплий.' },
+                        { type: 'double', price: '1050 ₴', oldPrice: '', desc: 'Двуспалний плед: 180×220, ідеальний для двох.' }
+                    ]
                 }
             ];
         }
@@ -1102,7 +1222,227 @@
 
         function saveProducts(products) {
             localStorage.setItem('koraProductsRuntime', JSON.stringify(products));
+            updateReviewProducts();
         }
+
+        // ============================================================
+        // 7. СИСТЕМА ОТЗЫВОВ
+        // ============================================================
+        function getReviews() {
+            const data = localStorage.getItem('koraReviews');
+            if (data) {
+                try { return JSON.parse(data); } catch (e) { return []; }
+            }
+            return [];
+        }
+
+        function saveReviews(reviews) {
+            localStorage.setItem('koraReviews', JSON.stringify(reviews));
+        }
+
+        function updateReviewProducts() {
+            const products = getProducts();
+            const select = document.getElementById('reviewProduct');
+            const currentVal = select.value;
+            
+            // Очищаем, оставляя первый пустой option
+            while (select.options.length > 1) {
+                select.remove(1);
+            }
+            
+            products.forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p.id;
+                opt.textContent = p.name;
+                select.appendChild(opt);
+            });
+            
+            // Восстанавливаем выбранное значение если оно еще существует
+            if (currentVal) {
+                const exists = Array.from(select.options).some(opt => opt.value == currentVal);
+                if (exists) select.value = currentVal;
+            }
+        }
+
+        function renderReviews() {
+            const container = document.getElementById('reviewsList');
+            const reviews = getReviews();
+            const products = getProducts();
+            
+            if (reviews.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-msg" style="padding: 30px;">
+                        <i class="fas fa-comment-dots"></i>
+                        ${t('noReviews')}
+                    </div>
+                `;
+                return;
+            }
+            
+            // Сортируем по дате (новые сверху)
+            reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            container.innerHTML = reviews.map(r => {
+                const product = products.find(p => p.id == r.productId);
+                const productName = product ? product.name : 'Товар';
+                const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+                
+                return `
+                    <div class="review-item" data-id="${r.id}">
+                        <div class="review-header">
+                            <div>
+                                <span class="review-author">${r.name}</span>
+                                <span style="color:#8a7b6a;font-size:14px;margin-left:10px;">${productName}</span>
+                            </div>
+                            <div>
+                                <span class="review-stars">${stars}</span>
+                                <span class="review-date">${new Date(r.date).toLocaleDateString('uk-UA')}</span>
+                            </div>
+                        </div>
+                        <div class="review-text">${r.text}</div>
+                        
+                        ${r.answer ? `
+                            <div class="review-answer">
+                                <div class="answer-label"><i class="fas fa-reply"></i> ${t('answerLabel')}</div>
+                                <div class="answer-text">${r.answer}</div>
+                            </div>
+                        ` : ''}
+                        
+                        ${isAdmin ? `
+                            <div class="review-admin-actions">
+                                ${!r.answer ? `<button class="btn-review-answer" onclick="openAnswerModal(${r.id}, '${r.name}')"><i class="fas fa-reply"></i> ${t('replyBtn')}</button>` : ''}
+                                <button class="btn-review-delete" onclick="deleteReview(${r.id})"><i class="fas fa-trash"></i> ${t('deleteBtn')}</button>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function submitReview() {
+            const name = document.getElementById('reviewName').value.trim();
+            const email = document.getElementById('reviewEmail').value.trim();
+            const productId = document.getElementById('reviewProduct').value;
+            const text = document.getElementById('reviewText').value.trim();
+            
+            if (!name || !text || !productId || selectedRating === 0) {
+                alert(t('fillFields'));
+                return;
+            }
+            
+            const reviews = getReviews();
+            reviews.push({
+                id: Date.now(),
+                name: name,
+                email: email,
+                productId: parseInt(productId),
+                rating: selectedRating,
+                text: text,
+                date: new Date().toISOString(),
+                answer: null
+            });
+            
+            saveReviews(reviews);
+            renderReviews();
+            
+            // Очищаем форму
+            document.getElementById('reviewName').value = '';
+            document.getElementById('reviewEmail').value = '';
+            document.getElementById('reviewText').value = '';
+            document.getElementById('reviewProduct').value = '';
+            selectedRating = 0;
+            updateStars();
+            document.getElementById('ratingLabel').textContent = '0/5';
+            
+            alert(t('reviewSent'));
+        }
+
+        function openAnswerModal(reviewId, authorName) {
+            document.getElementById('answerReviewId').value = reviewId;
+            document.getElementById('answerAuthorName').innerHTML = authorName;
+            document.getElementById('answerInput').value = '';
+            document.getElementById('answerModal').classList.add('show');
+        }
+
+        function sendAnswer() {
+            const reviewId = parseInt(document.getElementById('answerReviewId').value);
+            const answerText = document.getElementById('answerInput').value.trim();
+            
+            if (!answerText) {
+                alert('Введите текст ответа!');
+                return;
+            }
+            
+            const reviews = getReviews();
+            const review = reviews.find(r => r.id === reviewId);
+            if (review) {
+                review.answer = answerText;
+                saveReviews(reviews);
+                renderReviews();
+                document.getElementById('answerModal').classList.remove('show');
+                alert(t('answerSent'));
+            }
+        }
+
+        function deleteReview(reviewId) {
+            if (!confirm(t('deleteConfirm'))) return;
+            const reviews = getReviews().filter(r => r.id !== reviewId);
+            saveReviews(reviews);
+            renderReviews();
+            alert(t('reviewDeleted'));
+        }
+
+        // Звездочки для оценки
+        function updateStars() {
+            const stars = document.querySelectorAll('#starsContainer .fa-star');
+            stars.forEach((star, index) => {
+                if (index < selectedRating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+            document.getElementById('ratingLabel').textContent = selectedRating + '/5';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Звездочки
+            const stars = document.querySelectorAll('#starsContainer .fa-star');
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    selectedRating = parseInt(this.dataset.star);
+                    updateStars();
+                });
+                star.addEventListener('mouseenter', function() {
+                    const val = parseInt(this.dataset.star);
+                    stars.forEach((s, i) => {
+                        if (i < val) {
+                            s.style.color = '#f5b342';
+                        } else {
+                            s.style.color = '#d4bca3';
+                        }
+                    });
+                });
+                star.addEventListener('mouseleave', function() {
+                    stars.forEach(s => {
+                        if (s.classList.contains('active')) {
+                            s.style.color = '#f5b342';
+                        } else {
+                            s.style.color = '#d4bca3';
+                        }
+                    });
+                });
+            });
+        });
+
+        // ============================================================
+        // 8. ОСТАЛЬНЫЕ ФУНКЦИИ
+        // ============================================================
+        document.getElementById('submitReviewBtn').addEventListener('click', submitReview);
+        document.getElementById('sendAnswerBtn').addEventListener('click', sendAnswer);
+        document.getElementById('cancelAnswerBtn').addEventListener('click', () => {
+            document.getElementById('answerModal').classList.remove('show');
+        });
 
         // ============================================================
         // 9. ЗАГРУЗКА ФОТО
@@ -1528,8 +1868,17 @@
             } else {
                 applyLanguage('ua');
             }
+            updateReviewProducts();
             renderProducts();
+            renderReviews();
             checkReveal();
+            
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.innerText.trim() === 'Всі товари') {
+                    btn.classList.add('active');
+                }
+            });
         });
     </script>
 </body>
