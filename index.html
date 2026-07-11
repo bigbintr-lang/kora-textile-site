@@ -943,8 +943,7 @@
                 'orderMarkDone': 'Виконано',
                 'orderDelete': 'Видалити',
                 'orderPhoneLabel': 'Телефон:',
-                'noOrders': 'Замовлень поки немає',
-                'orderSentToTelegram': '📨 Замовлення надіслано в Telegram!'
+                'noOrders': 'Замовлень поки немає'
             },
             'ru': {
                 'modalLoginTitle': 'Вход в админку',
@@ -1038,8 +1037,7 @@
                 'orderMarkDone': 'Выполнено',
                 'orderDelete': 'Удалить',
                 'orderPhoneLabel': 'Телефон:',
-                'noOrders': 'Заказов пока нет',
-                'orderSentToTelegram': '📨 Заказ отправлен в Telegram!'
+                'noOrders': 'Заказов пока нет'
             }
         };
 
@@ -1359,7 +1357,6 @@
                 return;
             }
             
-            // Сортируем - новые сверху
             orders.sort((a, b) => new Date(b.date) - new Date(a.date));
             
             container.innerHTML = orders.map(o => {
@@ -1407,7 +1404,7 @@
         }
 
         // ============================================================
-        // 8. ОТПРАВКА В TELEGRAM
+        // 8. ОТПРАВКА В TELEGRAM - ИСПРАВЛЕНО!
         // ============================================================
         // ⚠️ ЗАМЕНИТЕ ЭТИ ДАННЫЕ НА СВОИ!
         const TELEGRAM_BOT_TOKEN = '8901149203:AAFoUlmEiYe7VqzW3nZ732IZ9_eKldtu2ZU'; // Токен бота от @BotFather
@@ -1736,7 +1733,8 @@
                 renderOrders();
             }
             
-            alert(t('orderSuccess') + (TELEGRAM_BOT_TOKEN !== 'YOUR_BOT_TOKEN' ? ' ' + t('orderSentToTelegram') : ''));
+            // Клиенту НЕ пишем про Telegram!
+            alert(t('orderSuccess'));
         });
 
         // ============================================================
