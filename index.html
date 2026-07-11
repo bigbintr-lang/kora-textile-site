@@ -80,10 +80,70 @@
         .var-btn:hover { border-color: #c4a07a; }
         .var-btn.active { background: #c4a07a; color: #fff; border-color: #c4a07a; box-shadow: 0 4px 10px rgba(196,160,122,0.3); }
 
+        /* КНОПКА ЗАКАЗА */
+        .order-btn-wrapper { margin-top: 12px; }
+        .order-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 12px 24px;
+            background: #c4a07a;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+        }
+        .order-btn:hover { background: #ad8a67; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(196,160,122,0.3); }
+
+        /* МОДАЛКА ЗАКАЗА */
+        #orderModal .modal-box { max-width: 450px; }
+        #orderModal .modal-box input, #orderModal .modal-box textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e4d5c4;
+            border-radius: 14px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            background: #faf3ea;
+            margin-bottom: 12px;
+            transition: 0.3s;
+        }
+        #orderModal .modal-box input:focus, #orderModal .modal-box textarea:focus {
+            outline: none;
+            border-color: #c4a07a;
+        }
+        #orderModal .modal-box textarea { resize: vertical; min-height: 60px; }
+        #orderModal .modal-box .order-product-info {
+            background: #f5ede4;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #6a5f52;
+        }
+        #orderModal .modal-box .order-product-info strong { color: #3d352a; }
+        .btn-order-submit {
+            width: 100%;
+            padding: 14px;
+            background: #c4a07a;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-order-submit:hover { background: #ad8a67; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(196,160,122,0.3); }
+
         #mainPage { display: block; }
         #aboutPage { display: none; }
 
-        /* ГЕРОЙ */
         .hero { padding: 60px 0 80px; display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
         .hero-text { flex: 1 1 45%; }
         .hero-text .badge { display: inline-block; background: #ece0d4; color: #7d6348; padding: 6px 18px; border-radius: 30px; font-size: 14px; font-weight: 600; letter-spacing: 1px; margin-bottom: 20px; }
@@ -98,7 +158,6 @@
         .section-title { font-size: 36px; font-weight: 700; margin-bottom: 15px; }
         .section-sub { font-size: 18px; color: #8a7b6a; margin-bottom: 40px; display: block; }
 
-        /* ТОВАРЫ */
         .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin: 40px 0 70px; }
         .product-card { background: #faf3ea; border-radius: 30px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.03); transition: 0.4s; border: 1px solid #ece0d4; position: relative; cursor: pointer; }
         .product-card:hover { transform: scale(1.02); box-shadow: 0 20px 40px rgba(196,160,122,0.12); }
@@ -116,7 +175,6 @@
         .delete-btn:hover { background: #b75a5a; transform: scale(1.1); }
         .delete-btn.show { display: flex; }
 
-        /* АДМИН-ПАНЕЛЬ */
         .admin-panel { background: #f5ede4; border-radius: 30px; padding: 40px; margin: 40px 0; display: none; border: 2px dashed #d4bca3; }
         .admin-panel.show { display: block; }
         .admin-panel h3 { font-size: 24px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
@@ -128,7 +186,6 @@
         .form-grid textarea { resize: vertical; min-height: 60px; }
         .form-grid .full-width { grid-column: 1 / -1; }
 
-        /* ЧЕКБОКСЫ */
         .variations-fields { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 15px; background: #faf3ea; padding: 20px; border-radius: 16px; border: 2px solid #ece0d4; }
         .variations-fields .var-group { display: flex; flex-direction: column; gap: 8px; background: #fff; padding: 15px; border-radius: 12px; border: 2px solid #ece0d4; transition: all 0.3s ease; }
         .variations-fields .var-group.selected { border-color: #c4a07a; box-shadow: 0 2px 16px rgba(196,160,122,0.2); }
@@ -163,7 +220,6 @@
         .empty-msg { text-align: center; padding: 60px 20px; color: #c4b6a6; font-size: 18px; }
         .empty-msg i { font-size: 50px; display: block; margin-bottom: 15px; opacity: 0.5; }
 
-        /* КАТЕГОРИИ */
         .category-list-wrapper { margin: 20px 0 40px 0; }
         .category-list { display: flex; flex-direction: column; gap: 12px; max-width: 600px; margin: 0 auto; }
         .cat-btn { display: block; width: 100%; padding: 16px 20px; border: 1px solid #ece0d4; border-radius: 16px; background: #faf3ea; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; color: #6a5f52; cursor: pointer; transition: 0.3s; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
@@ -177,15 +233,8 @@
             padding: 40px 0;
             border-top: 2px solid #ece0d4;
         }
-        .reviews-section .section-title {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-        .reviews-section .section-sub {
-            font-size: 16px;
-            color: #8a7b6a;
-            margin-bottom: 30px;
-        }
+        .reviews-section .section-title { font-size: 28px; margin-bottom: 8px; }
+        .reviews-section .section-sub { font-size: 16px; color: #8a7b6a; margin-bottom: 30px; }
 
         .review-form {
             background: #faf3ea;
@@ -194,11 +243,7 @@
             border: 1px solid #ece0d4;
             margin-bottom: 30px;
         }
-        .review-form .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
+        .review-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .review-form input, .review-form textarea, .review-form select {
             width: 100%;
             padding: 12px 16px;
@@ -213,40 +258,19 @@
             outline: none;
             border-color: #c4a07a;
         }
-        .review-form textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-        .review-form .full-width {
-            grid-column: 1 / -1;
-        }
+        .review-form textarea { resize: vertical; min-height: 80px; }
+        .review-form .full-width { grid-column: 1 / -1; }
         .review-form .rating-select {
             display: flex;
             gap: 8px;
             align-items: center;
             grid-column: 1 / -1;
         }
-        .review-form .rating-select label {
-            font-weight: 600;
-            color: #6a5f52;
-            margin-right: 10px;
-        }
-        .review-form .rating-select .stars {
-            display: flex;
-            gap: 4px;
-            cursor: pointer;
-        }
-        .review-form .rating-select .stars i {
-            font-size: 28px;
-            color: #d4bca3;
-            transition: 0.2s;
-        }
-        .review-form .rating-select .stars i.active {
-            color: #f5b342;
-        }
-        .review-form .rating-select .stars i:hover {
-            transform: scale(1.1);
-        }
+        .review-form .rating-select label { font-weight: 600; color: #6a5f52; margin-right: 10px; }
+        .review-form .rating-select .stars { display: flex; gap: 4px; cursor: pointer; }
+        .review-form .rating-select .stars i { font-size: 28px; color: #d4bca3; transition: 0.2s; }
+        .review-form .rating-select .stars i.active { color: #f5b342; }
+        .review-form .rating-select .stars i:hover { transform: scale(1.1); }
         .btn-submit-review {
             background: #c4a07a;
             color: #fff;
@@ -260,17 +284,9 @@
             font-family: 'Inter', sans-serif;
             grid-column: 1 / -1;
         }
-        .btn-submit-review:hover {
-            background: #ad8a67;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(196,160,122,0.25);
-        }
+        .btn-submit-review:hover { background: #ad8a67; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(196,160,122,0.25); }
 
-        .reviews-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+        .reviews-list { display: flex; flex-direction: column; gap: 20px; }
         .review-item {
             background: #faf3ea;
             padding: 25px;
@@ -278,9 +294,7 @@
             border: 1px solid #ece0d4;
             transition: 0.3s;
         }
-        .review-item:hover {
-            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-        }
+        .review-item:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
         .review-item .review-header {
             display: flex;
             justify-content: space-between;
@@ -289,26 +303,10 @@
             gap: 10px;
             margin-bottom: 8px;
         }
-        .review-item .review-author {
-            font-weight: 700;
-            font-size: 17px;
-            color: #3d352a;
-        }
-        .review-item .review-stars {
-            color: #f5b342;
-            font-size: 16px;
-            letter-spacing: 2px;
-        }
-        .review-item .review-date {
-            font-size: 13px;
-            color: #b5a695;
-        }
-        .review-item .review-text {
-            color: #6a5f52;
-            line-height: 1.7;
-            margin: 8px 0 12px 0;
-            font-size: 15px;
-        }
+        .review-item .review-author { font-weight: 700; font-size: 17px; color: #3d352a; }
+        .review-item .review-stars { color: #f5b342; font-size: 16px; letter-spacing: 2px; }
+        .review-item .review-date { font-size: 13px; color: #b5a695; }
+        .review-item .review-text { color: #6a5f52; line-height: 1.7; margin: 8px 0 12px 0; font-size: 15px; }
         .review-item .review-answer {
             background: #f5ede4;
             padding: 15px 18px;
@@ -324,13 +322,8 @@
             letter-spacing: 0.5px;
             margin-bottom: 4px;
         }
-        .review-item .review-answer .answer-text {
-            color: #3d352a;
-            font-size: 14px;
-            line-height: 1.6;
-        }
+        .review-item .review-answer .answer-text { color: #3d352a; font-size: 14px; line-height: 1.6; }
 
-        /* Админ-кнопки для отзывов */
         .review-admin-actions {
             display: flex;
             gap: 10px;
@@ -350,27 +343,12 @@
             align-items: center;
             gap: 6px;
         }
-        .btn-review-answer {
-            background: #c4a07a;
-            color: #fff;
-        }
-        .btn-review-answer:hover {
-            background: #ad8a67;
-            transform: translateY(-2px);
-        }
-        .btn-review-delete {
-            background: #e8d5c4;
-            color: #8a6a5a;
-        }
-        .btn-review-delete:hover {
-            background: #d4bca3;
-            transform: translateY(-2px);
-        }
+        .btn-review-answer { background: #c4a07a; color: #fff; }
+        .btn-review-answer:hover { background: #ad8a67; transform: translateY(-2px); }
+        .btn-review-delete { background: #e8d5c4; color: #8a6a5a; }
+        .btn-review-delete:hover { background: #d4bca3; transform: translateY(-2px); }
 
-        /* Модалка ответа на отзыв */
-        .review-answer-modal .modal-box {
-            max-width: 550px;
-        }
+        .review-answer-modal .modal-box { max-width: 550px; }
         .review-answer-modal textarea {
             width: 100%;
             padding: 14px 18px;
@@ -382,23 +360,59 @@
             min-height: 100px;
             resize: vertical;
         }
-        .review-answer-modal textarea:focus {
-            outline: none;
-            border-color: #c4a07a;
+        .review-answer-modal textarea:focus { outline: none; border-color: #c4a07a; }
+
+        /* ===== ЗАКАЗЫ В АДМИН-ПАНЕЛИ ===== */
+        .orders-list {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
+        .order-item {
+            background: #faf3ea;
+            padding: 18px 20px;
+            border-radius: 14px;
+            border: 1px solid #ece0d4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .order-item .order-info { flex: 1; }
+        .order-item .order-info .order-name { font-weight: 700; font-size: 16px; }
+        .order-item .order-info .order-details { font-size: 14px; color: #6a5f52; margin-top: 4px; }
+        .order-item .order-info .order-details span { display: inline-block; margin-right: 15px; }
+        .order-item .order-status {
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .order-item .order-status.new { background: #e8f0fe; color: #1a5a9c; }
+        .order-item .order-status.done { background: #e6f5e6; color: #2d7a2d; }
+        .order-item .order-actions { display: flex; gap: 8px; }
+        .order-item .order-actions button {
+            padding: 4px 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+        }
+        .btn-order-done { background: #6fb56f; color: #fff; }
+        .btn-order-done:hover { background: #5a9a5a; transform: translateY(-2px); }
+        .btn-order-delete { background: #e8d5c4; color: #8a6a5a; }
+        .btn-order-delete:hover { background: #d4bca3; transform: translateY(-2px); }
 
         @media (max-width: 600px) {
-            .review-form .form-row {
-                grid-template-columns: 1fr;
-            }
-            .review-item .review-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .review-admin-actions {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+            .review-form .form-row { grid-template-columns: 1fr; }
+            .review-item .review-header { flex-direction: column; align-items: flex-start; }
+            .review-admin-actions { flex-direction: column; align-items: flex-start; }
+            .order-item { flex-direction: column; align-items: flex-start; }
         }
 
         #aboutPage { min-height: 70vh; padding: 60px 0; }
@@ -493,13 +507,29 @@
     <div class="modal-overlay" id="loginModal">
         <div class="modal-box">
             <h3 id="modalLoginTitle"><i class="fas fa-user-shield" style="color: #c4a07a;"></i> Вхід в адмінку</h3>
-            <p id="modalLoginDesc">Введіть пароль для керування товарами та відгуками</p>
+            <p id="modalLoginDesc">Введіть пароль для керування товарами, відгуками та заказами</p>
             <div class="error-msg" id="errorMsg">❌ Невірний пароль! Спробуйте ще раз.</div>
             <input type="password" id="passwordInput" placeholder="Введіть пароль..." />
             <div class="btn-group">
                 <button class="btn-login" id="loginBtn"><i class="fas fa-sign-in-alt"></i> <span id="loginBtnText">Увійти</span></button>
                 <button class="btn-cancel" id="cancelBtn"><span id="cancelBtnText">Скасувати</span></button>
             </div>
+        </div>
+    </div>
+
+    <!-- ===== МОДАЛКА ЗАКАЗА ===== -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-box">
+            <h3 id="orderTitle"><i class="fas fa-shopping-cart" style="color: #c4a07a;"></i> Оформлення замовлення</h3>
+            <div class="order-product-info" id="orderProductInfo">
+                <strong id="orderProductName">Товар</strong><br />
+                <span id="orderProductVariant">Тип: </span> | <span id="orderProductPrice">Ціна: </span>
+            </div>
+            <input type="text" id="orderName" placeholder="Ваше ім'я *" />
+            <input type="tel" id="orderPhone" placeholder="Номер телефону *" />
+            <textarea id="orderComment" placeholder="Коментар до замовлення (необов'язково)"></textarea>
+            <button class="btn-order-submit" id="submitOrderBtn"><i class="fas fa-paper-plane"></i> Відправити замовлення</button>
+            <p style="font-size:13px;color:#b5a695;margin-top:10px;text-align:center;">Натискаючи кнопку, ви погоджуєтесь з умовами</p>
         </div>
     </div>
 
@@ -539,6 +569,9 @@
                     </div>
                     <div class="price-block" id="viewPrice"></div>
                     <div class="desc" id="viewDesc">Опис товару</div>
+                    <div class="order-btn-wrapper">
+                        <button class="order-btn" id="openOrderBtn"><i class="fas fa-shopping-cart"></i> Замовити</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -658,6 +691,18 @@
                     <input type="text" id="productVideo" class="full-width" placeholder="Посилання на відео (YouTube, наприклад: https://www.youtube.com/watch?v=...)" />
                 </div>
                 <button class="btn-add" id="addProductBtn"><i class="fas fa-plus"></i> <span id="addBtnText">Додати товар</span></button>
+
+                <!-- ===== ЗАКАЗЫ В АДМИН-ПАНЕЛИ ===== -->
+                <div style="margin-top:40px;border-top:2px solid #ece0d4;padding-top:30px;">
+                    <h3 style="font-size:22px;display:flex;align-items:center;gap:10px;margin-bottom:15px;">
+                        <i class="fas fa-box" style="color:#c4a07a;"></i> 
+                        <span id="ordersTitle">Замовлення</span>
+                        <span id="ordersCount" style="font-size:14px;background:#c4a07a;color:#fff;padding:2px 12px;border-radius:20px;">0</span>
+                    </h3>
+                    <div class="orders-list" id="ordersList">
+                        <p style="color:#b5a695;text-align:center;padding:20px;">Замовлень поки немає</p>
+                    </div>
+                </div>
             </div>
 
             <!-- ===== КАТАЛОГ ===== -->
@@ -688,7 +733,6 @@
                 <h2 class="section-title" id="reviewsTitle"><i class="fas fa-star" style="color: #f5b342;"></i> Відгуки наших клієнтів</h2>
                 <p class="section-sub" id="reviewsSub">Ваша думка важлива для нас! Залиште відгук про наші товари.</p>
 
-                <!-- Форма отправки отзыва -->
                 <div class="review-form" id="reviewForm">
                     <div class="form-row">
                         <input type="text" id="reviewName" placeholder="Ваше ім'я *" />
@@ -716,7 +760,6 @@
                     <button class="btn-submit-review" id="submitReviewBtn"><i class="fas fa-paper-plane"></i> Залишити відгук</button>
                 </div>
 
-                <!-- Список отзывов -->
                 <div class="reviews-list" id="reviewsList"></div>
             </div>
         </div>
@@ -797,6 +840,7 @@
         let currentLang = 'ua';
         let currentSelectedVariant = 0;
         let selectedRating = 0;
+        let currentOrderProduct = null;
 
         const VARIANT_NAMES = {
             'ua': { half: 'Полуторний', double: 'Двуспалний', euro: 'Євро', family: 'Сімейний' },
@@ -809,7 +853,7 @@
         const translations = {
             'ua': {
                 'modalLoginTitle': 'Вхід в адмінку',
-                'modalLoginDesc': 'Введіть пароль для керування товарами та відгуками',
+                'modalLoginDesc': 'Введіть пароль для керування товарами, відгуками та заказами',
                 'errorMsg': '❌ Невірний пароль! Спробуйте ще раз.',
                 'loginBtnText': 'Увійти',
                 'cancelBtnText': 'Скасувати',
@@ -883,11 +927,28 @@
                 'answerSent': 'Відповідь надіслано!',
                 'reviewSent': 'Дякуємо за ваш відгук!',
                 'fillFields': 'Будь ласка, заповніть всі обов\'язкові поля!',
-                'enterAnswer': 'Введіть текст відповіді!'
+                'enterAnswer': 'Введіть текст відповіді!',
+                'orderTitle': 'Оформлення замовлення',
+                'orderName': "Ваше ім'я *",
+                'orderPhone': 'Номер телефону *',
+                'orderComment': 'Коментар до замовлення (необов\'язково)',
+                'orderSubmit': 'Відправити замовлення',
+                'orderType': 'Тип:',
+                'orderPrice': 'Ціна:',
+                'orderSuccess': '✅ Ваше замовлення прийнято! Ми зв\'яжемося з вами найближчим часом.',
+                'orderFillFields': 'Будь ласка, введіть ім\'я та номер телефону!',
+                'ordersTitle': 'Замовлення',
+                'orderStatusNew': 'Нове',
+                'orderStatusDone': 'Виконано',
+                'orderMarkDone': 'Виконано',
+                'orderDelete': 'Видалити',
+                'orderPhoneLabel': 'Телефон:',
+                'noOrders': 'Замовлень поки немає',
+                'orderSentToTelegram': '📨 Замовлення надіслано в Telegram!'
             },
             'ru': {
                 'modalLoginTitle': 'Вход в админку',
-                'modalLoginDesc': 'Введите пароль для управления товарами и отзывами',
+                'modalLoginDesc': 'Введите пароль для управления товарами, отзывами и заказами',
                 'errorMsg': '❌ Неверный пароль! Попробуйте еще раз.',
                 'loginBtnText': 'Войти',
                 'cancelBtnText': 'Отмена',
@@ -961,7 +1022,24 @@
                 'answerSent': 'Ответ отправлен!',
                 'reviewSent': 'Спасибо за ваш отзыв!',
                 'fillFields': 'Пожалуйста, заполните все обязательные поля!',
-                'enterAnswer': 'Введите текст ответа!'
+                'enterAnswer': 'Введите текст ответа!',
+                'orderTitle': 'Оформление заказа',
+                'orderName': "Ваше имя *",
+                'orderPhone': 'Номер телефона *',
+                'orderComment': 'Комментарий к заказу (необязательно)',
+                'orderSubmit': 'Отправить заказ',
+                'orderType': 'Тип:',
+                'orderPrice': 'Цена:',
+                'orderSuccess': '✅ Ваш заказ принят! Мы свяжемся с вами в ближайшее время.',
+                'orderFillFields': 'Пожалуйста, введите имя и номер телефона!',
+                'ordersTitle': 'Заказы',
+                'orderStatusNew': 'Новый',
+                'orderStatusDone': 'Выполнен',
+                'orderMarkDone': 'Выполнено',
+                'orderDelete': 'Удалить',
+                'orderPhoneLabel': 'Телефон:',
+                'noOrders': 'Заказов пока нет',
+                'orderSentToTelegram': '📨 Заказ отправлен в Telegram!'
             }
         };
 
@@ -1077,8 +1155,17 @@
             document.getElementById('sendAnswerBtn').innerHTML = '<i class="fas fa-paper-plane"></i> ' + t.sendAnswer;
             document.getElementById('cancelAnswerBtn').innerText = t.cancelAnswer;
 
+            // Заказы
+            document.getElementById('orderTitle').innerHTML = '<i class="fas fa-shopping-cart" style="color: #c4a07a;"></i> ' + t.orderTitle;
+            document.getElementById('orderName').placeholder = t.orderName;
+            document.getElementById('orderPhone').placeholder = t.orderPhone;
+            document.getElementById('orderComment').placeholder = t.orderComment;
+            document.getElementById('submitOrderBtn').innerHTML = '<i class="fas fa-paper-plane"></i> ' + t.orderSubmit;
+            document.getElementById('ordersTitle').innerText = t.ordersTitle;
+
             renderProducts();
             renderReviews();
+            renderOrders();
         }
 
         // ============================================================
@@ -1172,6 +1259,7 @@
                 input.value = '';
                 renderProducts();
                 renderReviews();
+                renderOrders();
             } else {
                 error.classList.add('show');
                 input.value = '';
@@ -1185,6 +1273,7 @@
             document.getElementById('adminBadge').classList.remove('show');
             renderProducts();
             renderReviews();
+            renderOrders();
         }
 
         document.getElementById('loginBtn').addEventListener('click', loginAsAdmin);
@@ -1244,7 +1333,131 @@
         }
 
         // ============================================================
-        // 7. СИСТЕМА ОТЗЫВОВ
+        // 7. СИСТЕМА ЗАКАЗОВ
+        // ============================================================
+        function getOrders() {
+            const data = localStorage.getItem('koraOrders');
+            if (data) {
+                try { return JSON.parse(data); } catch (e) { return []; }
+            }
+            return [];
+        }
+
+        function saveOrders(orders) {
+            localStorage.setItem('koraOrders', JSON.stringify(orders));
+        }
+
+        function renderOrders() {
+            const container = document.getElementById('ordersList');
+            const countEl = document.getElementById('ordersCount');
+            const orders = getOrders();
+            
+            countEl.textContent = orders.length;
+            
+            if (orders.length === 0) {
+                container.innerHTML = `<p style="color:#b5a695;text-align:center;padding:20px;">${t('noOrders')}</p>`;
+                return;
+            }
+            
+            // Сортируем - новые сверху
+            orders.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            container.innerHTML = orders.map(o => {
+                const statusClass = o.status === 'done' ? 'done' : 'new';
+                const statusText = o.status === 'done' ? t('orderStatusDone') : t('orderStatusNew');
+                
+                return `
+                    <div class="order-item" data-id="${o.id}">
+                        <div class="order-info">
+                            <div class="order-name">${o.name}</div>
+                            <div class="order-details">
+                                <span><i class="fas fa-phone"></i> ${o.phone}</span>
+                                <span><i class="fas fa-box"></i> ${o.productName}</span>
+                                <span><i class="fas fa-tag"></i> ${o.variant}</span>
+                                <span><i class="fas fa-credit-card"></i> ${o.price}</span>
+                                ${o.comment ? `<span><i class="fas fa-comment"></i> ${o.comment}</span>` : ''}
+                                <span style="font-size:12px;color:#b5a695;">${new Date(o.date).toLocaleDateString('uk-UA')} ${new Date(o.date).toLocaleTimeString('uk-UA', {hour:'2-digit',minute:'2-digit'})}</span>
+                            </div>
+                        </div>
+                        <div class="order-status ${statusClass}">${statusText}</div>
+                        <div class="order-actions">
+                            ${o.status !== 'done' ? `<button class="btn-order-done" onclick="markOrderDone(${o.id})"><i class="fas fa-check"></i> ${t('orderMarkDone')}</button>` : ''}
+                            <button class="btn-order-delete" onclick="deleteOrder(${o.id})"><i class="fas fa-trash"></i> ${t('orderDelete')}</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function markOrderDone(orderId) {
+            const orders = getOrders();
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = 'done';
+                saveOrders(orders);
+                renderOrders();
+            }
+        }
+
+        function deleteOrder(orderId) {
+            if (!confirm(t('deleteConfirm'))) return;
+            const orders = getOrders().filter(o => o.id !== orderId);
+            saveOrders(orders);
+            renderOrders();
+        }
+
+        // ============================================================
+        // 8. ОТПРАВКА В TELEGRAM
+        // ============================================================
+        // ⚠️ ЗАМЕНИТЕ ЭТИ ДАННЫЕ НА СВОИ!
+        const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN'; // Токен бота от @BotFather
+        const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID'; // Ваш ID (получить у @userinfobot)
+
+        function sendToTelegram(orderData) {
+            // Если токен не настроен - просто сохраняем заказ локально
+            if (TELEGRAM_BOT_TOKEN === 'YOUR_BOT_TOKEN' || TELEGRAM_CHAT_ID === 'YOUR_CHAT_ID') {
+                console.log('⚠️ Telegram не настроен. Заказ сохранен локально.');
+                return;
+            }
+
+            const message = `
+🛒 *НОВЫЙ ЗАКАЗ!*
+
+👤 *Имя:* ${orderData.name}
+📞 *Телефон:* ${orderData.phone}
+📦 *Товар:* ${orderData.productName}
+🏷️ *Тип:* ${orderData.variant}
+💰 *Цена:* ${orderData.price}
+📝 *Комментарий:* ${orderData.comment || 'Нет'}
+🕐 *Время:* ${new Date(orderData.date).toLocaleString('uk-UA')}
+            `;
+
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: message,
+                    parse_mode: 'Markdown'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    console.log('✅ Заказ отправлен в Telegram');
+                } else {
+                    console.error('❌ Ошибка отправки в Telegram:', data);
+                }
+            })
+            .catch(error => {
+                console.error('❌ Ошибка отправки в Telegram:', error);
+            });
+        }
+
+        // ============================================================
+        // 9. СИСТЕМА ОТЗЫВОВ
         // ============================================================
         function getReviews() {
             const data = localStorage.getItem('koraReviews');
@@ -1454,7 +1667,80 @@
         });
 
         // ============================================================
-        // 8. ЗАГРУЗКА ФОТО
+        // 10. СИСТЕМА ЗАКАЗОВ - ОТКРЫТИЕ МОДАЛКИ
+        // ============================================================
+        document.getElementById('openOrderBtn').addEventListener('click', function() {
+            const productName = document.getElementById('viewTitle').innerText;
+            const activeVariant = document.querySelector('#variationsList .var-btn.active');
+            const variantText = activeVariant ? activeVariant.innerText : 'Не вибрано';
+            const priceText = document.getElementById('viewPrice').innerText;
+            
+            document.getElementById('orderProductName').innerHTML = productName;
+            document.getElementById('orderProductVariant').innerHTML = t('orderType') + ' ' + variantText;
+            document.getElementById('orderProductPrice').innerHTML = t('orderPrice') + ' ' + priceText;
+            
+            currentOrderProduct = {
+                name: productName,
+                variant: variantText,
+                price: priceText
+            };
+            
+            document.getElementById('orderName').value = '';
+            document.getElementById('orderPhone').value = '';
+            document.getElementById('orderComment').value = '';
+            
+            closeModal('productViewModal');
+            setTimeout(() => {
+                openModal('orderModal');
+            }, 300);
+        });
+
+        document.getElementById('submitOrderBtn').addEventListener('click', function() {
+            const name = document.getElementById('orderName').value.trim();
+            const phone = document.getElementById('orderPhone').value.trim();
+            const comment = document.getElementById('orderComment').value.trim();
+            
+            if (!name || !phone) {
+                alert(t('orderFillFields'));
+                return;
+            }
+            
+            if (!currentOrderProduct) {
+                alert('Помилка! Спробуйте ще раз.');
+                return;
+            }
+            
+            const orderData = {
+                id: Date.now(),
+                name: name,
+                phone: phone,
+                comment: comment,
+                productName: currentOrderProduct.name,
+                variant: currentOrderProduct.variant,
+                price: currentOrderProduct.price,
+                date: new Date().toISOString(),
+                status: 'new'
+            };
+            
+            // Сохраняем заказ
+            const orders = getOrders();
+            orders.push(orderData);
+            saveOrders(orders);
+            
+            // Отправляем в Telegram
+            sendToTelegram(orderData);
+            
+            closeModal('orderModal');
+            
+            if (isAdmin) {
+                renderOrders();
+            }
+            
+            alert(t('orderSuccess') + (TELEGRAM_BOT_TOKEN !== 'YOUR_BOT_TOKEN' ? ' ' + t('orderSentToTelegram') : ''));
+        });
+
+        // ============================================================
+        // 11. ЗАГРУЗКА ФОТО
         // ============================================================
         function handleFiles(files) {
             if (!files || files.length === 0) return;
@@ -1504,7 +1790,7 @@
         });
 
         // ============================================================
-        // 9. ДОБАВЛЕНИЕ ТОВАРА
+        // 12. ДОБАВЛЕНИЕ ТОВАРА
         // ============================================================
         document.getElementById('addProductBtn').addEventListener('click', function() {
             const name = document.getElementById('productName').value.trim();
@@ -1595,7 +1881,7 @@
         });
 
         // ============================================================
-        // 10. ОТОБРАЖЕНИЕ ТОВАРОВ
+        // 13. ОТОБРАЖЕНИЕ ТОВАРОВ
         // ============================================================
         function getDisplayProducts() {
             return getProducts();
@@ -1681,7 +1967,7 @@
         }
 
         // ============================================================
-        // 11. ПРОСМОТР ТОВАРА
+        // 14. ПРОСМОТР ТОВАРА
         // ============================================================
         function openProductView(id) {
             const products = getDisplayProducts();
@@ -1803,7 +2089,7 @@
         }
 
         // ============================================================
-        // 12. УДАЛЕНИЕ ТОВАРА
+        // 15. УДАЛЕНИЕ ТОВАРА
         // ============================================================
         function deleteProduct(id) {
             if (!isAdmin) return;
@@ -1815,7 +2101,7 @@
         }
 
         // ============================================================
-        // 13. КОПИРОВАНИЕ НОМЕРА
+        // 16. КОПИРОВАНИЕ НОМЕРА
         // ============================================================
         function copyPhone(event) {
             event.preventDefault();
@@ -1850,7 +2136,7 @@
         }
 
         // ============================================================
-        // 14. ПРОКРУТКА И АНИМАЦИЯ
+        // 17. ПРОКРУТКА И АНИМАЦИЯ
         // ============================================================
         const scrollBtn = document.getElementById('scrollTopBtn');
         window.addEventListener('scroll', () => {
@@ -1880,6 +2166,7 @@
             updateReviewProducts();
             renderProducts();
             renderReviews();
+            renderOrders();
             checkReveal();
             
             document.querySelectorAll('.cat-btn').forEach(btn => {
