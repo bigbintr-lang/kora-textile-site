@@ -1410,12 +1410,12 @@
         // 8. ОТПРАВКА В TELEGRAM
         // ============================================================
         // ⚠️ ЗАМЕНИТЕ ЭТИ ДАННЫЕ НА СВОИ!
-        const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN'; // Токен бота от @BotFather
-        const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID'; // Ваш ID (получить у @userinfobot)
+        const TELEGRAM_BOT_TOKEN = '8901149203:AAFoUlmEiYe7VqzW3nZ732IZ9_eKldtu2ZU'; // Токен бота от @BotFather
+        const TELEGRAM_CHAT_ID = '881213222'; // Ваш ID (получить у @userinfobot)
 
         function sendToTelegram(orderData) {
             // Если токен не настроен - просто сохраняем заказ локально
-            if (TELEGRAM_BOT_TOKEN === '8901149203:AAFoUlmEiYe7VqzW3nZ732IZ9_eKldtu2ZU' || TELEGRAM_CHAT_ID === '881213222') {
+            if (TELEGRAM_BOT_TOKEN === 'YOUR_BOT_TOKEN' || TELEGRAM_CHAT_ID === 'YOUR_CHAT_ID') {
                 console.log('⚠️ Telegram не настроен. Заказ сохранен локально.');
                 return;
             }
